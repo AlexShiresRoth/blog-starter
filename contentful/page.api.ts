@@ -12,34 +12,31 @@ export async function getPageBySlug({
   try {
     const query = await fetchGraphQL(`
     query {
-  pageCollection(where: {slug: "${slug}"}, limit:1) {
-		items {
-      sys {
-        id
-      }
-      slug
-      seo {
-        ...SEOConfig
-      }
-      pageContent {
-        __typename
-      }
-      topSectionCollection {
-        items {
-        	...Hero
+        pageCollection(where: {slug: "${slug}"}, limit:1) {
+                items {
+            sys {
+                id
+            }
+            slug
+            seo {
+                ...SEOConfig
+            }
+            pageContent {
+                __typename
+            }
+            topSectionCollection {
+                items {
+                    ...Hero
+                }
+            }
+            }
         }
-      }
     }
-  }
-}
-
-${heroGQL}
-
-${pageGQL}
-
-${seoGQL}
-
-${imageGQL}`);
+    ${heroGQL}
+    ${pageGQL}
+    ${seoGQL}
+    ${imageGQL}
+`);
 
     return { page: query?.data?.pageCollection?.items[0], error: null };
   } catch (error) {
