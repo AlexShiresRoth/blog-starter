@@ -9,7 +9,7 @@ type Props = {
 const Nav = ({ navigation }: Props) => {
   return (
     <nav className="w-full flex justify-center ">
-      <div className="w-full flex items-center gap-4  my-4 py-2  px-4">
+      <div className="w-full flex items-center gap-4  my-4 py-2  ">
         <div className="w-full flex items-center gap-4 justify-between text-black">
           {navigation.menuItemsCollection.items.map((item) => {
             if (item.featuredPagesCollection?.items.length > 0) {

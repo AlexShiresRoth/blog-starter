@@ -11,8 +11,8 @@ type Props = {
 const Header = ({ header, children }: Props) => {
   return (
     <header className="w-full flex flex-col items-center py-4 ">
-      <div className="w-3/4 flex flex-col">
-        <div className="flex items-center justify-between ">
+      <div className="w-3/4 flex flex-col ">
+        <div className="flex items-center justify-between border-b-2 border-slate-100 py-4">
           <div className="flex items-center">
             {header.logo && (
               <Image
@@ -22,7 +22,9 @@ const Header = ({ header, children }: Props) => {
                 width={60}
               />
             )}
-            <h2 className="text-5xl text-black">{header.title}</h2>
+            <h2 className="relative z-10 text-5xl text-black before:h-4 before:w-full before:block before:content-[' '] before:bg-yellow-300 before:absolute before:skew-y-1 before:bottom-[2px] before:-z-10">
+              {header.title}
+            </h2>
           </div>
           <div className="flex items-center gap-4">
             {header.actionItemsCollection.items.map((item) => {
