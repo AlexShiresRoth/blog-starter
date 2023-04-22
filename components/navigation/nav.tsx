@@ -1,18 +1,83 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
-const Nav = () => {
+type Props = {
+  navigation: NavigationJSON;
+};
+
+const Nav = ({ navigation }: Props) => {
   return (
-    <nav className='w-full flex justify-center'>
-      <div className='w-11/12 flex items-center gap-4 py-4'>
-        <h2>SATACTSENSE</h2>
-
-        <Link href='home'>Home</Link>
-        <Link href='home'>SAT Prep</Link>
-        <Link href='home'>PSAT Prep</Link>
-        <Link href='home'>ACT Prep</Link>
+    <nav className="w-full flex justify-center ">
+      <div className="w-full flex items-center gap-4  my-4 py-2  px-4">
+        <div className="w-full flex items-center gap-4 justify-between text-black">
+          {navigation.menuItemsCollection.items.map((item) => {
+            if (item.featuredPagesCollection?.items.length > 0) {
+              return <SubMenu key={item.sys.id} item={item} />;
+            }
+            return (
+              <Link
+                href={item.groupLink.slug}
+                key={item.sys.id}
+                className="font-semibold "
+              >
+                {item.groupName}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
+  );
+};
+
+const SubMenu = ({
+  item,
+}: {
+  item: NavigationJSON["menuItemsCollection"]["items"][number];
+}) => {
+  console.log("item", item);
+
+  const [show, setShow] = useState<boolean>(false);
+  return (
+    <div
+      className="relative flex flex-col justify-end font-semibold"
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+    >
+      <Link href={item.groupLink.slug} className="flex items-center gap-2">
+        {item.groupName}{" "}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-5 h-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+          />
+        </svg>
+      </Link>
+      {show && (
+        <div className="absolute z-10 shadow-lg p-2 rounded bg-white flex flex-col top-[100%] min-w-[150px]">
+          {item.featuredPagesCollection?.items.map((page) => {
+            return (
+              <Link
+                href={page.slug}
+                key={page.sys.id}
+                className="hover:bg-blue-300 text-black hover:text-white transition-all p-2 rounded"
+              >
+                {page.pageName}
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 };
 
