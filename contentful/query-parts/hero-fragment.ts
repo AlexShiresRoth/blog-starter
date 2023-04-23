@@ -1,6 +1,3 @@
-import { imageGQL } from "./image-fragment";
-import { pageGQL } from "./page-fragment";
-
 export const heroGQL = `fragment Hero on ComponentHeroBanner {
   sys {
     id

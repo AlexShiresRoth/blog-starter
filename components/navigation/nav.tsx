@@ -1,12 +1,16 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-
+import { usePathname } from "next/navigation";
+import cls from "classnames";
 type Props = {
   navigation: NavigationJSON;
 };
 
 const Nav = ({ navigation }: Props) => {
+  const pathname = usePathname();
+
+  console.log("pathname>>>>", pathname, "navigation>>>>", navigation);
   return (
     <nav className="w-full flex justify-center ">
       <div className="w-full flex items-center gap-4  my-4 py-2  ">
@@ -19,7 +23,10 @@ const Nav = ({ navigation }: Props) => {
               <Link
                 href={item.groupLink.slug}
                 key={item.sys.id}
-                className="font-semibold "
+                className={cls("font-semibold transition-all p-2", {
+                  "bg-blue-50 rounded text-blue-500 hover:bg-blue-500 hover:text-white":
+                    pathname.replace("/", "") === item.groupLink.slug,
+                })}
               >
                 {item.groupName}
               </Link>

@@ -6,8 +6,12 @@ import { getHeader } from "@/contentful/header.api";
 import Header from "@/components/header/header";
 import { PageCollection, PageJSON } from "@/types/page.type";
 
-export default async function Home() {
-  const { page } = await getPageBySlug({ slug: "home" });
+export default async function Page({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const { page } = await getPageBySlug({ slug });
   const { header } = await getHeader();
   const { navigation } = await getNavigationByType({ navType: "main" });
 
