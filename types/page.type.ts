@@ -1,3 +1,5 @@
+import { EntryFields } from "contentful";
+import { Duplex } from "./duplex-component.type";
 export type InputItem = {
   sys: {
     id: string;
@@ -42,22 +44,7 @@ export type ComponentHeroBanner = {
     __typename: "Page";
     slug: string;
   };
-  bodyText: {
-    json: {
-      data: {};
-      content: {
-        data: {};
-        content: {
-          data: {};
-          marks: [];
-          value: string;
-          nodeType: "text";
-        }[];
-        nodeType: "paragraph";
-      }[];
-      nodeType: "document";
-    };
-  };
+  bodyText: EntryFields.RichText;
 };
 
 export type SignUpBox = {
@@ -71,7 +58,7 @@ export type SignUpBox = {
   form: Form;
 };
 
-type TopSectionCollectionItem = ComponentHeroBanner | SignUpBox;
+type TopSectionCollectionItem = ComponentHeroBanner | SignUpBox | Duplex;
 
 export type TopSectionCollection = {
   items: TopSectionCollectionItem[];

@@ -2,12 +2,12 @@ import {
   ComponentHeroBanner,
   PageCollection,
   PageCollectionItem,
-  PageJSON,
   SignUpBox,
 } from "@/types/page.type";
 import HeroBanner from "../hero/hero-banner";
 import ComponentWrapper from "../wrappers/component-wrapper";
 import SignupBox from "../forms/sign-up/sign-up-box";
+import DuplexComponent from "../duplex/duplex-component";
 
 interface Props {
   itemsToRender: PageCollectionItem["topSectionCollection"]["items"];
@@ -15,6 +15,8 @@ interface Props {
 }
 
 const ComponentRenderer = ({ itemsToRender, pageData }: Props) => {
+  if (!itemsToRender) return null;
+  console.log("items to render", itemsToRender);
   return (
     <>
       {itemsToRender.map((component) => {
@@ -34,6 +36,9 @@ const ComponentRenderer = ({ itemsToRender, pageData }: Props) => {
           );
         }
 
+        if (component.__typename === "ComponentDuplex") {
+          return <DuplexComponent key={component.sys.id} data={component} />;
+        }
         console.log("Component not found", component);
       })}
     </>

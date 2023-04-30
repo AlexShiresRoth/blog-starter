@@ -4,12 +4,15 @@ import Nav from "@/components/navigation/nav";
 import { getNavigationByType } from "@/contentful/navigation.api";
 import { getHeader } from "@/contentful/header.api";
 import Header from "@/components/header/header";
-import { PageCollection, PageJSON } from "@/types/page.type";
+import { PageCollection } from "@/types/page.type";
 
+// @TOdo pull in next component from contentful
 export default async function Home() {
   const { page } = await getPageBySlug({ slug: "home" });
   const { header } = await getHeader();
   const { navigation } = await getNavigationByType({ navType: "main" });
+
+  console.log("page", page);
 
   return (
     <main className="flex flex-col">
