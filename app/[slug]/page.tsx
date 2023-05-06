@@ -22,10 +22,7 @@ export default async function Page({
       </Header>
 
       {page.topSectionCollection.items.length > 0 && (
-        <ComponentRenderer
-          itemsToRender={page?.topSectionCollection?.items}
-          pageData={page as PageCollection["items"][number]}
-        />
+        <ComponentRenderer itemsToRender={page?.topSectionCollection?.items} />
       )}
     </main>
   );

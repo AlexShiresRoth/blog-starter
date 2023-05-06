@@ -10,7 +10,7 @@ const customMarkdownOptions = (content: any) => ({
       <RichTextAsset id={node.data.target.sys.id} />
     ),
     [BLOCKS.EMBEDDED_ENTRY]: (node: any) => (
-      // {/* @ts-expect-error Async Server Component */}
+      /* @ts-expect-error Async Server Component */
       <RichTextEntry entryId={node.data.target.sys.id} />
     ),
   },
