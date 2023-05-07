@@ -1,4 +1,5 @@
 import { HeaderJSON } from "@/types/header.type";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -27,12 +28,18 @@ const Header = ({ header, children }: Props) => {
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            {header.actionItemsCollection.items.map((item) => {
+            {header.actionItemsCollection.items.map((item, index) => {
               return (
                 <Link
                   key={item.sys.id}
                   href={item.featuredPage.slug}
-                  className="px-4 py-2 bg-blue-500 rounded text-white hover:bg-blue-600 transition-all"
+                  className={classNames(
+                    "px-4 py-2  rounded-full hover:text-white hover:bg-blue-600 transition-all",
+                    {
+                      "bg-blue-50 text-gray-700": index === 0,
+                      "bg-blue-500 text-white": index > 0,
+                    }
+                  )}
                 >
                   {item.displayText}
                 </Link>

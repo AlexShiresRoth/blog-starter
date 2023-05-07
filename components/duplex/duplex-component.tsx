@@ -10,24 +10,27 @@ type Props = {
 };
 
 const DuplexComponent = async ({ data }: Props) => {
-  console.log("duplex data", data.bodyText.json);
   return (
-    <ComponentWrapper classNames="">
-      <ThreeQuarterContainer containerClassNames="gap-8 justify-between ">
+    <ComponentWrapper classNames="py-10">
+      <ThreeQuarterContainer containerClassNames="flex-col gap-8 justify-between ">
         {!!data?.image && (
-          <div className="w-1/2 relative">
+          <div className="w-full relative h-[400px]">
             <Image
               src={data.image.url as string}
               alt={data.image.title as string}
               fill={true}
-              sizes="400px"
-              className="w-[400px] min-h-[400px] object-cover object-center rounded"
+              className="h-full w-full object-cover object-center rounded"
             />
           </div>
         )}
-        <div className="flex flex-col w-1/2 gap-4">
-          <h2 className="font-bold text-4xl">{data.headline}</h2>
-          <RichTextRender content={data.bodyText} />
+        <div className="flex flex-col gap-4">
+          <h2 className="self-start z-10 relative text-4xl font-bold text-blue-500 before:block before:bg-yellow-200 before:content-[' '] before:w-full before:h-2 before:absolute before:-z-10 before:bottom-1 ">
+            {data.headline}
+          </h2>
+          <RichTextRender
+            content={data.bodyText}
+            classNames="grid grid-cols-3 gap-8 mt-4"
+          />
         </div>
       </ThreeQuarterContainer>
     </ComponentWrapper>

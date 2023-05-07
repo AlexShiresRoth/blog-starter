@@ -7,19 +7,19 @@ type Props = {
 
 const TextBlockComponent = ({ textBlock }: Props) => {
   return (
-    <div className="rounded flex flex-col  p-4 bg-blue-50/50 gap-2 mb-8 ">
+    <div className="rounded flex flex-col gap-2 bg-white p-4">
       {!!textBlock.headline && (
-        <h3 className="font-bold text-2xl text-blue-900 border-b-2 border-b-blue-100 pb-2">
+        <h3 className="font-bold text-xl text-gray-800 rounded ">
           {textBlock.headline}
         </h3>
       )}
       {!!textBlock.subline && (
-        <p className="text-gray-400 font-normal">{textBlock.subline}</p>
+        <p className="text-gray-600 font-normal">{textBlock.subline}</p>
       )}
       {!!textBlock.body && (
         <RichTextRender
           content={textBlock.body}
-          classNames="text-gray-500 leading-8"
+          classNames="text-gray-500 leading-8 font-normal"
         />
       )}
     </div>

@@ -30,7 +30,7 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
 
         if (component.__typename === "SignUpBox") {
           return (
-            <ComponentWrapper key={component.sys.id} fullWidth={false}>
+            <ComponentWrapper key={component.sys.id} fullWidth={true}>
               <SignupBox signupBox={component as SignUpBox} />
             </ComponentWrapper>
           );

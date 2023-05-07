@@ -32,7 +32,7 @@ const SignupForm = ({ form }: { form: Form }) => {
           />
         );
       })}
-      <button className="py-2 px-8 text-lg bg-blue-600 text-white font-semibold rounded hover:bg-blue-400 transition-all">
+      <button className="py-[10px] px-10 text-lg bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-400 transition-all">
         {form.submitButtonText}
       </button>
     </form>

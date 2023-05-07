@@ -10,7 +10,7 @@ const CtaButton = ({ text, slug }: Props) => {
   return (
     <Link
       href={slug}
-      className="bg-blue-500 rounded px-6 py-3 text-white font-semibold text-lg hover:bg-blue-300 transition-all"
+      className="bg-blue-500 rounded-full px-6 py-3 text-white font-semibold text-lg hover:bg-blue-300 transition-all"
     >
       {text}
     </Link>

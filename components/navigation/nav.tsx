@@ -23,10 +23,15 @@ const Nav = ({ navigation }: Props) => {
               <Link
                 href={item.groupLink.slug}
                 key={item.sys.id}
-                className={cls("font-semibold transition-all p-2", {
-                  "bg-blue-50 rounded text-blue-500 hover:bg-blue-500 hover:text-white":
-                    pathname.replace("/", "") === item.groupLink.slug,
-                })}
+                className={cls(
+                  "font-semibold transition-all p-2 hover:bg-blue-500/30 rounded hover:text-white",
+                  {
+                    "bg-blue-50 rounded text-blue-500 ":
+                      pathname.replace("/", "") === item.groupLink.slug,
+                    "text-gray-700":
+                      pathname.replace("/", "") !== item.groupLink.slug,
+                  }
+                )}
               >
                 {item.groupName}
               </Link>
@@ -48,11 +53,14 @@ const SubMenu = ({
   const [show, setShow] = useState<boolean>(false);
   return (
     <div
-      className="relative flex flex-col justify-end font-semibold"
+      className="relative flex flex-col justify-end font-semibold "
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      <Link href={item.groupLink.slug} className="flex items-center gap-2">
+      <Link
+        href={item.groupLink.slug}
+        className="flex items-center gap-2 text-gray-700"
+      >
         {item.groupName}{" "}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +84,7 @@ const SubMenu = ({
               <Link
                 href={page.slug}
                 key={page.sys.id}
-                className="hover:bg-blue-300 text-black hover:text-white transition-all p-2 rounded"
+                className="hover:bg-blue-300 text-gray-700 hover:text-white transition-all p-2 rounded"
               >
                 {page.pageName}
               </Link>

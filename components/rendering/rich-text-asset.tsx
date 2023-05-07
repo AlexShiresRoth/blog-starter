@@ -2,9 +2,11 @@ import React from "react";
 
 type Props = {
   id: string;
+  data: any;
 };
 
-const RichTextAsset = ({ id }: Props) => {
+const RichTextAsset = ({ id, data }: Props) => {
+  console.log("node data", data);
   return <div>RichTextAsset</div>;
 };
 

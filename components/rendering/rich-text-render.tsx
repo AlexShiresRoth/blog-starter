@@ -7,7 +7,7 @@ import RichTextEntry from "./rich-text-entry";
 const customMarkdownOptions = (content: any) => ({
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: (node: any) => (
-      <RichTextAsset id={node.data.target.sys.id} />
+      <RichTextAsset id={node.data.target.sys.id} data={node} />
     ),
     [BLOCKS.EMBEDDED_ENTRY]: (node: any) => (
       /* @ts-expect-error Async Server Component */
