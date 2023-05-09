@@ -5,7 +5,6 @@ import RichTextRender from "../rendering/rich-text-render";
 import { ComponentHeroBanner } from "@/types/page.type";
 
 const HeroBanner = ({ hero }: { hero: ComponentHeroBanner }) => {
-  console.log("hero banner component", hero);
   return (
     <div className="w-full   flex gap-4 justify-center  items-center  bg-blue-700">
       <div className="w-3/4  flex gap-4 justify-center  items-center ">

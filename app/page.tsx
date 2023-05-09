@@ -5,7 +5,6 @@ import { getNavigationByType } from "@/contentful/navigation.api";
 import { getHeader } from "@/contentful/header.api";
 import Header from "@/components/header/header";
 
-// @TOdo pull in next component from contentful
 export default async function Home() {
   const { page } = await getPageBySlug({ slug: "home" });
   const { header } = await getHeader();

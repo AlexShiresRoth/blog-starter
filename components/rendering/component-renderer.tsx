@@ -10,6 +10,8 @@ import SignupBox from "../forms/sign-up/sign-up-box";
 import DuplexComponent from "../duplex/duplex-component";
 import TextBlockComponent from "../text-block/text-block";
 import { TextBlock } from "@/types/text-block.type";
+import InfoBlockComponent from "../info-block/info-block";
+import { InfoBlock } from "@/types/info-block";
 
 interface Props {
   itemsToRender: PageCollectionItem["topSectionCollection"]["items"];
@@ -45,6 +47,14 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
             <TextBlockComponent
               key={component.sys.id}
               textBlock={component as TextBlock}
+            />
+          );
+        }
+        if (component.__typename === "ComponentInfoBlock") {
+          return (
+            <InfoBlockComponent
+              key={component.sys.id}
+              data={component as InfoBlock}
             />
           );
         }

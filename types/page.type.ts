@@ -1,6 +1,7 @@
 import { Duplex } from "./duplex-component.type";
 import { Document } from "@contentful/rich-text-types";
 import { TextBlock } from "./text-block.type";
+import { InfoBlock } from "./info-block";
 
 export type InputItem = {
   sys: {
@@ -66,7 +67,8 @@ type TopSectionCollectionItem =
   | ComponentHeroBanner
   | SignUpBox
   | Duplex
-  | TextBlock;
+  | TextBlock
+  | InfoBlock;
 
 export type TopSectionCollection = {
   items: TopSectionCollectionItem[];

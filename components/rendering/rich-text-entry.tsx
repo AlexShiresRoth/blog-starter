@@ -3,6 +3,8 @@ import React from "react";
 import ComponentRenderer from "./component-renderer";
 import { EntrySys } from "contentful";
 import { TextBlock } from "@/types/text-block.type";
+import { textBlockQuery } from "@/contentful/gql-queries/components/text-block";
+import { infoBlockQuery } from "@/contentful/gql-queries/components/info-block";
 
 type Props = {
   entryId: string;
@@ -31,22 +33,17 @@ async function getEntryByTypename(
 ): Promise<TextBlock | undefined> {
   switch (typename) {
     case "ComponentTextBlock":
-      return await fetchGraphQL(`query {
-        componentTextBlock(id: "${entryId}") {
-            sys {
-                id
-            }
-            __typename
-            headline
-            subline
-            body {
-            json
-            }
-        }
-        }`).then((res) => res.data.componentTextBlock);
+      return await fetchGraphQL(textBlockQuery(entryId)).then(
+        (res) => res.data.componentTextBlock
+      );
+
+    case "ComponentInfoBlock":
+      return await fetchGraphQL(infoBlockQuery(entryId)).then(
+        (res) => res.data.componentInfoBlock
+      );
 
     default:
-      console.error("No entry could be located");
+      console.error("No entry could be located", typename, entryId);
       return;
   }
 }
@@ -57,8 +54,6 @@ const RichTextEntry = async ({ entryId }: Props) => {
   if (!entry) return null;
 
   const entryData = await getEntryByTypename(entryId, entry.__typename);
-
-  console.log("entry data", entryData);
 
   if (!entryData) return null;
 

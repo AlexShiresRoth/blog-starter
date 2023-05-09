@@ -1,11 +1,5 @@
 import "./globals.css";
-import { Inter, ABeeZee, Rubik } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: "400",
-});
+import { Rubik } from "next/font/google";
 
 const rubik = Rubik({
   subsets: ["latin"],

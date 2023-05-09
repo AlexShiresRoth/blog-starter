@@ -13,6 +13,14 @@ const customMarkdownOptions = (content: any) => ({
       /* @ts-expect-error Async Server Component */
       <RichTextEntry entryId={node.data.target.sys.id} />
     ),
+    [BLOCKS.HEADING_3]: (node: any) => (
+      <h3 className="text-2xl font-bold text-gray-700">
+        {node.content[0].value}
+      </h3>
+    ),
+    [BLOCKS.PARAGRAPH]: (node: any) => (
+      <p className=" leading-7 font-normal">{node.content[0].value}</p>
+    ),
   },
 });
 
