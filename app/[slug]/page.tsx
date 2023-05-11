@@ -4,7 +4,6 @@ import Nav from "@/components/navigation/nav";
 import { getNavigationByType } from "@/contentful/navigation.api";
 import { getHeader } from "@/contentful/header.api";
 import Header from "@/components/header/header";
-import { PageCollection, PageJSON } from "@/types/page.type";
 
 export default async function Page({
   params: { slug },
@@ -16,7 +15,7 @@ export default async function Page({
   const { navigation } = await getNavigationByType({ navType: "main" });
 
   return (
-    <main className="flex flex-col">
+    <main className='flex flex-col'>
       <Header header={header}>
         <Nav navigation={navigation} />
       </Header>

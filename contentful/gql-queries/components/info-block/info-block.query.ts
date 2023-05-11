@@ -6,29 +6,20 @@ export const infoBlockQuery = (id: string) => `query {
     __typename
     headline
     subline
-    block1Image {
-      title
-      description
-      url
-    }
-    block1Body {
-      json
-    }
-    block2Image {
-      title
-      description
-      url
-    }
-    block2Body {
-      json
-    }
-    block3Image {
-      url
-      description
-      title
-    }
-    block3Body {
-      json
-    }
+        blocksCollection(limit: 3) {
+            items {
+              sys {
+                id
+              }
+              image {
+                url
+                title
+                description
+              }
+              text {
+                json
+              }
+            }
+        }
   }
 }`;

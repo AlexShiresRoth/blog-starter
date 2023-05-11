@@ -1,10 +1,4 @@
-import {
-  EntrySys,
-  EntryFields,
-  Asset,
-  AssetFields,
-  EntrySkeletonType,
-} from "contentful";
+import { EntrySys, EntryFields } from "contentful";
 import { PageCollectionItem } from "./page.type";
 import type { Document } from "@contentful/rich-text-types";
 
