@@ -2,6 +2,7 @@ import { Duplex } from "./duplex-component.type";
 import { Document } from "@contentful/rich-text-types";
 import { TextBlock } from "./text-block.type";
 import { InfoBlock } from "./info-block";
+import { EntryFields } from "contentful";
 
 export type InputItem = {
   sys: {
@@ -48,7 +49,7 @@ export type ComponentHeroBanner = {
     slug: string;
   };
   bodyText: {
-    json: Document;
+    json: EntryFields.RichText;
   };
 };
 

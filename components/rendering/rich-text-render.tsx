@@ -3,6 +3,7 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import RichTextAsset from "./rich-text-asset";
 import { Document } from "@contentful/rich-text-types";
 import RichTextEntry from "./rich-text-entry";
+import { EntryFields } from "contentful";
 
 const customMarkdownOptions = (content: any) => ({
   renderNode: {
@@ -14,12 +15,12 @@ const customMarkdownOptions = (content: any) => ({
       <RichTextEntry entryId={node.data.target.sys.id} />
     ),
     [BLOCKS.HEADING_3]: (node: any) => (
-      <h3 className="text-2xl font-bold text-gray-700">
+      <h3 className='text-2xl font-bold text-gray-700'>
         {node.content[0].value}
       </h3>
     ),
     [BLOCKS.PARAGRAPH]: (node: any) => (
-      <p className=" leading-7 font-normal">{node.content[0].value}</p>
+      <p className=' leading-7 font-normal'>{node.content[0].value}</p>
     ),
   },
 });
@@ -29,7 +30,7 @@ const RichTextRender = ({
   classNames,
 }: {
   content: {
-    json: Document;
+    json: EntryFields.RichText;
   };
   classNames?: string;
 }) => {

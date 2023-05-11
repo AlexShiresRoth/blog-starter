@@ -14,7 +14,7 @@ export interface Duplex {
   containerLayout: EntryFields.Boolean;
   headline: EntryFields.Text;
   bodyText: {
-    json: Document;
+    json: EntryFields.RichText;
   };
   ctaText: EntryFields.Text;
   image: ImageFields;

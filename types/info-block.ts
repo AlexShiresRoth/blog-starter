@@ -15,7 +15,7 @@ export interface InfoBlock {
         description: EntryFields.Symbol;
       };
       text: {
-        json: Document;
+        json: EntryFields.RichText;
       };
     }[];
   };
