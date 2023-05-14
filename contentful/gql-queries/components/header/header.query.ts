@@ -1,8 +1,4 @@
-import { HeaderJSON } from "@/types/header.type";
-import { fetchGraphQL } from "./api";
-
-export async function getHeader(id: string): Promise<{ header: HeaderJSON }> {
-  const query = await fetchGraphQL(`
+export const headerQuery = (id: string) => `
         query {
         header(id: "${id}") {
             
@@ -35,7 +31,4 @@ export async function getHeader(id: string): Promise<{ header: HeaderJSON }> {
             }
         }
         
-  `);
-
-  return { header: query?.data?.headerCollection?.items[0] };
-}
+  `;

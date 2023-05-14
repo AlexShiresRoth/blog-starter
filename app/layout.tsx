@@ -1,5 +1,11 @@
+import Header from "@/components/header/header";
 import "./globals.css";
 import { Rubik } from "next/font/google";
+import Nav from "@/components/navigation/nav";
+import { getNavigationByType } from "@/contentful/navigation.api";
+import { fetchGraphQL } from "@/contentful/api";
+import { appQuery } from "@/contentful/gql-queries/app/app.query";
+import { AppQueryResponse } from "@/types/app";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -12,15 +18,36 @@ export const metadata = {
   description: "Tutoring for the SAT and ACT",
 };
 
-export default function RootLayout({
+async function getApp(domain: string): Promise<AppQueryResponse> {
+  const res = await fetchGraphQL(appQuery(domain));
+
+  if (!res.data) throw new Error("Failed to fetch app data");
+
+  const app = res.data.appCollection.items[0];
+
+  return app;
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const app = await getApp(process.env.DOMAIN as string);
+
+  console.log("app", app);
+  // @TODO move nav into header
+  const { navigation } = await getNavigationByType({ navType: "main" });
   return (
     <>
-      <html lang="en" className={`${rubik.className}`}>
-        <body className="bg-gray-50">{children}</body>
+      <html lang='en' className={`${rubik.className}`}>
+        <body className='bg-gray-50'>
+          {/* @ts-expect-error Async Server Component */}
+          <Header data={app.header}>
+            <Nav navigation={navigation} />
+          </Header>
+          {children}
+        </body>
       </html>
     </>
   );

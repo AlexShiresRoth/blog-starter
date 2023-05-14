@@ -1,3 +1,6 @@
+import { fetchGraphQL } from "@/contentful/api";
+import { headerQuery } from "@/contentful/gql-queries/components/header/header.query";
+import { UnknownComponent } from "@/types/component";
 import { HeaderJSON } from "@/types/header.type";
 import classNames from "classnames";
 import Image from "next/image";
@@ -5,16 +8,32 @@ import Link from "next/link";
 import React from "react";
 
 type Props = {
-  header: HeaderJSON;
+  data: UnknownComponent;
   children: React.ReactNode;
 };
 
-const Header = ({ header, children }: Props) => {
+async function getHeaderData(id: string): Promise<HeaderJSON> {
+  const res = await fetchGraphQL(headerQuery(id));
+
+  if (!res.data) throw new Error("Could not locate header");
+
+  const header = res.data.header;
+
+  return header;
+}
+
+const Header = async ({ data, children }: Props) => {
+  const header = await getHeaderData(data.sys.id);
+
+  if (!header) {
+    return null;
+  }
+
   return (
-    <header className="w-full flex flex-col items-center py-4 ">
-      <div className="w-3/4 flex flex-col ">
-        <div className="flex items-center justify-between border-b-2 border-slate-100 py-4">
-          <div className="flex items-center">
+    <header className='w-full flex flex-col items-center py-4 '>
+      <div className='w-3/4 flex flex-col '>
+        <div className='flex items-center justify-between border-b-2 border-slate-100 py-4'>
+          <div className='flex items-center'>
             {header.logo && (
               <Image
                 src={header.logo.url}
@@ -27,7 +46,7 @@ const Header = ({ header, children }: Props) => {
               {header.title}
             </h2>
           </div>
-          <div className="flex items-center gap-4">
+          <div className='flex items-center gap-4'>
             {header.actionItemsCollection.items.map((item, index) => {
               return (
                 <Link
@@ -48,13 +67,14 @@ const Header = ({ header, children }: Props) => {
             <div>
               <a
                 href={`tel:${header.phone}`}
-                className="text-black font-semibold"
+                className='text-black font-semibold'
               >
                 {header.phone}
               </a>
             </div>
           </div>
         </div>
+        {/* Navigation */}
         {children}
       </div>
     </header>
