@@ -6,6 +6,7 @@ import { getNavigationByType } from "@/contentful/navigation.api";
 import { fetchGraphQL } from "@/contentful/api";
 import { appQuery } from "@/contentful/gql-queries/app/app.query";
 import { AppQueryResponse } from "@/types/app";
+import Footer from "@/components/footer/footer";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -35,18 +36,23 @@ export default async function RootLayout({
 }) {
   const app = await getApp(process.env.DOMAIN as string);
 
-  console.log("app", app);
+  console.log("app", app.header.sys);
   // @TODO move nav into header
-  const { navigation } = await getNavigationByType({ navType: "main" });
+  // @TODO add domain env to vercel
   return (
     <>
       <html lang='en' className={`${rubik.className}`}>
         <body className='bg-gray-50'>
-          {/* @ts-expect-error Async Server Component */}
-          <Header data={app.header}>
-            <Nav navigation={navigation} />
-          </Header>
-          {children}
+          {!!app && (
+            <>
+              {/* @ts-expect-error Async Server Component */}
+              <Header data={app.header} />
+              {children}
+
+              {/* @ts-expect-error Async Server Component */}
+              <Footer data={app.footer} />
+            </>
+          )}
         </body>
       </html>
     </>

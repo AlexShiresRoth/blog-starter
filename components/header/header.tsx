@@ -6,6 +6,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Nav from "../navigation/nav";
 
 type Props = {
   data: UnknownComponent;
@@ -22,7 +23,7 @@ async function getHeaderData(id: string): Promise<HeaderJSON> {
   return header;
 }
 
-const Header = async ({ data, children }: Props) => {
+const Header = async ({ data }: Props) => {
   const header = await getHeaderData(data.sys.id);
 
   if (!header) {
@@ -75,7 +76,9 @@ const Header = async ({ data, children }: Props) => {
           </div>
         </div>
         {/* Navigation */}
-        {children}
+
+        {/* @ts-expect-error Async Server Component */}
+        <Nav />
       </div>
     </header>
   );
