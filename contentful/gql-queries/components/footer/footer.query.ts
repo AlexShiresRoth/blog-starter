@@ -5,6 +5,15 @@ query {
       id
     }
     internalName
+    brandName
+    facebookLink
+    instagramLink
+    zoomLink
+    skypeLink
+    logo {
+      url
+      description
+    }
     footerColumnsCollection(limit: 5) {
       items {
         sys {
