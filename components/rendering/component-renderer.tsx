@@ -1,6 +1,5 @@
 import {
   ComponentHeroBanner,
-  PageCollection,
   PageCollectionItem,
   SignUpBox,
 } from "@/types/page.type";
@@ -12,6 +11,7 @@ import TextBlockComponent from "../text-block/text-block";
 import { TextBlock } from "@/types/text-block.type";
 import InfoBlockComponent from "../info-block/info-block";
 import { InfoBlock } from "@/types/info-block";
+import CtaComponent from "../cta-component/cta-component";
 
 interface Props {
   itemsToRender: PageCollectionItem["topSectionCollection"]["items"];
@@ -22,6 +22,8 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
   return (
     <>
       {itemsToRender.map((component) => {
+        if (!component?.sys?.id) return null;
+
         if (component.__typename === "ComponentHeroBanner") {
           return (
             <ComponentWrapper key={component.sys.id}>
@@ -57,6 +59,10 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
               data={component as InfoBlock}
             />
           );
+        }
+        if (component.__typename === "ComponentCta") {
+          /* @ts-expect-error Async Server Component */
+          return <CtaComponent key={component.sys.id} id={component.sys.id} />;
         }
         console.log("Component not found", component);
       })}

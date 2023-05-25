@@ -23,10 +23,9 @@ async function getFooter(id: string): Promise<Footer> {
 const Footer = async ({ data }: Props) => {
   const footerData = await getFooter(data.sys.id);
 
-  console.log("footer data", footerData);
   return (
     <footer className='w-full flex flex-col items-center justify-center bg-blue-700'>
-      <div className='md:w-3/4 flex justify-between py-12 '>
+      <div className='md:w-3/4 flex justify-between py-14 '>
         <div className='flex flex-col'>
           <h3 className='font-bold text-white text-uppercase'>
             {footerData.brandName}
@@ -42,18 +41,21 @@ const Footer = async ({ data }: Props) => {
           <p className='text-white/80 mt-6 mb-2'>Find us on</p>
           <div className='flex gap-2'>
             <a
+              title='Facebook Link'
               href={footerData.facebookLink}
               className='rounded-full p-2 bg-blue-500'
             >
               <Image src='fb.svg' width={20} height={20} alt='facebook-logo' />
             </a>
             <a
+              title='Skype Link'
               href={footerData.skypeLink}
               className='rounded-full p-2 bg-blue-500'
             >
               <Image src='skype.svg' width={20} height={20} alt='skype-logo' />
             </a>
             <a
+              title='Zoom Link'
               href={footerData.zoomLink}
               className='rounded-full p-2 bg-blue-500'
             >
@@ -70,7 +72,6 @@ const Footer = async ({ data }: Props) => {
                 </p>
                 {!!column.menuItemsCollection.items.length &&
                   column.menuItemsCollection.items.map((menuItem) => {
-                    console.log("menuItem", menuItem);
                     return (
                       <div key={menuItem.sys.id}>
                         <Link

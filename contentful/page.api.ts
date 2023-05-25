@@ -37,6 +37,11 @@ export async function getPageBySlug({
                     ...Duplex
                     ...Hero
                     ...SignupBox
+                    ... on ComponentCta {
+                      sys {
+                        id
+                      }
+                    }
                   }
                 }
                 

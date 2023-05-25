@@ -11,9 +11,8 @@ type Props = {
 };
 
 const DuplexComponent = async ({ data }: Props) => {
-  console.log("DuplexComponent", data);
   return (
-    <ComponentWrapper classNames='py-10'>
+    <ComponentWrapper classNames='py-14'>
       <ThreeQuarterContainer
         containerClassNames={cs("gap-8 justify-between ", {
           "flex-row items-center": !data.containerLayout,
@@ -31,7 +30,7 @@ const DuplexComponent = async ({ data }: Props) => {
               src={data.image.url as string}
               alt={data.image.title as string}
               fill={true}
-              className='h-full w-full object-cover object-center rounded'
+              className=' object-cover object-top rounded'
             />
           </div>
         )}

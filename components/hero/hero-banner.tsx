@@ -6,7 +6,7 @@ import { ComponentHeroBanner } from "@/types/page.type";
 
 const HeroBanner = ({ hero }: { hero: ComponentHeroBanner }) => {
   return (
-    <div className='w-full   flex gap-4 justify-center  items-center  bg-blue-700 py-8'>
+    <div className='w-full   flex gap-4 justify-center  items-center  bg-blue-700 py-14'>
       <div className='w-3/4  flex gap-4 justify-between items-center '>
         <div className='w-1/2 relative z-0 flex flex-col gap-6  h-full py-12 my-8'>
           <span className='h-[400px] w-[400px] rounded-full block absolute -z-10 top-0 -left-20 border-2 border-white/20'></span>
