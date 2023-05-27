@@ -5,12 +5,25 @@ import Image from "next/image";
 import ThreeQuarterContainer from "../containers/three-quarter-container";
 import RichTextRender from "../rendering/rich-text-render";
 import cs from "classnames";
+import { UnknownComponent } from "@/types/component";
+import { fetchGraphQL } from "@/contentful/api";
+import { duplexQuery } from "@/contentful/gql-queries/components/duplex";
 
 type Props = {
   data: Duplex;
 };
 
-const DuplexComponent = async ({ data }: Props) => {
+async function getComponent(id: string): Promise<Duplex> {
+  const res = await fetchGraphQL(duplexQuery(id));
+
+  if (!res.data) throw new Error("Could not locate duplex data");
+
+  return res.data.componentDuplex;
+}
+
+const DuplexComponent = async (component: UnknownComponent) => {
+  const data = await getComponent(component.sys.id);
+
   return (
     <ComponentWrapper classNames='py-14'>
       <ThreeQuarterContainer

@@ -3,11 +3,24 @@ import Image from "next/image";
 import React from "react";
 import RichTextRender from "../rendering/rich-text-render";
 import cs from "classnames";
+import { fetchGraphQL } from "@/contentful/api";
+import { infoBlockQuery } from "@/contentful/gql-queries/components/info-block";
+import { UnknownComponent } from "@/types/component";
 type Props = {
   data: InfoBlock;
 };
 
-const InfoBlock = ({ data }: Props) => {
+async function getComponent(id: string): Promise<InfoBlock> {
+  const res = await fetchGraphQL(infoBlockQuery(id));
+
+  if (!res.data) throw new Error("No data returned from GraphQL");
+
+  return res.data.componentInfoBlock;
+}
+
+const InfoBlock = async (component: UnknownComponent) => {
+  const data = await getComponent(component.sys.id);
+
   return (
     <div className='grid grid-cols-3 gap-4'>
       {data.blocksCollection.items.map((block, index) => {

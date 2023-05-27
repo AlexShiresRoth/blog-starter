@@ -1,8 +1,21 @@
 import { SignUpBox } from "@/types/page.type";
 import React from "react";
 import SignupForm from "./signup-form";
+import { UnknownComponent } from "@/types/component";
+import { fetchGraphQL } from "@/contentful/api";
+import { signupBoxQuery } from "@/contentful/gql-queries/components/signup-box";
 
-const SignupBox = ({ signupBox }: { signupBox: SignUpBox }) => {
+async function getComponent(id: string): Promise<SignUpBox> {
+  const res = await fetchGraphQL(signupBoxQuery(id));
+
+  if (!res.data) throw new Error("Could not locate signup box data");
+
+  return res.data.signUpBox;
+}
+
+const SignupBox = async (component: UnknownComponent) => {
+  const signupBox = await getComponent(component.sys.id);
+
   return (
     <div className='w-full'>
       <div className='p-14 rounded bg-white 0 flex flex-col items-center justify-center gap-2'>

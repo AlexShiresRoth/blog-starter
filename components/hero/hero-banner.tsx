@@ -3,8 +3,21 @@ import React from "react";
 import CtaButton from "../buttons/cta-button";
 import RichTextRender from "../rendering/rich-text-render";
 import { ComponentHeroBanner } from "@/types/page.type";
+import { UnknownComponent } from "@/types/component";
+import { fetchGraphQL } from "@/contentful/api";
+import { heroQuery } from "@/contentful/gql-queries/components/hero/hero.query";
 
-const HeroBanner = ({ hero }: { hero: ComponentHeroBanner }) => {
+async function getComponent(id: string): Promise<ComponentHeroBanner> {
+  const res = await fetchGraphQL(heroQuery(id));
+
+  if (!res.data) throw new Error("Could not locate hero data");
+
+  return res.data.componentHeroBanner;
+}
+
+const HeroBanner = async (props: UnknownComponent) => {
+  const hero = await getComponent(props.sys.id);
+
   return (
     <div className='w-full   flex gap-4 justify-center  items-center  bg-blue-700 py-14'>
       <div className='w-3/4  flex gap-4 justify-between items-center '>
@@ -22,7 +35,7 @@ const HeroBanner = ({ hero }: { hero: ComponentHeroBanner }) => {
           </div>
         </div>
         <div className='relative'>
-          <span className='w-[60px] h-[60px] rounded-full -top-10 -right-10 absolute z-20 rounded bg-blue-600 block skew-y-3 -translate-x-2 p-4'></span>
+          <span className='w-[60px] h-[60px] rounded-full -top-10 -right-10 absolute z-20 bg-blue-600 block skew-y-3 -translate-x-2 p-4'></span>
           <div className='relative lg:w-[400px] lg:h-[350px] xl:w-[550px] xl:h-[400px]'>
             <Image
               src={hero?.image?.url}

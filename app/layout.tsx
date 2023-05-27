@@ -36,9 +36,6 @@ export default async function RootLayout({
 }) {
   const app = await getApp(process.env.DOMAIN as string);
 
-  console.log("app", app.header.sys);
-  // @TODO move nav into header
-  // @TODO add domain env to vercel
   return (
     <>
       <html lang='en' className={`${rubik.className}`}>

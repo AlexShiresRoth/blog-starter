@@ -7,14 +7,16 @@ const axiosInstance = axios.create({
 });
 
 //currently fetch does not work in prod
-export async function fetchGraphQL(query: string) {
-  return await axiosInstance({
-    url: `/${process.env.SPACE_ID}/environments/master`,
+export async function fetchGraphQL(query: string): Promise<any> {
+  return await fetch(`${baseURL}/${process.env.SPACE_ID}/environments/master`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
     },
-    data: JSON.stringify({ query }),
-  }).then((response) => response.data);
+    next: {
+      revalidate: 60,
+    },
+    body: JSON.stringify({ query }),
+  }).then((response) => response.json());
 }

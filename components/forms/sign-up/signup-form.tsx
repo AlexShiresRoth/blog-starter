@@ -21,7 +21,7 @@ const SignupForm = ({ form }: { form: Form }) => {
   }, [form.inputsCollection.items]);
 
   return (
-    <form className="my-2 gap-4 flex gap-4 items-end ">
+    <form className='my-2 gap-4 flex  items-end '>
       {form.inputsCollection.items.map((input) => {
         return (
           <Input
@@ -32,7 +32,7 @@ const SignupForm = ({ form }: { form: Form }) => {
           />
         );
       })}
-      <button className="py-[10px] px-10 text-lg bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-400 transition-all">
+      <button className='py-[10px] px-10 text-lg bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-400 transition-all'>
         {form.submitButtonText}
       </button>
     </form>

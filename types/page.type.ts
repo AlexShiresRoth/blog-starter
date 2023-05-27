@@ -2,7 +2,8 @@ import { Duplex } from "./duplex-component.type";
 import { Document } from "@contentful/rich-text-types";
 import { TextBlock } from "./text-block.type";
 import { InfoBlock } from "./info-block";
-import { EntryFields } from "contentful";
+import { EntryFields, EntrySys } from "contentful";
+import { UnknownComponent } from "./component";
 
 export type InputItem = {
   sys: {
@@ -64,19 +65,16 @@ export type SignUpBox = {
   form: Form;
 };
 
-type TopSectionCollectionItem =
-  | ComponentHeroBanner
-  | SignUpBox
-  | Duplex
-  | TextBlock
-  | InfoBlock;
-
 export type TopSectionCollection = {
-  items: TopSectionCollectionItem[];
+  items: UnknownComponent[];
 };
 
 export type PageCollectionItem = {
   topSectionCollection: TopSectionCollection;
+  pageContent: {
+    __typename: EntryFields.Symbol;
+    sys: EntrySys;
+  };
 };
 
 export type PageCollection = {

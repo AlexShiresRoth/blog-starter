@@ -1,20 +1,14 @@
-import {
-  ComponentHeroBanner,
-  PageCollectionItem,
-  SignUpBox,
-} from "@/types/page.type";
 import HeroBanner from "../hero/hero-banner";
 import ComponentWrapper from "../wrappers/component-wrapper";
 import SignupBox from "../forms/sign-up/sign-up-box";
 import DuplexComponent from "../duplex/duplex-component";
 import TextBlockComponent from "../text-block/text-block";
-import { TextBlock } from "@/types/text-block.type";
 import InfoBlockComponent from "../info-block/info-block";
-import { InfoBlock } from "@/types/info-block";
 import CtaComponent from "../cta-component/cta-component";
+import { UnknownComponent } from "@/types/component";
 
 interface Props {
-  itemsToRender: PageCollectionItem["topSectionCollection"]["items"];
+  itemsToRender: Array<UnknownComponent>;
 }
 
 const ComponentRenderer = ({ itemsToRender }: Props) => {
@@ -27,7 +21,8 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         if (component.__typename === "ComponentHeroBanner") {
           return (
             <ComponentWrapper key={component.sys.id}>
-              <HeroBanner hero={component as ComponentHeroBanner} />
+              {/* @ts-expect-error Async Server Component */}
+              <HeroBanner {...component} />
             </ComponentWrapper>
           );
         }
@@ -35,30 +30,25 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         if (component.__typename === "SignUpBox") {
           return (
             <ComponentWrapper key={component.sys.id} fullWidth={true}>
-              <SignupBox signupBox={component as SignUpBox} />
+              {/* @ts-expect-error Async Server Component */}
+              <SignupBox {...component} />
             </ComponentWrapper>
           );
         }
 
         if (component.__typename === "ComponentDuplex") {
           /* @ts-expect-error Async Server Component */
-          return <DuplexComponent key={component.sys.id} data={component} />;
+          return <DuplexComponent key={component.sys.id} {...component} />;
         }
         if (component.__typename === "ComponentTextBlock") {
           return (
-            <TextBlockComponent
-              key={component.sys.id}
-              textBlock={component as TextBlock}
-            />
+            /* @ts-expect-error Async Server Component */
+            <TextBlockComponent key={component.sys.id} {...component} />
           );
         }
         if (component.__typename === "ComponentInfoBlock") {
-          return (
-            <InfoBlockComponent
-              key={component.sys.id}
-              data={component as InfoBlock}
-            />
-          );
+          /* @ts-expect-error Async Server Component */
+          return <InfoBlockComponent key={component.sys.id} {...component} />;
         }
         if (component.__typename === "ComponentCta") {
           /* @ts-expect-error Async Server Component */
