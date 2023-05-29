@@ -44,6 +44,36 @@ export const pageQuery = (slug: string): string => `query {
           }
         }
       }
+      extraSectionCollection {
+        items {
+            __typename
+          ... on ComponentCta {
+            sys {
+              id
+            }
+          }
+          ... on ComponentDuplex {
+            sys {
+              id
+            }
+          }
+          ... on ComponentInfoBlock {
+            sys {
+              id
+            }
+          }
+          ... on SignUpBox {
+            sys {
+              id
+            }
+          }
+          ... on ComponentTextBlock {
+            sys {
+              id
+            }
+          }
+        }
+      }
     }
   }
 }

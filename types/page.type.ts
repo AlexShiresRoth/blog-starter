@@ -69,12 +69,17 @@ export type TopSectionCollection = {
   items: UnknownComponent[];
 };
 
+export type ExtraSectionCollection = {
+  items: UnknownComponent[];
+};
+
 export type PageCollectionItem = {
   topSectionCollection: TopSectionCollection;
   pageContent: {
     __typename: EntryFields.Symbol;
     sys: EntrySys;
   };
+  extraSectionCollection: ExtraSectionCollection;
 };
 
 export type PageCollection = {

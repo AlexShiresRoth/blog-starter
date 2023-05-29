@@ -29,11 +29,22 @@ export default async function Page({
               itemsToRender={page?.topSectionCollection?.items}
             />
           </div>
-          <div>
-            {/* Page Content */}
-            <ComponentRenderer itemsToRender={[page?.pageContent]} />
-          </div>
         </>
+      )}
+      {!!page.pageContent && (
+        <div className='bg-gray-100'>
+          {/* Page Content */}
+          <ComponentRenderer itemsToRender={[page?.pageContent]} />
+        </div>
+      )}
+
+      {!!page.extraSectionCollection.items.length && (
+        <div className='bg-gray-100'>
+          {/* Extra Section */}
+          <ComponentRenderer
+            itemsToRender={page.extraSectionCollection?.items}
+          />
+        </div>
       )}
     </main>
   );

@@ -6,6 +6,7 @@ import TextBlockComponent from "../text-block/text-block";
 import InfoBlockComponent from "../info-block/info-block";
 import CtaComponent from "../cta-component/cta-component";
 import { UnknownComponent } from "@/types/component";
+import BusinessInfoTopic from "../business-info/business-info-topic";
 
 interface Props {
   itemsToRender: Array<UnknownComponent>;
@@ -53,6 +54,10 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         if (component.__typename === "ComponentCta") {
           /* @ts-expect-error Async Server Component */
           return <CtaComponent key={component.sys.id} id={component.sys.id} />;
+        }
+        if (component.__typename === "TopicBusinessInfo") {
+          /* @ts-expect-error Async Server Component */
+          return <BusinessInfoTopic key={component.sys.id} {...component} />;
         }
         console.log("Component not found", component);
       })}

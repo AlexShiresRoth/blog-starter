@@ -1,5 +1,5 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
+import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 import RichTextAsset from "./rich-text-asset";
 import { Document } from "@contentful/rich-text-types";
 import RichTextEntry from "./rich-text-entry";
@@ -18,9 +18,6 @@ const customMarkdownOptions = (content: any) => ({
       <h3 className='text-2xl font-bold text-gray-700'>
         {node.content[0].value}
       </h3>
-    ),
-    [BLOCKS.PARAGRAPH]: (node: any) => (
-      <p className=' leading-7 font-normal'>{node.content[0].value}</p>
     ),
   },
 });
