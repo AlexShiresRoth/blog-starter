@@ -43,6 +43,11 @@ export const pageQuery = (slug: string): string => `query {
             id
           }
         }
+         ... on ComponentProductTable {
+          sys {
+            id
+          }
+        }
       }
       extraSectionCollection {
         items {

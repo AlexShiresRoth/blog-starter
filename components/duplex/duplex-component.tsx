@@ -34,7 +34,7 @@ const DuplexComponent = async (component: UnknownComponent) => {
       >
         {!!data?.image && (
           <div
-            className={cs("relative min-h-[400px]", {
+            className={cs("relative min-h-[500px]", {
               "w-1/3": !data.containerLayout,
               "w-full": data.containerLayout,
             })}

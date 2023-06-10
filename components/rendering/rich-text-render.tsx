@@ -19,6 +19,9 @@ const customMarkdownOptions = (content: any) => ({
         {node.content[0].value}
       </h3>
     ),
+    [BLOCKS.PARAGRAPH]: (node: any) => (
+      <p className='my-2'>{node.content[0].value}</p>
+    ),
   },
 });
 
