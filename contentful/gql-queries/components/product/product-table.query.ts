@@ -19,6 +19,8 @@ query {
         description {
           json
         }
+        excerpt
+        isExpandable
         featuredImage {
           url
           size

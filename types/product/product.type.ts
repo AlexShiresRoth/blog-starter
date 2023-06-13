@@ -6,7 +6,14 @@ export interface Product {
   description: {
     json: EntryFields.RichText;
   };
-  featuredImage: Asset;
+  excerpt: EntryFields.Symbol;
+  isExpandable: EntryFields.Boolean;
+  featuredImage: {
+    url: EntryFields.Symbol;
+    description: EntryFields.Symbol;
+    width: EntryFields.Number;
+    height: EntryFields.Number;
+  };
   targetPage: {
     slug: EntryFields.Symbol;
   };

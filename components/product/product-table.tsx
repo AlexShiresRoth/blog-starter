@@ -3,6 +3,8 @@ import { productTableQuery } from "@/contentful/gql-queries/components/product/p
 import { UnknownComponent } from "@/types/component";
 import { ProductTable, ProductTableQueryResponse } from "@/types/product";
 import React from "react";
+import ProductCart from "../product-card/product-card";
+import ProductCard from "../product-card/product-card";
 
 async function getProductTable(id: string): Promise<ProductTable> {
   const res: ProductTableQueryResponse = await fetchGraphQL(
@@ -20,8 +22,20 @@ async function getProductTable(id: string): Promise<ProductTable> {
 const ProductTable = async (component: UnknownComponent) => {
   const data = await getProductTable(component.sys.id);
 
-  console.log("data", data);
-  return <div className='w-full flex flex-column'>ProductTable</div>;
+  return (
+    <div className='w-full flex flex-col items-center py-10'>
+      <div className='w-3/4 flex flex-col'>
+        <h1 className='text-3xl font-bold'>{data.headline}</h1>
+        {!!data.productsCollection.items.length && (
+          <div className='grid grid-cols-3 gap-10 my-4'>
+            {data.productsCollection.items.map((product) => {
+              return <ProductCard product={product} key={product.sys.id} />;
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ProductTable;
