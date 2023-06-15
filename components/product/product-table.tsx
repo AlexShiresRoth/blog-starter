@@ -23,11 +23,14 @@ const ProductTable = async (component: UnknownComponent) => {
   const data = await getProductTable(component.sys.id);
 
   return (
-    <div className='w-full flex flex-col items-center py-10'>
-      <div className='w-3/4 flex flex-col'>
-        <h1 className='text-3xl font-bold'>{data.headline}</h1>
+    <div className='w-full flex flex-col items-center py-12'>
+      <div className='w-3/4 flex flex-col gap-12 '>
+        <div className='flex flex-col gap-2 items-center  p-4'>
+          <h1 className='text-5xl font-bold text-black'>{data.headline}</h1>
+          <h4 className='text-blue-500'>{data.subline}</h4>
+        </div>
         {!!data.productsCollection.items.length && (
-          <div className='grid grid-cols-3 gap-10 my-4'>
+          <div className='grid grid-cols-3 gap-x-10 gap-y-14 my-4'>
             {data.productsCollection.items.map((product) => {
               return <ProductCard product={product} key={product.sys.id} />;
             })}

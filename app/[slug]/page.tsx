@@ -18,7 +18,6 @@ export default async function Page({
 }) {
   const page = await getPage(slug);
 
-  console.log("page", page);
   return (
     <main className='flex flex-col'>
       {!!page.topSectionCollection.items.length && (
