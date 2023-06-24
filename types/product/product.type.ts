@@ -16,6 +16,7 @@ export interface Product {
   };
   targetPage: {
     slug: EntryFields.Symbol;
+    pageName: EntryFields.Symbol;
   };
   externalLink: EntryFields.Symbol;
   externalLinkText: EntryFields.Symbol;

@@ -30,6 +30,7 @@ export default async function Page({
           </div>
         </>
       )}
+
       {!!page.pageContent && (
         <div className='bg-gray-100'>
           {/* Page Content */}

@@ -34,17 +34,17 @@ const BusinessInfoTopic = async (component: UnknownComponent) => {
           </div>
         </div>
       )}
-      <div className='w-3/4 flex flex-col py-16 items-center'>
-        <div>
-          <div className='flex flex-col gap-4 max-w-2xl mt-4'>
-            {!!!data.featuredImage && (
-              <h1 className='text-4xl font-extrabold'>{data.name}</h1>
-            )}
+      <div className='w-3/4 flex flex-col my-12 items-center'>
+        <div className='flex flex-col gap-2 w-full max-w-2xl mt-4'>
+          {!!!data.featuredImage && (
+            <h1 className='text-5xl font-bold text-black '>{data.name}</h1>
+          )}
+          {!!data.body && (
             <RichTextRender
               content={data.body}
               classNames='leading-relaxed text-gray-500 text-lg'
             />
-          </div>
+          )}
         </div>
       </div>
     </div>

@@ -34,6 +34,11 @@ export const pageQuery = (slug: string): string => `query {
               id
             }
           }
+          ... on Form {
+            sys {
+              id
+            }
+          }
         }
       }
       pageContent {
@@ -73,6 +78,11 @@ export const pageQuery = (slug: string): string => `query {
             }
           }
           ... on ComponentTextBlock {
+            sys {
+              id
+            }
+          }
+          ... on Form {
             sys {
               id
             }

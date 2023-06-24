@@ -1,7 +1,3 @@
-import { Duplex } from "./duplex-component.type";
-import { Document } from "@contentful/rich-text-types";
-import { TextBlock } from "./text-block.type";
-import { InfoBlock } from "./info-block";
 import { EntryFields, EntrySys } from "contentful";
 import { UnknownComponent } from "./component";
 
@@ -11,10 +7,11 @@ export type InputItem = {
   };
   label: string;
   showLabel: boolean;
-  selectOptions: null;
+  selectOptions: string[];
   inputType: string;
   inputName: string;
   placeholderText: string | null;
+  required?: boolean;
 };
 
 export type InputItemsCollection = {

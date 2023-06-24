@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import RichTextRender from "../rendering/rich-text-render";
 import "remixicon/fonts/remixicon.css";
 import AnimatedModal from "../modals/animated-modal";
+import Link from "next/link";
 
 type Props = {
   product: Product;
@@ -39,7 +40,7 @@ const ProductCardContainer = ({
   classNames?: string;
 }) => (
   <div
-    className={`flex flex-col rounded bg-white p-4 gap-4 h-full border-[1px] border-gray-200 relative ${classNames}`}
+    className={`flex flex-col rounded bg-white p-6 gap-4 h-full border-[1px] border-gray-200 relative ${classNames}`}
   >
     {children}
   </div>
@@ -50,7 +51,7 @@ const ProductCardBasic = ({
   toggleExpanded,
 }: Props & { toggleExpanded: () => void }) => {
   return (
-    <ProductCardContainer>
+    <ProductCardContainer classNames='gap-6 '>
       {product.isExpandable && (
         <button
           onClick={toggleExpanded}
@@ -60,12 +61,14 @@ const ProductCardBasic = ({
         </button>
       )}
       {!!product.featuredImage && (
-        <Image
-          src={product.featuredImage.url}
-          alt={product.featuredImage.description}
-          width={product.featuredImage.width}
-          height={product.featuredImage.height}
-        />
+        <div className='relative h-[300px] w-full'>
+          <Image
+            src={product.featuredImage.url}
+            alt={product.featuredImage.description}
+            className='object-center object-cover'
+            fill
+          />
+        </div>
       )}
       <div className='flex justify-between items-center border-b-[1px] border-gray-100 py-2'>
         <h3 className='font-bold text-lg leading-7'>{product.name}</h3>
@@ -73,8 +76,30 @@ const ProductCardBasic = ({
       {!!product.excerpt && product.isExpandable && (
         <p className='text-gray-500 leading-7'>{product.excerpt}</p>
       )}
-      {!product.isExpandable && (
+      {!product.isExpandable && product.description && (
         <RichTextRender content={product.description} />
+      )}
+      {!!product.externalLink && (
+        <div>
+          <a
+            href={product.externalLink ?? ""}
+            rel='noreferrer noopener'
+            target='_blank'
+            className='border-[1px] border-gray-400 text-gray-700 rounded px-4 py-2 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all'
+          >
+            {product.externalLinkText}
+          </a>
+        </div>
+      )}
+      {!!product.targetPage && (
+        <div>
+          <Link
+            href={product.targetPage.slug}
+            className='border-[1px] border-gray-400 text-gray-700 rounded px-4 py-2 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all'
+          >
+            {product.targetPage.pageName}
+          </Link>
+        </div>
       )}
     </ProductCardContainer>
   );

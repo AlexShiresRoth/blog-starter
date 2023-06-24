@@ -10,7 +10,7 @@ query {
     }
     headline
     subline
-    productsCollection(limit: ${limit ?? 6}, skip: ${skip ?? 0}) {
+    productsCollection(limit: ${limit ?? 12}, skip: ${skip ?? 0}) {
       items {
         sys {
           id
@@ -30,6 +30,7 @@ query {
         }
         targetPage {
           slug
+          pageName
         }
         externalLink
         externalLinkText
