@@ -9,6 +9,14 @@ query {
     bodyText {
       json
     }
+    firstColumnHeadline
+    firstColumn{
+      json
+    }
+    secondColumnHeadline
+    secondColumn {
+      json
+    }
     ctaText
     image {
       title

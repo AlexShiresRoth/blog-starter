@@ -16,6 +16,14 @@ export interface Duplex {
   bodyText: {
     json: EntryFields.RichText;
   };
+  firstColumnHeadline: EntryFields.Symbol;
+  firstColumn: {
+    json: EntryFields.RichText;
+  };
+  secondColumnHeadline: EntryFields.Symbol;
+  secondColumn: {
+    json: EntryFields.RichText;
+  };
   ctaText: EntryFields.Text;
   image: ImageFields;
   targetPage: PageCollectionItem;

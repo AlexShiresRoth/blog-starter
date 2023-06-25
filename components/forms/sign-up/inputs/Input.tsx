@@ -120,6 +120,7 @@ export const SelectInput = (props: InputProps) => {
         </label>
       )}
       <select
+        name={props.input.inputName}
         placeholder={props.input.placeholderText ?? ""}
         value={props.value}
         required={props.input.required ?? false}

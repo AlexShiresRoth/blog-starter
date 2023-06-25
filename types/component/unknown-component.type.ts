@@ -1,6 +1,8 @@
 import { EntryFields, EntrySys } from "contentful";
 
 export interface UnknownComponent {
-  sys: EntrySys;
+  sys: {
+    id: EntrySys["id"];
+  };
   __typename: EntryFields.Symbol;
 }

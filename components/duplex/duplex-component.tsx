@@ -9,10 +9,6 @@ import { UnknownComponent } from "@/types/component";
 import { fetchGraphQL } from "@/contentful/api";
 import { duplexQuery } from "@/contentful/gql-queries/components/duplex";
 
-type Props = {
-  data: Duplex;
-};
-
 async function getComponent(id: string): Promise<Duplex> {
   const res = await fetchGraphQL(duplexQuery(id));
 
@@ -24,43 +20,44 @@ async function getComponent(id: string): Promise<Duplex> {
 const DuplexComponent = async (component: UnknownComponent) => {
   const data = await getComponent(component.sys.id);
 
+  // console.log("duplex ocmponent data", data);
   return (
     <ComponentWrapper classNames='py-14'>
       <ThreeQuarterContainer
-        containerClassNames={cs("gap-8 justify-between ", {
-          "flex-row items-center": !data.containerLayout,
+        containerClassNames={cs("gap-12 justify-between ", {
+          "flex-row ": !data.containerLayout,
           "flex-col": data.containerLayout,
         })}
       >
-        {!!data?.image && (
+        {!!data.firstColumn && (
           <div
-            className={cs("relative min-h-[500px]", {
-              "w-1/3": !data.containerLayout,
+            className={cs("flex flex-col gap-4", {
+              "w-1/2": !data.containerLayout,
               "w-full": data.containerLayout,
             })}
           >
-            <Image
-              src={data.image.url as string}
-              alt={data.image.title as string}
-              fill={true}
-              className=' object-cover object-top rounded'
+            <h2 className="self-start z-10 relative text-4xl font-bold text-blue-500 before:block before:bg-yellow-200 before:content-[' '] before:w-full before:h-2 before:absolute before:-z-10 before:bottom-1 ">
+              {data.firstColumnHeadline}
+            </h2>
+            <RichTextRender content={data.firstColumn} />
+          </div>
+        )}
+        {!!data.secondColumn && (
+          <div
+            className={cs("flex flex-col gap-4", {
+              "w-1/2": !data.containerLayout,
+              "w-full ": data.containerLayout,
+            })}
+          >
+            <h2 className="self-start z-10 relative text-4xl font-bold text-blue-500 before:block before:bg-yellow-200 before:content-[' '] before:w-full before:h-2 before:absolute before:-z-10 before:bottom-1 ">
+              {data.secondColumnHeadline}
+            </h2>
+            <RichTextRender
+              content={data.secondColumn}
+              classNames='text-gray-500 leading-8'
             />
           </div>
         )}
-        <div
-          className={cs("flex flex-col gap-8", {
-            "w-2/3": !data.containerLayout,
-            "w-full": data.containerLayout,
-          })}
-        >
-          <h2 className="self-start z-10 relative text-4xl font-bold text-blue-500 before:block before:bg-yellow-200 before:content-[' '] before:w-full before:h-2 before:absolute before:-z-10 before:bottom-1 ">
-            {data.headline}
-          </h2>
-          <RichTextRender
-            content={data.bodyText}
-            classNames='text-gray-500 leading-8'
-          />
-        </div>
       </ThreeQuarterContainer>
     </ComponentWrapper>
   );

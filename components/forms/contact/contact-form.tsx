@@ -20,11 +20,9 @@ async function getForm(id: string): Promise<Form> {
 const ContactForm = async (component: UnknownComponent) => {
   const form = await getForm(component.sys.id);
 
-  console.log("is this a client component?");
-
   return (
-    <div className='w-full flex flex-col items-center my-4'>
-      <div className='w-1/2 flex flex-col gap-12 bg-white rounded border-[1px] border-gray-200 p-8'>
+    <div className='w-full flex flex-col items-center'>
+      <div className='w-full flex flex-col gap-12 bg-white rounded border-[1px] border-gray-200 p-8'>
         {/* @ts-ignore */}
         <form className='w-full flex flex-col gap-6' action={submitForm}>
           {form.headline && (
@@ -35,7 +33,7 @@ const ContactForm = async (component: UnknownComponent) => {
             return <Input input={input} key={input.sys.id} />;
           })}
           <div>
-            <button className='min-w-[200px] py-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all'>
+            <button className='min-w-[200px] py-2 text-lg bg-blue-500 text-white rounded hover:bg-blue-600 transition-all'>
               {form.submitButtonText}
             </button>
           </div>
