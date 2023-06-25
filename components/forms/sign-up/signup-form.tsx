@@ -6,8 +6,9 @@ import Input from "./inputs/Input";
 const SignupForm = ({ form }: { form: Form }) => {
   const [formState, setFormState] = useState<any>({});
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setFormState({ ...formState, [e.target.name]: e.target.value });
 
   useMemo(() => {
     setFormState((prevState: any) => {
