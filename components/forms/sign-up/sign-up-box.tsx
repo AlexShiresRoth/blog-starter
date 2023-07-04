@@ -17,8 +17,8 @@ const SignupBox = async (component: UnknownComponent) => {
   const signupBox = await getComponent(component.sys.id);
 
   return (
-    <div className='w-full'>
-      <div className='p-14 rounded bg-white 0 flex flex-col items-center justify-center gap-2'>
+    <div className='w-full flex flex-col items-center'>
+      <div className='w-11/12  py-8 md:p-14 rounded bg-white 0 flex flex-col items-center justify-center gap-2'>
         <h2 className="z-10 relative text-3xl font-bold text-blue-500 before:block before:bg-yellow-200 before:content-[' '] before:w-full before:h-2 before:absolute before:-z-10 before:bottom-1 ">
           {signupBox.headline}
         </h2>
