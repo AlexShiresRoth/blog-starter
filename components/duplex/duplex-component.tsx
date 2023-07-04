@@ -22,17 +22,17 @@ const DuplexComponent = async (component: UnknownComponent) => {
 
   // console.log("duplex ocmponent data", data);
   return (
-    <ComponentWrapper classNames='py-14'>
+    <ComponentWrapper classNames='py-8 md:py-14'>
       <ThreeQuarterContainer
         containerClassNames={cs("gap-12 justify-between ", {
-          "flex-row ": !data.containerLayout,
+          "flex-col md:flex-row ": !data.containerLayout,
           "flex-col": data.containerLayout,
         })}
       >
         {!!data.firstColumn && (
           <div
             className={cs("flex flex-col gap-4", {
-              "w-1/2": !data.containerLayout,
+              "w-full md:w-1/2": !data.containerLayout,
               "w-full": data.containerLayout,
             })}
           >
@@ -45,7 +45,7 @@ const DuplexComponent = async (component: UnknownComponent) => {
         {!!data.secondColumn && (
           <div
             className={cs("flex flex-col gap-4", {
-              "w-1/2": !data.containerLayout,
+              "w-full md:w-1/2": !data.containerLayout,
               "w-full ": data.containerLayout,
             })}
           >

@@ -1,6 +1,7 @@
 import { EntryFields, EntrySys } from "contentful";
 
 export interface Form {
+  internalName: EntryFields.Symbol;
   sys: EntrySys;
   submitButtonText: EntryFields.Symbol;
   headline: EntryFields.Symbol;

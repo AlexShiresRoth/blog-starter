@@ -11,7 +11,7 @@ const SignupForm = ({ form }: { form: Form }) => {
   ) => setFormState({ ...formState, [e.target.name]: e.target.value });
 
   useMemo(() => {
-    setFormState((prevState: any) => {
+    setFormState(() => {
       const inputMap = form.inputsCollection.items.reduce((acc: any, input) => {
         acc[input.inputName] = "";
         return acc;
@@ -22,7 +22,7 @@ const SignupForm = ({ form }: { form: Form }) => {
   }, [form.inputsCollection.items]);
 
   return (
-    <form className='my-2 gap-4 flex  items-end '>
+    <form className='my-2 gap-4 flex  flex-col w-full md:flex-row md:items-end'>
       {form.inputsCollection.items.map((input) => {
         return (
           <Input

@@ -24,7 +24,7 @@ const SignupBox = async (component: UnknownComponent) => {
         </h2>
         <p className='text-slate-500'>{signupBox.subline}</p>
 
-        <div>
+        <div className='w-full md:w-auto'>
           <SignupForm form={signupBox.form} />
         </div>
       </div>

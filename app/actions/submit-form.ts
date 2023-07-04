@@ -1,8 +1,9 @@
 "use server";
 import sgMail from "@sendgrid/mail";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
 
-// @TODO it says email sent, but nothing happens
-// @TODO need to handle form status in client component
 export async function submitForm(data: FormData) {
   const formData = {
     name: data.get("name") ?? "",
@@ -32,8 +33,8 @@ export async function submitForm(data: FormData) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? "");
 
   const msg = {
-    to: "alexroth96@gmail.com", // Change to your recipient
-    from: "alexshiresroth@gmail.com", // Change to your verified sender
+    to: "alex@alexshiresroth.com", // Change to your recipient
+    from: "alexroth96@gmail.com", // Change to your verified sender
     subject: `SATACTSENSE.com: ${formData.category}`,
     text: JSON.stringify(formData.message),
     html: `<strong>New Website Lead</strong><br />
@@ -45,12 +46,13 @@ export async function submitForm(data: FormData) {
     <strong>Message:</strong> ${formData.message}<br />
     `,
   };
+
   sgMail
     .send(msg)
-    .then(() => {
-      console.log("Email sent");
+    .then((response) => {
+      console.log("Email sent", response);
     })
     .catch((error) => {
-      console.error(error.response.body);
+      console.error(error);
     });
 }

@@ -28,8 +28,8 @@ const CtaComponent = async ({ id }: Props) => {
       </div>
     );
   return (
-    <div className='w-full  bg-yellow-300  flex justify-center items-center'>
-      <div className='flex items-center  py-14 rounded  md:w-3/4 justify-between'>
+    <div className='w-full  bg-yellow-300  flex justify-center items-center '>
+      <div className='flex items-start   py-14 rounded flex-col w-3/4 justify-between gap-4 md:flex-row md:items-center '>
         <div className='flex flex-col justify-center'>
           {!!ctaData.subline && (
             <RichTextRender

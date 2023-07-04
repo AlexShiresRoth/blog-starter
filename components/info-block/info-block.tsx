@@ -22,7 +22,7 @@ const InfoBlock = async (component: UnknownComponent) => {
   const data = await getComponent(component.sys.id);
 
   return (
-    <div className='grid grid-cols-3 gap-4'>
+    <div className='flex flex-col md:grid md:grid-cols-3 gap-4'>
       {data.blocksCollection.items.map((block, index) => {
         return (
           <div

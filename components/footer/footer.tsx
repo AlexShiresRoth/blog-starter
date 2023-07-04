@@ -25,7 +25,7 @@ const Footer = async ({ data }: Props) => {
 
   return (
     <footer className='w-full flex flex-col items-center justify-center bg-blue-700'>
-      <div className='md:w-3/4 flex justify-between py-14 '>
+      <div className='w-3/4 flex flex-col gap-8 md:flex-row justify-between py-14 '>
         <div className='flex flex-col'>
           <h3 className='font-bold text-white text-uppercase'>
             {footerData.brandName}
@@ -88,7 +88,7 @@ const Footer = async ({ data }: Props) => {
           })}
       </div>
       <div className='w-full border-t-2 border-blue-600 py-6 flex items-center justify-center'>
-        <div className='w-3/4 flex justify-between items-center'>
+        <div className='w-3/4 flex justify-between gap-4 md:gap-0 md:items-center flex-col md:flex-row'>
           <p className='text-white/80 '>
             &copy; {footerData.brandName} All Rights Reserved
           </p>

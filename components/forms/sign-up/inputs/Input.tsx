@@ -7,6 +7,7 @@ interface InputProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   value?: string;
+  autoFocus?: boolean;
 }
 
 const Input = (props: InputProps) => {
@@ -112,6 +113,7 @@ export const TelInput = (props: InputProps) => {
 };
 
 export const SelectInput = (props: InputProps) => {
+  console.log("props?", props);
   return (
     <div className='flex flex-col items-start w-full'>
       {props.input.showLabel && (
@@ -120,11 +122,13 @@ export const SelectInput = (props: InputProps) => {
         </label>
       )}
       <select
+        autoFocus={true}
+        title={props.input.label ?? ""}
         name={props.input.inputName}
         placeholder={props.input.placeholderText ?? ""}
         value={props.value}
         required={props.input.required ?? false}
-        className=' bg-white w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300'
+        className=' bg-white w-full p-2 pt-3 rounded border-2 border-slate-200 focus:outline-2 outline-blue-500 focus:border-blue-600/70  transition-all placeholder:text-slate-300'
       >
         <option>{props.input.placeholderText ?? ""}</option>
         {props.input.selectOptions.map((option) => (
