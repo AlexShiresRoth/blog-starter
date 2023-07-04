@@ -32,7 +32,7 @@ const Header = async ({ data }: Props) => {
 
   return (
     <header className='w-full flex flex-col items-center py-4 relative'>
-      <div className='flex flex-row  w-11/12 items-center justify-between border-b-2 border-gray-100 mb-4 md:mb-0 md:border-0 md:items-stretch md:mx-0 md:w-3/4 md:flex-col'>
+      <div className='flex flex-row  w-11/12 mx-4  items-center justify-between border-b-2 border-gray-100 mb-4 md:mb-0 md:border-0 md:items-stretch md:mx-0 md:w-3/4 md:flex-col'>
         <div className='flex flex-col md:flex-row md:flex-wrap items-center justify-between py-4 md:border-b-2 md:border-slate-100 '>
           <HeaderLogo header={header} />
           <div className='hidden md:flex items-center gap-4'>
@@ -75,7 +75,7 @@ const ContactLinks = ({ header }: { header: HeaderJSON }) => (
           key={item.sys.id}
           href={item.featuredPage.slug}
           className={classNames(
-            "px-4 py-2  rounded-full text-black font-semibold md:font-medium text-sm md:text-base hover:text-white hover:bg-blue-600 transition-all",
+            "py-2  rounded-full text-black font-semibold md:font-medium text-sm md:text-base md:hover:text-white md:hover:bg-blue-600 transition-all md:px-4 ",
             {
               "md:bg-blue-50 md:text-gray-700": index === 0,
               "md:bg-blue-500 md:text-white": index > 0,
