@@ -1,8 +1,5 @@
 "use server";
 import sgMail from "@sendgrid/mail";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function submitForm(data: FormData) {
   const formData = {
@@ -33,7 +30,7 @@ export async function submitForm(data: FormData) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? "");
 
   const msg = {
-    to: "alex@alexshiresroth.com", // Change to your recipient
+    to: "satactsense@gmail.com", // Change to your recipient
     from: "alexroth96@gmail.com", // Change to your verified sender
     subject: `SATACTSENSE.com: ${formData.category}`,
     text: JSON.stringify(formData.message),

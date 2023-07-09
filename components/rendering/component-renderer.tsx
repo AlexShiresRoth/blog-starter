@@ -9,6 +9,7 @@ import { UnknownComponent } from "@/types/component";
 import BusinessInfoTopic from "../business-info/business-info-topic";
 import ProductTable from "../product/product-table";
 import ContactForm from "../forms/contact/contact-form";
+import FAQ from "../faq/FAQ";
 
 interface Props {
   itemsToRender: Array<UnknownComponent>;
@@ -68,6 +69,10 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         if (component.__typename === "Form") {
           /* @ts-expect-error Async Server Component */
           return <ContactForm key={component.sys.id} {...component} />;
+        }
+        if (component.__typename === "Faq") {
+          /* @ts-expect-error Async Server Component */
+          return <FAQ key={component.sys.id} {...component} />;
         }
         console.log("Component not found", component);
       })}

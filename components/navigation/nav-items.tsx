@@ -19,7 +19,7 @@ const NavItems = ({ navigation }: Props) => {
         }
         return (
           <Link
-            href={item.groupLink.slug}
+            href={item.groupLink.slug ?? null}
             key={item.sys.id}
             className={cls(
               "font-semibold transition-all p-2 hover:bg-blue-500/80 rounded hover:text-white",

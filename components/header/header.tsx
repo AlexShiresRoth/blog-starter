@@ -73,7 +73,7 @@ const ContactLinks = ({ header }: { header: HeaderJSON }) => (
       return (
         <Link
           key={item.sys.id}
-          href={item.featuredPage.slug}
+          href={item.featuredPage.slug ?? null}
           className={classNames(
             "py-2  rounded-full text-black font-semibold md:font-medium text-sm md:text-base md:hover:text-white md:hover:bg-blue-600 transition-all md:px-4 ",
             {

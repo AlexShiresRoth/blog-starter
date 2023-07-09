@@ -11,7 +11,7 @@ type Props = {
 const CtaButton = ({ text, slug, colorOverride = "blue" }: Props) => {
   return (
     <Link
-      href={slug}
+      href={slug ?? null}
       className={cs(
         " rounded-full px-6 py-3  font-semibold text-lg  transition-all",
         {

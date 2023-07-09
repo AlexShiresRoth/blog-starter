@@ -82,7 +82,7 @@ const ProductCardBasic = ({
       {!!product.externalLink && (
         <div>
           <a
-            href={product.externalLink ?? ""}
+            href={product.externalLink ?? null}
             rel='noreferrer noopener'
             target='_blank'
             className='border-[1px] border-gray-400 text-gray-700 rounded px-4 py-2 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all'
@@ -94,7 +94,7 @@ const ProductCardBasic = ({
       {!!product.targetPage && (
         <div>
           <Link
-            href={product.targetPage.slug}
+            href={product.targetPage.slug ?? null}
             className='border-[1px] border-gray-400 text-gray-700 rounded px-4 py-2 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all'
           >
             {product.targetPage.pageName}

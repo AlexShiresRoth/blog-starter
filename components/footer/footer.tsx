@@ -42,21 +42,21 @@ const Footer = async ({ data }: Props) => {
           <div className='flex gap-2'>
             <a
               title='Facebook Link'
-              href={footerData.facebookLink}
+              href={footerData.facebookLink ?? null}
               className='rounded-full p-2 bg-blue-500'
             >
               <Image src='fb.svg' width={20} height={20} alt='facebook-logo' />
             </a>
             <a
               title='Skype Link'
-              href={footerData.skypeLink}
+              href={footerData.skypeLink ?? null}
               className='rounded-full p-2 bg-blue-500'
             >
               <Image src='skype.svg' width={20} height={20} alt='skype-logo' />
             </a>
             <a
               title='Zoom Link'
-              href={footerData.zoomLink}
+              href={footerData.zoomLink ?? null}
               className='rounded-full p-2 bg-blue-500'
             >
               <Image src='zoom.svg' width={20} height={20} alt='skype-logo' />
@@ -75,7 +75,7 @@ const Footer = async ({ data }: Props) => {
                     return (
                       <div key={menuItem.sys.id}>
                         <Link
-                          href={menuItem.groupLink.slug}
+                          href={menuItem.groupLink.slug ?? null}
                           className='text-white/80 text-sm hover:text-blue-500 transition-all'
                         >
                           {menuItem.groupName}

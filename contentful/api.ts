@@ -1,10 +1,4 @@
-import axios from "axios";
-
 const baseURL = `https://graphql.contentful.com/content/v1/spaces/`;
-
-const axiosInstance = axios.create({
-  baseURL,
-});
 
 //currently fetch does not work in prod
 export async function fetchGraphQL(query: string): Promise<any> {

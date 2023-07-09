@@ -40,7 +40,7 @@ export const SubMenu = ({
           {item.featuredPagesCollection?.items.map((page) => {
             return (
               <Link
-                href={page.slug}
+                href={page.slug ?? null}
                 key={page.sys.id}
                 className='hover:bg-blue-300 text-gray-700 hover:text-white transition-all p-2 rounded'
               >
