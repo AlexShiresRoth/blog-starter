@@ -4,9 +4,6 @@ import RichTextRender from "../rendering/rich-text-render";
 import { fetchGraphQL } from "@/contentful/api";
 import { textBlockQuery } from "@/contentful/gql-queries/components/text-block";
 import { UnknownComponent } from "@/types/component";
-type Props = {
-  textBlock: TextBlock;
-};
 
 async function getComponent(id: string): Promise<TextBlock> {
   const res = await fetchGraphQL(textBlockQuery(id));

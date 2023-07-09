@@ -21,12 +21,17 @@ const ContactForm = async (component: UnknownComponent) => {
   const form = await getForm(component.sys.id);
 
   return (
-    <div className='w-full flex flex-col items-center'>
+    <div
+      className='w-full flex flex-col items-center'
+      data-component-type='contact-form'
+    >
       <div className='w-full flex flex-col gap-12 bg-white rounded border-[1px] border-gray-200 p-8'>
         {/* @ts-ignore */}
         <form className='w-full flex flex-col gap-6' action={submitForm}>
           {form.headline && (
-            <h1 className='text-5xl font-bold text-black'>{form.headline}</h1>
+            <h1 className='text-3xl md:text-5xl font-bold text-black'>
+              {form.headline}
+            </h1>
           )}
           {form.subline && <h4 className='text-blue-500 '>{form.subline}</h4>}
           {form.inputsCollection.items.map((input, index) => {

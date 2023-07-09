@@ -6,9 +6,6 @@ import cs from "classnames";
 import { fetchGraphQL } from "@/contentful/api";
 import { infoBlockQuery } from "@/contentful/gql-queries/components/info-block";
 import { UnknownComponent } from "@/types/component";
-type Props = {
-  data: InfoBlock;
-};
 
 async function getComponent(id: string): Promise<InfoBlock> {
   const res = await fetchGraphQL(infoBlockQuery(id));
@@ -22,7 +19,10 @@ const InfoBlock = async (component: UnknownComponent) => {
   const data = await getComponent(component.sys.id);
 
   return (
-    <div className='flex flex-col md:grid md:grid-cols-3 gap-4'>
+    <div
+      data-component-type='info-block'
+      className='flex flex-col md:grid md:grid-cols-3 gap-4'
+    >
       {data.blocksCollection.items.map((block, index) => {
         return (
           <div

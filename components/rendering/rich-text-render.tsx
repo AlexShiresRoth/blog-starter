@@ -16,7 +16,7 @@ const customMarkdownOptions = (content: any) => ({
       <RichTextEntry entryId={node.data.target.sys.id} />
     ),
     [BLOCKS.HEADING_1]: (node: any) => (
-      <h1 className='text-5xl font-bold text-gray-900'>
+      <h1 className='text-3xl md:text-5xl font-bold text-gray-900'>
         {node.content[0].value}
       </h1>
     ),

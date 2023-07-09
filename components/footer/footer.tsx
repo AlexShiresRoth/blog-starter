@@ -18,13 +18,14 @@ async function getFooter(id: string): Promise<Footer> {
   return res.data.footer;
 }
 
-// @TODO need to type out footer
-
 const Footer = async ({ data }: Props) => {
   const footerData = await getFooter(data.sys.id);
 
   return (
-    <footer className='w-full flex flex-col items-center justify-center bg-blue-700'>
+    <footer
+      className='w-full flex flex-col items-center justify-center bg-blue-700'
+      data-component-type='footer'
+    >
       <div className='w-11/12 md:w-3/4 mx-4 md:mx-0  flex flex-col gap-8 md:flex-row justify-between py-14 '>
         <div className='flex flex-col'>
           <h3 className='font-bold text-white text-uppercase'>

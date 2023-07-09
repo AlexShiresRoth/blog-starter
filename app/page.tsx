@@ -6,17 +6,14 @@ import { PageCollectionItem } from "@/types/page.type";
 async function getHome(slug: string): Promise<PageCollectionItem> {
   const res = await fetchGraphQL(pageQuery(slug));
 
-  console.log("res", res);
-
   if (!res.data) throw new Error("Could not locate page data");
 
   return res.data.pageCollection.items[0];
 }
 
+//@TODO fix nav component mobile contact links to just be icons
 export default async function Home() {
   const page = await getHome("home");
-
-  console.log("homeData", page);
 
   return (
     <main className='flex flex-col'>

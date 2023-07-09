@@ -17,9 +17,12 @@ async function getComponent(id: string): Promise<TopicBusinessInfo> {
 const BusinessInfoTopic = async (component: UnknownComponent) => {
   const data = await getComponent(component.sys.id);
   return (
-    <div className='flex flex-col items-center'>
+    <div
+      className='flex flex-col items-center'
+      data-component-type='business-info'
+    >
       {!!data.featuredImage && (
-        <div className='relative w-full h-[300px] bg-black flex justify-center items-center'>
+        <div className='relative w-full min-h-[170px] md:h-[300px] bg-black flex justify-center items-center'>
           <Image
             src={data.featuredImage.url}
             alt={data.featuredImage.title ?? "banner image"}
@@ -28,16 +31,18 @@ const BusinessInfoTopic = async (component: UnknownComponent) => {
           />
 
           <div className='max-w-2xl'>
-            <h1 className='text-7xl font-extrabold z-10 relative text-white'>
+            <h1 className='text-4xl md:text-7xl font-extrabold z-10 relative text-white'>
               {data.name}
             </h1>
           </div>
         </div>
       )}
-      <div className='w-3/4 flex flex-col my-12 items-center'>
+      <div className='w-11/12 md:w-3/4 flex flex-col my-4 md:my-12 items-center'>
         <div className='flex flex-col gap-2 w-full max-w-2xl mt-4'>
           {!!!data.featuredImage && (
-            <h1 className='text-5xl font-bold text-black '>{data.name}</h1>
+            <h1 className='text-2xl md:text-5xl font-bold text-black '>
+              {data.name}
+            </h1>
           )}
           {!!data.body && (
             <RichTextRender

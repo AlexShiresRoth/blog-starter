@@ -15,10 +15,10 @@ const MobileNav = ({ navigation }: { navigation: NavigationJSON }) => {
 
   return (
     <nav className=' flex  md:hidden justify-center '>
-      <div className='w-full flex items-center gap-4  mx-4 py-2  '>
+      <div className='w-full flex items-center gap-2  mx-4 py-2  '>
         <button
           title='menu-button '
-          className='p-2 bg-blue-300/90  rounded'
+          className='p-2 bg-gray-200/80  rounded'
           onClick={() => toggleMenu(!isToggled)}
         >
           <svg

@@ -26,6 +26,7 @@ const SubmitButton = ({ form }: Props) => {
     <button
       disabled={pending}
       onTransitionEnd={() => setIsDone(true)}
+      data-component-type='submit-button'
       className={classNames(
         "flex items-center justify-center gap-2 min-w-[200px] py-2 text-lg  text-white rounded hover:bg-blue-600 transition-all",
         {

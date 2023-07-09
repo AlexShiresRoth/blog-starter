@@ -20,6 +20,7 @@ const AnimatedModal = ({ isVisible, children, toggleVisibility }: Props) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          data-component-type='animated-modal'
           className='w-full fixed h-screen z-40 top-0 left-0 flex justify-center items-center bg-opacity-30 bg-black'
         >
           <motion.div

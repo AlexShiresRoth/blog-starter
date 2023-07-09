@@ -28,7 +28,10 @@ const CtaComponent = async ({ id }: Props) => {
       </div>
     );
   return (
-    <div className='w-full  bg-yellow-300  flex justify-center items-center '>
+    <div
+      className='w-full  bg-yellow-300  flex justify-center items-center '
+      data-component-type='cta-component'
+    >
       <div className='flex items-start   py-14 rounded flex-col w-11/12 mx-4 md:mx-0 md:w-3/4 justify-between gap-4 md:flex-row md:items-center '>
         <div className='flex flex-col justify-center'>
           {!!ctaData.subline && (

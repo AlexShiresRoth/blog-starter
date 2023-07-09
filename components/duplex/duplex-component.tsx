@@ -22,7 +22,7 @@ const DuplexComponent = async (component: UnknownComponent) => {
 
   // console.log("duplex ocmponent data", data);
   return (
-    <ComponentWrapper classNames='py-8 md:py-14'>
+    <ComponentWrapper classNames='py-8 md:py-14' data-component-type='duplex'>
       <ThreeQuarterContainer
         containerClassNames={cs("gap-12 justify-between ", {
           "flex-col md:flex-row ": !data.containerLayout,
