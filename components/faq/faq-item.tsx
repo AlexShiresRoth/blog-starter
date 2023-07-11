@@ -64,11 +64,11 @@ const FaqItem = (item: Faq["faQsCollection"]["items"][number]) => {
             <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 24 24'
-              className='w-4 h-4  stroke-gray-300 fill-gray-300'
+              className='w-5 h-5  stroke-gray-300 fill-gray-300'
             >
               <path d='M5.00014 13.9999L5 5.00003L7 5L7.00011 11.9999L17.1719 12L13.2222 8.05027L14.6364 6.63606L21.0004 13L14.6364 19.364L13.2222 17.9498L17.172 14L5.00014 13.9999Z'></path>
             </svg>
-            <motion.p className='text-gray-500 text-base p-4'>
+            <motion.p className='text-gray-500 text-base p-4 w-11/12 md:w-auto'>
               {item.answer}
             </motion.p>
           </motion.div>

@@ -34,7 +34,10 @@ const HeroBanner = async (props: UnknownComponent) => {
             classNames='text-white/80 w-11/12 md:w-3/4'
           />
           <div>
-            <CtaButton text={hero.ctaText ?? "Learn More"} slug={``} />
+            <CtaButton
+              text={hero.ctaText ?? "Learn More"}
+              slug={hero.targetPage.slug ?? null}
+            />
           </div>
         </div>
         <div className='relative'>

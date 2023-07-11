@@ -51,7 +51,7 @@ const ProductCardBasic = ({
   toggleExpanded,
 }: Props & { toggleExpanded: () => void }) => {
   return (
-    <ProductCardContainer classNames='gap-6 '>
+    <ProductCardContainer classNames='gap-6'>
       {product.isExpandable && (
         <button
           onClick={toggleExpanded}
@@ -112,7 +112,7 @@ const FullProductCard = ({
 }: Props & { isExpanded: boolean; toggleExpanded: () => void }) => {
   return (
     <AnimatedModal isVisible={isExpanded} toggleVisibility={toggleExpanded}>
-      <ProductCardContainer classNames='md:max-w-2xl'>
+      <ProductCardContainer classNames='md:max-w-2xl mx-4 relative z-50 max-h-[400px] overflow-scroll md:nax-h-auto md:overflow-auto'>
         <div className='w-full flex flex-col justify-between gap-8'>
           {!!product.featuredImage && (
             <Image

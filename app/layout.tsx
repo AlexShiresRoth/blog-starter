@@ -44,6 +44,7 @@ export default async function RootLayout({
             <>
               {/* @ts-expect-error Async Server Component */}
               <Header data={app.header} />
+              <div className='flex mt-36 md:mt-0 md:hidden' />
               {children}
 
               {/* @ts-expect-error Async Server Component */}
