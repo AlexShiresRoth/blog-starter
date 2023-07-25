@@ -13,11 +13,11 @@ const ComponentWrapper = ({
   classNames,
 }: Props) => {
   return (
-    <div className="w-full flex justify-center">
+    <div className='w-full flex justify-center'>
       <div
         className={cs(`flex ${classNames}`, {
           "w-full": fullWidth,
-          "w-3/4": !fullWidth,
+          "w-11/12 md:w-3/4": !fullWidth,
         })}
       >
         {children}

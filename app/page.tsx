@@ -1,24 +1,30 @@
-import { getPageBySlug } from "@/contentful/page.api";
 import ComponentRenderer from "@/components/rendering/component-renderer";
-import Nav from "@/components/navigation/nav";
-import { getNavigationByType } from "@/contentful/navigation.api";
-import { getHeader } from "@/contentful/header.api";
-import Header from "@/components/header/header";
+import { pageQuery } from "@/contentful/gql-queries/components/page/page.query";
+import { fetchGraphQL } from "@/contentful/api";
+import { PageCollectionItem } from "@/types/page.type";
 
+async function getHome(slug: string): Promise<PageCollectionItem> {
+  const res = await fetchGraphQL(pageQuery(slug));
+
+  if (!res.data) throw new Error("Could not locate page data");
+
+  return res.data.pageCollection.items[0];
+}
+
+//@TODO fix nav component mobile contact links to just be icons
 export default async function Home() {
-  const { page } = await getPageBySlug({ slug: "home" });
-  const { header } = await getHeader();
-  const { navigation } = await getNavigationByType({ navType: "main" });
+  const page = await getHome("home");
 
   return (
-    <main className="flex flex-col">
-      <Header header={header}>
-        <Nav navigation={navigation} />
-      </Header>
-
-      {page.topSectionCollection.items.length > 0 && (
-        <ComponentRenderer itemsToRender={page?.topSectionCollection?.items} />
-      )}
+    <main className='flex flex-col'>
+      {/* TOP Section */}
+      <div>
+        {page.topSectionCollection.items.length > 0 && (
+          <ComponentRenderer
+            itemsToRender={page?.topSectionCollection?.items}
+          />
+        )}
+      </div>
     </main>
   );
 }

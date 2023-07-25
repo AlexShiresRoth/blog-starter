@@ -12,7 +12,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
-        body: ["Braah One", "ABeeZee"],
       },
     },
   },

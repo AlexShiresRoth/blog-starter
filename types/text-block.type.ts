@@ -7,6 +7,6 @@ export interface TextBlock {
   headline: EntryFields.Symbol;
   subline: EntryFields.Symbol | null;
   body: {
-    json: Document;
+    json: EntryFields.RichText;
   };
 }

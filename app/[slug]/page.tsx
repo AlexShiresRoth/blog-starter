@@ -1,28 +1,50 @@
-import { getPageBySlug } from "@/contentful/page.api";
 import ComponentRenderer from "@/components/rendering/component-renderer";
-import Nav from "@/components/navigation/nav";
-import { getNavigationByType } from "@/contentful/navigation.api";
-import { getHeader } from "@/contentful/header.api";
-import Header from "@/components/header/header";
-import { PageCollection, PageJSON } from "@/types/page.type";
+import { fetchGraphQL } from "@/contentful/api";
+import { pageQuery } from "@/contentful/gql-queries/components/page/page.query";
+import { PageCollectionItem } from "@/types/page.type";
+
+async function getPage(slug: string): Promise<PageCollectionItem> {
+  const res = await fetchGraphQL(pageQuery(slug));
+
+  if (!res.data) throw new Error("Could not locate page data");
+
+  return res.data.pageCollection.items[0];
+}
 
 export default async function Page({
   params: { slug },
 }: {
   params: { slug: string };
 }) {
-  const { page } = await getPageBySlug({ slug });
-  const { header } = await getHeader();
-  const { navigation } = await getNavigationByType({ navType: "main" });
+  const page = await getPage(slug);
 
   return (
-    <main className="flex flex-col">
-      <Header header={header}>
-        <Nav navigation={navigation} />
-      </Header>
+    <main className='flex flex-col'>
+      {!!page.topSectionCollection.items.length && (
+        <>
+          <div>
+            {/* TOP SECTION */}
+            <ComponentRenderer
+              itemsToRender={page?.topSectionCollection?.items}
+            />
+          </div>
+        </>
+      )}
 
-      {page.topSectionCollection.items.length > 0 && (
-        <ComponentRenderer itemsToRender={page?.topSectionCollection?.items} />
+      {!!page.pageContent && (
+        <div className='bg-gray-100'>
+          {/* Page Content */}
+          <ComponentRenderer itemsToRender={[page?.pageContent]} />
+        </div>
+      )}
+
+      {!!page.extraSectionCollection.items.length && (
+        <div className='bg-gray-100'>
+          {/* Extra Section */}
+          <ComponentRenderer
+            itemsToRender={page.extraSectionCollection?.items}
+          />
+        </div>
       )}
     </main>
   );

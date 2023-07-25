@@ -1,10 +1,4 @@
-import {
-  EntrySys,
-  EntryFields,
-  Asset,
-  AssetFields,
-  EntrySkeletonType,
-} from "contentful";
+import { EntrySys, EntryFields } from "contentful";
 import { PageCollectionItem } from "./page.type";
 import type { Document } from "@contentful/rich-text-types";
 
@@ -20,7 +14,15 @@ export interface Duplex {
   containerLayout: EntryFields.Boolean;
   headline: EntryFields.Text;
   bodyText: {
-    json: Document;
+    json: EntryFields.RichText;
+  };
+  firstColumnHeadline: EntryFields.Symbol;
+  firstColumn: {
+    json: EntryFields.RichText;
+  };
+  secondColumnHeadline: EntryFields.Symbol;
+  secondColumn: {
+    json: EntryFields.RichText;
   };
   ctaText: EntryFields.Text;
   image: ImageFields;
