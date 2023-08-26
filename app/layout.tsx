@@ -1,26 +1,17 @@
 import Header from "@/components/header/header";
 import "./globals.css";
 import { Rubik } from "next/font/google";
-import Nav from "@/components/navigation/nav";
-import { getNavigationByType } from "@/contentful/navigation.api";
 import { fetchGraphQL } from "@/contentful/api";
 import { appQuery } from "@/contentful/gql-queries/app/app.query";
 import { AppQueryResponse } from "@/types/app";
 import Footer from "@/components/footer/footer";
-import Head from "next/head";
 import { headerQuery } from "@/contentful/gql-queries/components/header";
-import { HeaderJSON } from "@/types/header.type";
 
 const rubik = Rubik({
   subsets: ["latin"],
   variable: "--font-abeezee",
   weight: ["400", "500", "600", "700"],
 });
-
-export const metadata = {
-  title: "SATACTSENSE",
-  description: "Tutoring for the SAT and ACT",
-};
 
 export async function generateMetadata() {
   const app = await getApp(process.env.DOMAIN as string);
@@ -35,6 +26,7 @@ export async function generateMetadata() {
 
   return {
     title: "SATACTSENSE",
+    description: "Tutoring for the SAT and ACT",
     icons: {
       icon: header.logo.url,
     },
