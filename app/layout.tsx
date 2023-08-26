@@ -7,6 +7,9 @@ import { fetchGraphQL } from "@/contentful/api";
 import { appQuery } from "@/contentful/gql-queries/app/app.query";
 import { AppQueryResponse } from "@/types/app";
 import Footer from "@/components/footer/footer";
+import Head from "next/head";
+import { headerQuery } from "@/contentful/gql-queries/components/header";
+import { HeaderJSON } from "@/types/header.type";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -18,6 +21,25 @@ export const metadata = {
   title: "SATACTSENSE",
   description: "Tutoring for the SAT and ACT",
 };
+
+export async function generateMetadata() {
+  const app = await getApp(process.env.DOMAIN as string);
+
+  if (!app) throw new Error("Could not locate app data");
+
+  const res = await fetchGraphQL(headerQuery(app.header.sys.id));
+
+  if (!res.data) throw new Error("Could not locate header");
+
+  const header = res.data.header;
+
+  return {
+    title: "SATACTSENSE",
+    icons: {
+      icon: header.logo.url,
+    },
+  };
+}
 
 async function getApp(domain: string): Promise<AppQueryResponse> {
   const res = await fetchGraphQL(appQuery(domain));

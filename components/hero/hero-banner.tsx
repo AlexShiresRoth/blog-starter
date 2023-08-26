@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import CtaButton from "../buttons/cta-button";
+import CtaButton, { ExternalCTAButton } from "../buttons/cta-button";
 import RichTextRender from "../rendering/rich-text-render";
 import { ComponentHeroBanner } from "@/types/page.type";
 import { UnknownComponent } from "@/types/component";
@@ -34,10 +34,18 @@ const HeroBanner = async (props: UnknownComponent) => {
             classNames='text-white/80 w-11/12 md:w-3/4'
           />
           <div>
-            <CtaButton
-              text={hero.ctaText ?? "Learn More"}
-              slug={hero.targetPage.slug ?? null}
-            />
+            {hero.externalLink && (
+              <ExternalCTAButton
+                url={hero.externalLink}
+                text={hero.ctaText ?? "Take new digital test"}
+              />
+            )}
+            {!hero.externalLink && (
+              <CtaButton
+                text={hero.ctaText ?? "Learn More"}
+                slug={hero.targetPage.slug ?? null}
+              />
+            )}
           </div>
         </div>
         <div className='relative'>
