@@ -9,14 +9,21 @@ export async function submitForm(data: FormData) {
     category: data.get("Category") ?? "",
     gradeLlevel: data.get("Student grade level") ?? "",
     phone: data.get("phone") ?? "",
+    middle_name: data.get("middle_name") ?? "",
   };
 
+  if (formData.middle_name !== "") {
+    // This is a bot
+    console.warn("Bot detected, not sending email");
+    return;
+  }
+
   if (
-    formData.name === null ||
-    formData.email === null ||
-    formData.category === null ||
-    formData.gradeLlevel === null ||
-    formData.phone === null
+    formData.name === "" ||
+    formData.email === "" ||
+    formData.category === "" ||
+    formData.gradeLlevel === "" ||
+    formData.phone === ""
   ) {
     console.error("Missing form data");
     throw new Error("Missing required fields");
