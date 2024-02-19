@@ -1,9 +1,9 @@
 "use client";
 import { Form } from "@/types/page.type";
 import classNames from "classnames";
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
 // @ts-ignore
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 type Props = {
   form: Form;
@@ -11,7 +11,14 @@ type Props = {
 
 const SubmitButton = ({ form }: Props) => {
   const { pending } = useFormStatus();
+
   const [isDone, setIsDone] = useState<boolean>(false);
+
+  useMemo(() => {
+    if (pending) {
+      setIsDone(true);
+    }
+  }, [pending]);
 
   // this may be a good use case for microcopy
   if (isDone) {
@@ -25,7 +32,6 @@ const SubmitButton = ({ form }: Props) => {
   return (
     <button
       disabled={pending}
-      onTransitionEnd={() => setIsDone(true)}
       data-component-type='submit-button'
       className={classNames(
         "flex items-center justify-center gap-2 min-w-[200px] py-2 text-lg  text-white rounded hover:bg-blue-600 transition-all",

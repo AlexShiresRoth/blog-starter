@@ -1,10 +1,9 @@
+import { submitForm } from "@/app/actions/submit-form";
 import { fetchGraphQL } from "@/contentful/api";
 import { formQuery } from "@/contentful/gql-queries/components/form";
 import { UnknownComponent } from "@/types/component";
 import { Form, FormQueryResponse } from "@/types/form";
-import React from "react";
 import Input from "../sign-up/inputs/Input";
-import { submitForm } from "@/app/actions/submit-form";
 import SubmitButton from "../submit-button";
 
 async function getForm(id: string): Promise<Form> {
@@ -33,12 +32,20 @@ const ContactForm = async (component: UnknownComponent) => {
               {form.headline}
             </h1>
           )}
-          {form.subline && <h4 className='text-blue-500 '>{form.subline}</h4>}
+          {form.subline && <h4 className='text-blue-500'>{form.subline}</h4>}
           {form.inputsCollection.items.map((input, index) => {
             return (
               <Input input={input} key={input.sys.id} autoFocus={index === 0} />
             );
           })}
+          {/* honeyput input */}
+          <input
+            name='middle_name'
+            type='text'
+            title='middle name'
+            className='w-0 h-0 opacity-0'
+            datatype='middle-name-input'
+          />
           <div>
             <SubmitButton form={form} />
           </div>

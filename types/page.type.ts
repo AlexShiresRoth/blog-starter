@@ -34,6 +34,7 @@ export type ComponentHeroBanner = {
   };
   headline: string;
   ctaText: string;
+  externalLink: string;
   image: {
     url: string;
     title: string;

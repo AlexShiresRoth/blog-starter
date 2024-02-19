@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Nav from "../navigation/nav";
+import Head from "next/head";
 
 type Props = {
   data: UnknownComponent;
@@ -31,26 +32,28 @@ const Header = async ({ data }: Props) => {
   }
 
   return (
-    <header
-      className='w-full flex flex-col items-center pb-2 md:py-4 fixed top-0 left-0 z-40 bg-white shadow-sm md:relative'
-      data-component-type='header'
-    >
-      <div className='flex flex-row  w-11/12 mx-4  items-center justify-between border-b-2 border-gray-100 mb-2 md:mb-0 md:border-0 md:items-stretch md:mx-0 md:w-3/4 md:flex-col'>
-        <div className='flex flex-col md:flex-row md:flex-wrap items-center justify-between py-4 md:border-b-2 md:border-slate-100 '>
-          <HeaderLogo header={header} />
-          <div className='hidden md:flex items-center gap-4'>
-            <ContactLinks header={header} />
+    <>
+      <header
+        className='w-full flex flex-col items-center pb-2 md:py-4 fixed top-0 left-0 z-40 bg-white shadow-sm md:relative'
+        data-component-type='header'
+      >
+        <div className='flex flex-row  w-11/12 mx-4  items-center justify-between border-b-2 border-gray-100 mb-2 md:mb-0 md:border-0 md:items-stretch md:mx-0 md:w-3/4 md:flex-col'>
+          <div className='flex flex-col md:flex-row md:flex-wrap items-center justify-between py-4 md:border-b-2 md:border-slate-100 '>
+            <HeaderLogo header={header} />
+            <div className='hidden md:flex items-center gap-4'>
+              <ContactLinks header={header} />
+            </div>
           </div>
-        </div>
-        {/* Navigation */}
+          {/* Navigation */}
 
-        {/* @ts-expect-error Async Server Component */}
-        <Nav />
-      </div>
-      <div className='w-11/12 mx-4 mt-2 flex gap-4 items-center justify-between md:hidden'>
-        <ContactLinks header={header} />
-      </div>
-    </header>
+          {/* @ts-expect-error Async Server Component */}
+          <Nav />
+        </div>
+        <div className='w-11/12 mx-4 mt-2 flex gap-4 items-center justify-between md:hidden'>
+          <ContactLinks header={header} />
+        </div>
+      </header>
+    </>
   );
 };
 

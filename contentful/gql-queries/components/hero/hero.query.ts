@@ -9,6 +9,7 @@ export const heroQuery = (id: string) => `query {
       json
     }
     ctaText
+    externalLink
     targetPage {
       ... on Page {
         slug
