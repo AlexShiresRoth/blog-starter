@@ -1,5 +1,6 @@
 "use server";
 import sgMail from "@sendgrid/mail";
+import validate from "deep-email-validator";
 
 export async function submitForm(data: FormData) {
   const formData = {
@@ -18,6 +19,17 @@ export async function submitForm(data: FormData) {
     return;
   }
 
+  let validateEmail = await validate({
+    email: formData.email as string,
+    validateSMTP: false,
+  });
+
+  console.log("Email validation", validateEmail, "email", formData.email);
+
+  if (!validateEmail.valid) {
+    console.error("Invalid email address " + formData.email);
+    return "Invalid email address " + formData.email;
+  }
   if (
     formData.name === "" ||
     formData.email === "" ||
@@ -38,6 +50,7 @@ export async function submitForm(data: FormData) {
 
   const msg = {
     to: "satactsense@gmail.com", // Change to your recipient
+    cc: { name: "Alex Roth", email: "alexroth96@gmail.com" },
     from: "alexroth96@gmail.com", // Change to your verified sender
     subject: `SATACTSENSE.com: ${formData.category}`,
     text: JSON.stringify(formData.message),
@@ -57,6 +70,6 @@ export async function submitForm(data: FormData) {
       console.log("Email sent", response);
     })
     .catch((error) => {
-      console.error(error);
+      console.error("error sending email", error.response.body.errors);
     });
 }
