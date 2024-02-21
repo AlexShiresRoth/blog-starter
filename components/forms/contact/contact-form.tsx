@@ -38,7 +38,6 @@ const ContactForm = async (component: UnknownComponent) => {
               <Input input={input} key={input.sys.id} autoFocus={index === 0} />
             );
           })}
-          {/* honeyput input */}
           <input
             name='middle_name'
             type='text'
