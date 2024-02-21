@@ -23,6 +23,7 @@ const ClientForm = ({ form }: Props) => {
       e.preventDefault();
       if (!isVerified) {
         console.error("Captcha not verified");
+        setError("Captcha not verified");
         return;
       }
       setIsPending(true);
@@ -49,11 +50,6 @@ const ClientForm = ({ form }: Props) => {
   };
   return (
     <form className='w-full flex flex-col gap-6' onSubmit={handleSubmit}>
-      <ReCAPTCHA
-        sitekey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY as string}
-        onChange={handleCaptchaChange}
-        size='invisible'
-      />
       {form.headline && (
         <h1 className='text-3xl md:text-5xl font-bold text-black'>
           {form.headline}
@@ -67,10 +63,14 @@ const ClientForm = ({ form }: Props) => {
       })}
       <input
         name='middle_name'
-        type='text'
+        type='hidden'
         title='middle name'
         className='w-0 h-0 opacity-0'
         datatype='middle-name-input'
+      />
+      <ReCAPTCHA
+        sitekey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY as string}
+        onChange={handleCaptchaChange}
       />
       <div>
         <SubmitButton
@@ -78,6 +78,7 @@ const ClientForm = ({ form }: Props) => {
           pending={isPending}
           isDone={isDone}
           errorMsg={error}
+          isVerified={isVerified}
         />
       </div>
     </form>

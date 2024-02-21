@@ -7,10 +7,17 @@ type Props = {
   form: Form;
   pending: boolean;
   isDone: boolean;
+  isVerified: boolean;
   errorMsg?: string;
 };
 
-const SubmitButton = ({ form, pending, isDone, errorMsg }: Props) => {
+const SubmitButton = ({
+  form,
+  pending,
+  isDone,
+  errorMsg,
+  isVerified,
+}: Props) => {
   // this may be a good use case for microcopy
   if (isDone) {
     return (
@@ -28,10 +35,10 @@ const SubmitButton = ({ form, pending, isDone, errorMsg }: Props) => {
         </p>
       )}
       <button
-        disabled={pending}
+        disabled={pending || !isVerified}
         data-component-type='submit-button'
         className={classNames(
-          "flex items-center justify-center gap-2 min-w-[200px] py-2 text-lg  text-white rounded hover:bg-blue-600 transition-all",
+          "flex items-center justify-center gap-2 min-w-[200px] py-2 text-lg  text-white rounded hover:bg-blue-600 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed",
           {
             "bg-blue-200 cursor-wait": pending,
             "bg-blue-500": !pending,
