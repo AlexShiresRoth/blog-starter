@@ -9,7 +9,7 @@ export async function fetchGraphQL(query: string): Promise<any> {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
     },
     next: {
-      revalidate: 60,
+      revalidate: 120,
     },
     body: JSON.stringify({ query }),
   }).then((response) => response.json());
