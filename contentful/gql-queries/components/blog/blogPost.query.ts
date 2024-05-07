@@ -1,7 +1,8 @@
-export const blogPostCollectionQuery = (imageWidth: number = 1000, imageHeight: number = 1000) => `query {
+export const blogPostCollectionQuery = (imageWidth: number = 1000, imageHeight: number = 1000, limit: number = 10, skip: number = 0) => `query {
     blogPostCollection(
       where: { slug_exists: true }
-      limit: 50
+      limit: ${limit}
+      skip: ${skip}
       order: sys_publishedAt_DESC
     ) {
       items {

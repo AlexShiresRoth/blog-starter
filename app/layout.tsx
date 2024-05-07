@@ -57,7 +57,6 @@ export default async function RootLayout({ children }: Props) {
         <body>
           {!!app && (
             <>
-              <div className="flex mt-36 md:mt-0 md:hidden" />
               {children}
 
               {/* <Footer data={app.footer} /> */}

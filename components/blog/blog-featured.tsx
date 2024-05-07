@@ -24,7 +24,7 @@ export type BlogPostData = z.infer<typeof BlogPostObject>;
 
 async function getFeaturedBlogPosts(): Promise<BlogPostData[] | null> {
   try {
-    const res = await fetchGraphQL(blogPostCollectionQuery());
+    const res = await fetchGraphQL(blogPostCollectionQuery(1000, 1000, 4, 0));
 
     if (!res.data) throw new Error('Could not locate blog posts');
     return res.data.blogPostCollection.items;
@@ -40,14 +40,14 @@ export default async function BlogFeatured() {
   if (!blogPosts || blogPosts?.length === 0) return null;
 
   return (
-    <section className="w-full flex justify-center items-center py-10">
-      <div className="md:w-3/4 flex gap-8">
-        <div className="w-2/3 flex flex-col gap-4">
-          <h1 className="text-6xl font-bold ml-8">Featured</h1>
+    <section className="w-full flex justify-center items-center py-4 mt-20 md:mt-0 lg:py-10 px-6 lg:px-0">
+      <div className="w-full flex gap-8 flex-col md:w-11/12 lg:w-3/4 lg:flex-row">
+        <div className="w-full lg:w-2/3 flex flex-col gap-4">
+          <h1 className="text-4xl md:text-6xl font-bold ml-8">Featured</h1>
           <FeaturedPost key={blogPosts[0].sys.id} post={blogPosts[0]} />
         </div>
 
-        <div className="flex flex-col gap-8 justify-between w-1/3">
+        <div className="flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-8 justify-between w-full lg:w-1/3">
           {blogPosts.slice(1).map((post) => (
             <Post key={post.sys.id} post={post} />
           ))}
@@ -59,7 +59,7 @@ export default async function BlogFeatured() {
 
 const Post = ({ post }: { post: BlogPostData }) => {
   return (
-    <div className="flex flex-col items-start gap-8 justify-between p-4 relative w-full bg-black rounded-xl hover:shadow-lg transition-shadow h-full">
+    <div className="flex flex-col items-start gap-8 justify-between p-4 relative w-full bg-black rounded-xl hover:shadow-lg transition-shadow h-full min-h-56 lg:min-h-0">
       <div className="flex z-10 justify-between gap-8 items-center">
         {post.sys.publishedAt && (
           <div className="bg-white py-2 px-4 rounded-full">
@@ -107,7 +107,7 @@ const Post = ({ post }: { post: BlogPostData }) => {
 
 const FeaturedPost = ({ post }: { post: BlogPostData }) => {
   return (
-    <div className="flex flex-col items-start justify-between p-4 relative w-full h-[600px] bg-black rounded-xl hover:shadow-lg transition-shadow">
+    <div className="flex flex-col items-start justify-between p-4 relative w-full min-h-[350px] md:min-h-[400px] lg:min-h-[600px] bg-black rounded-xl hover:shadow-lg transition-shadow">
       <div className="flex z-10 justify-between gap-8 items-center">
         {post.sys.publishedAt && (
           <div className="bg-white py-2 px-4 rounded-full">
@@ -117,14 +117,14 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
           </div>
         )}
         {!!post.tags.length &&
-          post.tags.map((tag) => (
+          post.tags.slice(0, 4).map((tag) => (
             <div className="px-4 py-2 bg-white/90 rounded-full">
               <p className="text-xs text-indigo-400">{tag}</p>
             </div>
           ))}
       </div>
       <div className="w-full flex flex-col z-10 justify-end">
-        <div className="w-3/4 p-4 flex flex-col bg-white rounded-xl rounded-tl-none relative">
+        <div className="w-full md:w-3/4 p-4 flex flex-col bg-white rounded-xl rounded-tl-none relative">
           {post.category && (
             <div className="px-8 py-2 bg-white rounded-tl-lg rounded-tr-full absolute bottom-[100%] left-0">
               <p className="text-xs text-black font-semibold">
@@ -134,7 +134,7 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
           )}
           {post.title && (
             <Link href={`/blog/${post.slug}`}>
-              <h2 className="text-5xl font-bold text-black hover:underline transition-all">
+              <h2 className="text-3xl lg:text-5xl font-bold text-black hover:underline transition-all">
                 {post.title}
               </h2>
             </Link>

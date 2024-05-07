@@ -53,10 +53,10 @@ const Header = async ({ data, slug }: Props) => {
   return (
     <>
       <header
-        className="w-full flex flex-col items-center pb-2 md:py-4 fixed top-0 left-0 z-40  md:relative"
+        className="w-full flex flex-col items-center  md:py-4 fixed top-0 left-0 z-40 md:relative bg-white shadow-md lg:shadow-none"
         data-component-type="header"
       >
-        <div className="flex flex-row w-3/4 gap-8 items-center">
+        <div className="flex flex-row w-full px-8 lg:px-0 md:w-11/12 lg:w-3/4 gap-8 items-center">
           <div className="flex flex-col md:flex-row md:flex-wrap items-center py-4">
             <HeaderLogo logo={header?.logo} title={header.title} />
           </div>

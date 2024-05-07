@@ -61,11 +61,11 @@ const Nav = async ({
 }: NavProps) => {
   return (
     <>
-      <nav className="hidden md:flex justify-center">
+      <nav className="flex justify-center">
         <div className="w-full flex items-center  mt-4 py-2">
           <div className="w-full flex items-center gap-4 justify-between text-black">
             {navItemsCollection.items.map((item) => (
-              <div>
+              <div key={item.sys.id}>
                 {item.menuItemsCollection.items.map((menuItem) => (
                   <Link
                     href={menuItem.groupLink.slug ?? null}
