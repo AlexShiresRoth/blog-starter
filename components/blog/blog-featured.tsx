@@ -20,18 +20,26 @@ export const BlogPostObject = z.object({
   tags: z.array(z.string()),
 });
 
+export const BlogCollectionResponseObject = z.object({
+  data: z.object({
+    blogPostCollection: z.object({
+      items: z.array(BlogPostObject),
+    }),
+  }),
+});
+
 export type BlogPostData = z.infer<typeof BlogPostObject>;
 
-async function getFeaturedBlogPosts(): Promise<BlogPostData[] | null> {
-  try {
-    const res = await fetchGraphQL(blogPostCollectionQuery(1000, 1000, 4, 0));
+export type BlogCollectionResponse = z.infer<
+  typeof BlogCollectionResponseObject
+>;
 
-    if (!res.data) throw new Error('Could not locate blog posts');
-    return res.data.blogPostCollection.items;
-  } catch (error) {
-    console.error('Error fetching blog posts', error);
-    return null;
-  }
+async function getFeaturedBlogPosts() {
+  const res = await fetchGraphQL<BlogCollectionResponse>(
+    blogPostCollectionQuery(1000, 1000, 4, 0)
+  );
+
+  return res.data.blogPostCollection.items;
 }
 
 export default async function BlogFeatured() {
@@ -44,7 +52,7 @@ export default async function BlogFeatured() {
       <div className="w-full flex gap-8 flex-col md:w-11/12 lg:w-3/4 lg:flex-row">
         <div className="w-full lg:w-2/3 flex flex-col gap-4">
           <h1 className="text-4xl md:text-6xl font-bold ml-8">Featured</h1>
-          <FeaturedPost key={blogPosts[0].sys.id} post={blogPosts[0]} />
+          <FeaturedPost post={blogPosts[0]} />
         </div>
 
         <div className="flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-8 justify-between w-full lg:w-1/3">
@@ -69,8 +77,8 @@ const Post = ({ post }: { post: BlogPostData }) => {
           </div>
         )}
         {!!post.tags.length &&
-          post.tags.map((tag) => (
-            <div className="px-4 py-2 bg-white/90 rounded-full">
+          post.tags.map((tag, index) => (
+            <div key={index} className="px-4 py-2 bg-white/90 rounded-full">
               <p className="text-xs text-indigo-400">{tag}</p>
             </div>
           ))}
@@ -107,7 +115,10 @@ const Post = ({ post }: { post: BlogPostData }) => {
 
 const FeaturedPost = ({ post }: { post: BlogPostData }) => {
   return (
-    <div className="flex flex-col items-start justify-between p-4 relative w-full min-h-[350px] md:min-h-[400px] lg:min-h-[600px] bg-black rounded-xl hover:shadow-lg transition-shadow">
+    <div
+      key={post.sys.id}
+      className="flex flex-col items-start justify-between p-4 relative w-full min-h-[350px] md:min-h-[400px] lg:min-h-[600px] bg-black rounded-xl hover:shadow-lg transition-shadow"
+    >
       <div className="flex z-10 justify-between gap-8 items-center">
         {post.sys.publishedAt && (
           <div className="bg-white py-2 px-4 rounded-full">
@@ -117,8 +128,8 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
           </div>
         )}
         {!!post.tags.length &&
-          post.tags.slice(0, 4).map((tag) => (
-            <div className="px-4 py-2 bg-white/90 rounded-full">
+          post.tags.slice(0, 4).map((tag, index) => (
+            <div key={index} className="px-4 py-2 bg-white/90 rounded-full">
               <p className="text-xs text-indigo-400">{tag}</p>
             </div>
           ))}

@@ -1,19 +1,15 @@
 import { blogPostCollectionQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
-import { BlogPostData } from './blog-featured';
+import { BlogCollectionResponse, BlogPostData } from './blog-featured';
 import { fetchGraphQL } from '@/contentful/api';
 import Image from 'next/image';
 import Link from 'next/link';
 
-async function getBlogPosts(): Promise<BlogPostData[] | null> {
-  try {
-    const res = await fetchGraphQL(blogPostCollectionQuery(600, 600, 12, 4));
+async function getBlogPosts() {
+  const res = await fetchGraphQL<BlogCollectionResponse>(
+    blogPostCollectionQuery(600, 600, 12, 4)
+  );
 
-    if (!res.data) throw new Error('Could not locate blog posts');
-    return res.data.blogPostCollection.items;
-  } catch (error) {
-    console.error('Error fetching blog posts', error);
-    return null;
-  }
+  return res.data.blogPostCollection.items;
 }
 
 export default async function MorePosts() {
@@ -52,8 +48,8 @@ export default async function MorePosts() {
                   </p>
                 </div>
                 {!!post.tags?.length &&
-                  post.tags.map((tag) => (
-                    <div>
+                  post.tags.map((tag, index) => (
+                    <div key={index}>
                       <p className="px-2 py-1 rounded-full bg-gray-100 text-indigo-400 text-sm">
                         {tag}
                       </p>

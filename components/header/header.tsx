@@ -1,7 +1,6 @@
 import { fetchGraphQL } from '@/contentful/api';
 import { headerQuery } from '@/contentful/gql-queries/components/header/header.query';
 import { UnknownComponent } from '@/types/component';
-import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -11,12 +10,12 @@ import { z } from 'zod';
 type Props = {
   data: UnknownComponent;
   slug?: string;
-  children: React.ReactNode;
 };
 
 export const HeaderObject = z.object({
   sys: z.object({
     id: z.string(),
+    __typename: z.string(),
   }),
   logo: z.object({
     url: z.string(),
@@ -26,11 +25,17 @@ export const HeaderObject = z.object({
   ...NavObject.shape,
 });
 
-export type HeaderData = z.infer<typeof HeaderObject>;
+export const HeaderResponseData = z.object({
+  data: z.object({
+    header: HeaderObject,
+  }),
+});
 
-async function getHeaderData(id: string): Promise<HeaderData | null> {
+export type HeaderData = z.infer<typeof HeaderResponseData>;
+
+async function getHeaderData(id: string) {
   try {
-    const res = await fetchGraphQL(headerQuery(id));
+    const res = await fetchGraphQL<HeaderData>(headerQuery(id));
 
     if (!res.data) throw new Error('Could not locate header');
 
@@ -58,7 +63,7 @@ const Header = async ({ data, slug }: Props) => {
       >
         <div className="flex flex-row w-full px-8 lg:px-0 md:w-11/12 lg:w-3/4 gap-8 items-center">
           <div className="flex flex-col md:flex-row md:flex-wrap items-center py-4">
-            <HeaderLogo logo={header?.logo} title={header.title} />
+            <HeaderLogo logo={header.logo} title={header.title} />
           </div>
           <Nav
             actionItemsCollection={header.actionItemsCollection}
@@ -72,7 +77,7 @@ const Header = async ({ data, slug }: Props) => {
   );
 };
 
-const HeaderLogoObject = HeaderObject.pick({ logo: true, title: true });
+export const HeaderLogoObject = HeaderObject.pick({ logo: true, title: true });
 
 type HeaderLogoProps = z.infer<typeof HeaderLogoObject>;
 

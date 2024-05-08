@@ -1,5 +1,6 @@
-import { EntryFields, EntrySys } from "contentful";
-import { UnknownComponent } from "./component";
+import { EntryFields, EntrySys } from 'contentful';
+import { UnknownComponent } from './component';
+import { z } from 'zod';
 
 export type InputItem = {
   sys: {
@@ -27,33 +28,31 @@ export type Form = {
   submitButtonText: string;
 };
 
-export type ComponentHeroBanner = {
-  __typename: "ComponentHeroBanner";
-  sys: {
-    id: string;
-  };
-  headline: string;
-  ctaText: string;
-  externalLink: string;
-  image: {
-    url: string;
-    title: string;
-    description: string;
-  };
-  targetPage: {
-    sys: {
-      id: string;
-    };
-    __typename: "Page";
-    slug: string;
-  };
-  bodyText: {
-    json: EntryFields.RichText;
-  };
-};
+export const ComponentHeroBanner = z.object({
+  __typename: z.literal('ComponentHeroBanner'),
+  sys: z.object({ id: z.string() }),
+  headline: z.string(),
+  ctaText: z.string(),
+  externalLink: z.string(),
+  image: z.object({
+    url: z.string(),
+    title: z.string(),
+    description: z.string(),
+  }),
+  targetPage: z.object({
+    sys: z.object({ id: z.string() }),
+    __typename: z.literal('Page'),
+    slug: z.string(),
+  }),
+  bodyText: z.object({
+    json: z.object({}),
+  }),
+});
+
+export type ComponentHeroBannerType = z.infer<typeof ComponentHeroBanner>;
 
 export type SignUpBox = {
-  __typename: "SignUpBox";
+  __typename: 'SignUpBox';
   sys: {
     id: string;
   };
@@ -70,6 +69,36 @@ export type TopSectionCollection = {
 export type ExtraSectionCollection = {
   items: UnknownComponent[];
 };
+
+export const PossibleComponent = z.object({
+  sys: z.object({ id: z.string() }),
+  __typename: z.string(),
+});
+
+export const PageCollectionResponse = z.object({
+  data: z.object({
+    pageCollection: z.object({
+      items: z.array(
+        z.object({
+          topSectionCollection: z.object({
+            items: z.array(PossibleComponent),
+          }),
+          pageContent: z.object({
+            __typename: z.string(),
+            sys: z.object({ id: z.string() }),
+          }),
+          extraSectionCollection: z.object({
+            items: z.array(PossibleComponent),
+          }),
+        })
+      ),
+    }),
+  }),
+});
+
+export type PageCollectionResponseType = z.infer<typeof PageCollectionResponse>;
+
+export type PossibleComponentType = z.infer<typeof PossibleComponent>;
 
 export type PageCollectionItem = {
   topSectionCollection: TopSectionCollection;
