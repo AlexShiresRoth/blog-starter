@@ -42,7 +42,7 @@ async function getHome(slug: string) {
 export default async function Home() {
   const page = await getHome('home');
   const app = await getApp(process.env.DOMAIN as string);
-  console.log('page', page.topSectionCollection);
+
   return (
     <main className="flex flex-col">
       <Header data={app.header} />

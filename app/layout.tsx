@@ -1,8 +1,8 @@
 import './globals.css';
 import { Rubik } from 'next/font/google';
 import { fetchGraphQL } from '@/contentful/api';
-import { appQuery } from '@/contentful/gql-queries/app/app.query';
 import { z } from 'zod';
+import { appQuery } from '@/contentful/gql-queries';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -33,7 +33,7 @@ export type AppQueryResponse = z.infer<typeof GetAppResponse>;
 // @todo make this pull data from contentful
 export async function generateMetadata() {
   return {
-    title: 'Blog Starter',
+    title: `Blog Starter`,
     description:
       'Starting Template For a Blog Site, using contentful and NextJS 14',
   };
@@ -41,8 +41,6 @@ export async function generateMetadata() {
 
 export async function getApp(domain: string) {
   const res = await fetchGraphQL<AppQueryResponse>(appQuery(domain));
-
-  if (!res.data) throw new Error('Failed to fetch app data');
 
   const app = res.data.appCollection.items[0];
 
@@ -53,8 +51,12 @@ type Props = {
   children: React.ReactNode;
 };
 
+// @note I don't think we can use zod
+
 export default async function RootLayout({ children }: Props) {
   const app = await getApp(process.env.DOMAIN as string);
+
+  if (!app) return null;
 
   return (
     <>
