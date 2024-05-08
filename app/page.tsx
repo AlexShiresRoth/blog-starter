@@ -5,6 +5,7 @@ import { PageCollectionItem } from '@/types/page.type';
 import { getApp } from './layout';
 import Header from '@/components/header/header';
 import BlogFeatured from '@/components/blog/blog-featured';
+import MorePosts from '@/components/blog/more-posts';
 
 async function getHome(slug: string): Promise<PageCollectionItem> {
   const res = await fetchGraphQL(pageQuery(slug));
@@ -22,6 +23,7 @@ export default async function Home() {
       <Header data={app.header} />
 
       <BlogFeatured />
+      <MorePosts />
       {/* TOP Section */}
       <div>
         {page.topSectionCollection.items.length > 0 && (
