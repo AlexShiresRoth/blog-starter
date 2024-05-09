@@ -1,18 +1,25 @@
 import ComponentRenderer from '@/components/rendering/component-renderer';
 import { fetchGraphQL } from '@/contentful/api';
 import { pageQuery } from '@/contentful/gql-queries/components/page/page.query';
-import { PageCollectionResponseType } from '@/types/page.type';
+import { PageCollectionResponseData } from '@/types/page.type';
 
 async function getPage(slug: string) {
-  const res = await fetchGraphQL<PageCollectionResponseType>(pageQuery(slug));
+  try {
+    const res = await fetchGraphQL<PageCollectionResponseData>(pageQuery(slug));
 
-  if (!res.data) throw new Error('Could not locate page data');
+    if (!res.data) throw new Error('Could not locate page data');
 
-  return res.data.pageCollection.items[0];
+    return res.data.pageCollection.items[0];
+  } catch (error) {
+    console.error('Error fetching page data:', error);
+    return null;
+  }
 }
 
 export default async function Page() {
   const page = await getPage('blog');
+
+  if (!page) return null;
 
   return (
     <main className="flex flex-col">

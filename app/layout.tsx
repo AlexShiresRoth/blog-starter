@@ -1,8 +1,10 @@
+import { fetchGraphQL } from '@/contentful/api';
 import './globals.css';
 import { Rubik } from 'next/font/google';
-import { fetchGraphQL } from '@/contentful/api';
-import { z } from 'zod';
 import { appQuery } from '@/contentful/gql-queries';
+import Header from '@/components/header/header';
+import Footer from '@/components/footer/footer';
+import { Suspense } from 'react';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -10,27 +12,46 @@ const rubik = Rubik({
   weight: ['400', '500', '600', '700'],
 });
 
-export const GetAppResponse = z.object({
-  data: z.object({
-    appCollection: z.object({
-      items: z.array(
-        z.object({
-          sys: z.object({ id: z.string() }),
-          header: z.object({
-            sys: z.object({ id: z.string() }),
-            __typename: z.string(),
-          }),
-          footer: z.object({ sys: z.object({ id: z.string() }) }),
-          homePage: z.object({ sys: z.object({ id: z.string() }) }),
-        })
-      ),
-    }),
-  }),
-});
+export interface AppQueryResponse {
+  data: {
+    appCollection: {
+      items: {
+        sys: {
+          id: string;
+        };
+        header: {
+          sys: {
+            id: string;
+          };
+          __typename: string;
+        };
+        footer: {
+          sys: {
+            id: string;
+          };
+        };
+        homePage: {
+          sys: {
+            id: string;
+          };
+        };
+      }[];
+    };
+  };
+}
 
-export type AppQueryResponse = z.infer<typeof GetAppResponse>;
+async function getAppData(domain: string) {
+  try {
+    const res = await fetchGraphQL<AppQueryResponse>(appQuery(domain));
 
-// @todo make this pull data from contentful
+    const app = res.data.appCollection.items[0];
+
+    return app;
+  } catch (error) {
+    console.error('Error fetching app data:', error);
+    return null;
+  }
+}
 export async function generateMetadata() {
   return {
     title: `Blog Starter`,
@@ -39,36 +60,25 @@ export async function generateMetadata() {
   };
 }
 
-export async function getApp(domain: string) {
-  const res = await fetchGraphQL<AppQueryResponse>(appQuery(domain));
-
-  const app = res.data.appCollection.items[0];
-
-  return app;
-}
-
 type Props = {
   children: React.ReactNode;
 };
 
-// @note I don't think we can use zod
-
 export default async function RootLayout({ children }: Props) {
-  const app = await getApp(process.env.DOMAIN as string);
-
+  const app = await getAppData(process.env.DOMAIN as string);
   if (!app) return null;
-
   return (
     <>
       <html lang="en" className={`${rubik.className}`}>
         <body>
-          {!!app && (
-            <>
-              {children}
+          <>
+            <Suspense>
+              <Header data={app.header} />
+            </Suspense>
+            {children}
 
-              {/* <Footer data={app.footer} /> */}
-            </>
-          )}
+            {/* <Footer data={app.footer} /> */}
+          </>
         </body>
       </html>
     </>

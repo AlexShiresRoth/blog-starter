@@ -1,46 +1,26 @@
 import Image from 'next/image';
 import React from 'react';
 import CtaButton, { ExternalCTAButton } from '../buttons/cta-button';
-// import RichTextRender from '../rendering/rich-text-render';
-// import { ComponentHeroBanner } from '@/types/page.type';
-import { UnknownComponent } from '@/types/component';
+import { HeroBannerResponseData, UnknownComponent } from '@/types/component';
 import { fetchGraphQL } from '@/contentful/api';
 import { heroQuery } from '@/contentful/gql-queries/components/hero/hero.query';
-import { z } from 'zod';
-
-const HeroBannerObject = z.object({
-  sys: z.object({
-    id: z.string(),
-  }),
-  headline: z.string(),
-  bodyText: z.object({ json: z.any() }),
-  ctaText: z.string(),
-  externalLink: z.string(),
-  targetPage: z.object({
-    slug: z.string(),
-  }),
-  image: z.object({
-    url: z.string(),
-    title: z.string(),
-  }),
-});
-
-const HeroBannerResponseData = z.object({
-  data: z.object({
-    componentHeroBanner: HeroBannerObject,
-  }),
-});
-
-export type HeroBannerResponseType = z.infer<typeof HeroBannerResponseData>;
+import RichTextRender from '../rendering/rich-text-render';
 
 async function getComponent(id: string) {
-  const res = await fetchGraphQL<HeroBannerResponseType>(heroQuery(id));
+  try {
+    const res = await fetchGraphQL<HeroBannerResponseData>(heroQuery(id));
 
-  return res.data.componentHeroBanner;
+    return res.data.componentHeroBanner;
+  } catch (error) {
+    console.error('Error fetching hero data:', error);
+    return null;
+  }
 }
 
 const HeroBanner = async (props: UnknownComponent) => {
   const hero = await getComponent(props.sys.id);
+
+  if (!hero) return null;
 
   return (
     <div
@@ -53,12 +33,12 @@ const HeroBanner = async (props: UnknownComponent) => {
           <h1 className="text-2xl md:text-4xl lg:text-6xl  font-extrabold leading-relaxed  text-white  flex flex-col ">
             {hero.headline}
           </h1>
-          {/* {!!hero?.bodyText && (
+          {!!hero?.bodyText && (
             <RichTextRender
               content={hero.bodyText}
               classNames="text-white/80 w-11/12 md:w-3/4"
             />
-          )} */}
+          )}
           <div>
             {hero.externalLink && (
               <ExternalCTAButton

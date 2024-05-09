@@ -1,58 +1,10 @@
 import React from 'react';
-import NavItems from './nav-items';
-import { z } from 'zod';
+// import NavItems from './nav-items';
 import Link from 'next/link';
 import classNames from 'classnames';
+import { NavigationData } from '@/types/nav';
 
-export const NavObject = z.object({
-  actionItemsCollection: z.object({
-    items: z.array(
-      z.object({
-        sys: z.object({
-          id: z.string(),
-        }),
-        displayText: z.string(),
-        featuredPage: z.object({
-          pageName: z.string(),
-          slug: z.string(),
-        }),
-      })
-    ),
-  }),
-  navItemsCollection: z.object({
-    items: z.array(
-      z.object({
-        sys: z.object({
-          id: z.string(),
-        }),
-        menuTitle: z.string(),
-        menuItemsCollection: z.object({
-          items: z.array(
-            z.object({
-              sys: z.object({ id: z.string() }),
-              groupName: z.string(),
-              groupLink: z.object({
-                __typename: z.string(),
-                pageName: z.string(),
-                slug: z.string(),
-              }),
-              featuredPagesCollection: z.object({
-                items: z.array(
-                  z.object({
-                    slug: z.string(),
-                    pageName: z.string(),
-                  })
-                ),
-              }),
-            })
-          ),
-        }),
-      })
-    ),
-  }),
-});
-
-export type NavProps = z.infer<typeof NavObject> & { slug?: string };
+type NavProps = NavigationData & { slug?: string };
 
 const Nav = async ({
   actionItemsCollection,

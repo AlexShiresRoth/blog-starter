@@ -1,6 +1,5 @@
 import { EntryFields, EntrySys } from 'contentful';
 import { UnknownComponent } from './component';
-import { z } from 'zod';
 
 export type InputItem = {
   sys: {
@@ -28,29 +27,6 @@ export type Form = {
   submitButtonText: string;
 };
 
-export const ComponentHeroBanner = z.object({
-  __typename: z.literal('ComponentHeroBanner'),
-  sys: z.object({ id: z.string() }),
-  headline: z.string(),
-  ctaText: z.string(),
-  externalLink: z.string(),
-  image: z.object({
-    url: z.string(),
-    title: z.string(),
-    description: z.string(),
-  }),
-  targetPage: z.object({
-    sys: z.object({ id: z.string() }),
-    __typename: z.literal('Page'),
-    slug: z.string(),
-  }),
-  bodyText: z.object({
-    json: z.object({}),
-  }),
-});
-
-export type ComponentHeroBannerType = z.infer<typeof ComponentHeroBanner>;
-
 export type SignUpBox = {
   __typename: 'SignUpBox';
   sys: {
@@ -70,35 +46,33 @@ export type ExtraSectionCollection = {
   items: UnknownComponent[];
 };
 
-export const PossibleComponent = z.object({
-  sys: z.object({ id: z.string() }),
-  __typename: z.string(),
-});
+export interface PossibleComponentType {
+  __typename: string;
+  sys: {
+    id: string;
+  };
+}
 
-export const PageCollectionResponse = z.object({
-  data: z.object({
-    pageCollection: z.object({
-      items: z.array(
-        z.object({
-          topSectionCollection: z.object({
-            items: z.array(PossibleComponent),
-          }),
-          pageContent: z.object({
-            __typename: z.string(),
-            sys: z.object({ id: z.string() }),
-          }),
-          extraSectionCollection: z.object({
-            items: z.array(PossibleComponent),
-          }),
-        })
-      ),
-    }),
-  }),
-});
-
-export type PageCollectionResponseType = z.infer<typeof PageCollectionResponse>;
-
-export type PossibleComponentType = z.infer<typeof PossibleComponent>;
+export interface PageCollectionResponseData {
+  data: {
+    pageCollection: {
+      items: {
+        topSectionCollection: {
+          items: PossibleComponentType[];
+        };
+        pageContent: {
+          __typename: string;
+          sys: {
+            id: string;
+          };
+        };
+        extraSectionCollection: {
+          items: PossibleComponentType[];
+        };
+      }[];
+    };
+  };
+}
 
 export type PageCollectionItem = {
   topSectionCollection: TopSectionCollection;

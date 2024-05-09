@@ -1,27 +1,41 @@
-import { fetchGraphQL } from "@/contentful/api";
-import React from "react";
-import ComponentRenderer from "./component-renderer";
-import { EntrySys } from "contentful";
+import { fetchGraphQL } from '@/contentful/api';
+import React from 'react';
+import ComponentRenderer from './component-renderer';
+import { EntrySys } from 'contentful';
 
 type Props = {
   entryId: string;
 };
 
-async function getEntry(
-  entryId: string
-): Promise<{ __typename: string; sys: EntrySys }> {
-  const res = await fetchGraphQL(`query {
-    entryCollection(where:{sys :{id: "${entryId}"}}) {
-        items {
-        __typename
-            sys {
-                id
-            }
-        }
-    }
-    }`);
-  const entry = res.data.entryCollection.items[0];
-  return entry;
+interface EntryResponseData {
+  data: {
+    entryCollection: {
+      items: {
+        __typename: string;
+        sys: EntrySys;
+      }[];
+    };
+  };
+}
+
+async function getEntry(entryId: string) {
+  try {
+    const res = await fetchGraphQL<EntryResponseData>(`query {
+      entryCollection(where:{sys :{id: "${entryId}"}}) {
+          items {
+          __typename
+              sys {
+                  id
+              }
+          }
+      }
+      }`);
+    const entry = res.data.entryCollection.items[0];
+    return entry;
+  } catch (error) {
+    console.error('Error fetching entry data:', error);
+    return null;
+  }
 }
 
 const RichTextEntry = async ({ entryId }: Props) => {

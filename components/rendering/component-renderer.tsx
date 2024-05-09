@@ -9,16 +9,13 @@ import BusinessInfoTopic from '../business-info/business-info-topic';
 import ProductTable from '../product/product-table';
 import ContactForm from '../forms/contact/contact-form';
 import FAQ from '../faq/FAQ';
-import { z } from 'zod';
-import { PossibleComponent } from '@/types/page.type';
+import { PossibleComponentType } from '@/types/page.type';
 
-const ComponentRendererProps = z.object({
-  itemsToRender: z.array(PossibleComponent),
-});
+type Props = {
+  itemsToRender: PossibleComponentType[];
+};
 
-type ComponentRendererPropsType = z.infer<typeof ComponentRendererProps>;
-
-const ComponentRenderer = ({ itemsToRender }: ComponentRendererPropsType) => {
+const ComponentRenderer = ({ itemsToRender }: Props) => {
   if (!itemsToRender) return null;
   return (
     <>

@@ -1,45 +1,21 @@
 import { fetchGraphQL } from '@/contentful/api';
 import { blogPostCollectionQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
+import { BlogCollectionResponseData, BlogPostData } from '@/types/blog';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
-import { z } from 'zod';
-
-export const BlogPostObject = z.object({
-  sys: z.object({
-    id: z.string(),
-    publishedAt: z.string(),
-    firstPublishedAt: z.string(),
-  }),
-  title: z.string(),
-  slug: z.string(),
-  postImage: z.object({ url: z.string(), title: z.string() }),
-  postContent: z.object({ json: z.object({}) }),
-  briefDescription: z.string().optional(),
-  category: z.string(),
-  tags: z.array(z.string()),
-});
-
-export const BlogCollectionResponseObject = z.object({
-  data: z.object({
-    blogPostCollection: z.object({
-      items: z.array(BlogPostObject),
-    }),
-  }),
-});
-
-export type BlogPostData = z.infer<typeof BlogPostObject>;
-
-export type BlogCollectionResponse = z.infer<
-  typeof BlogCollectionResponseObject
->;
 
 async function getFeaturedBlogPosts() {
-  const res = await fetchGraphQL<BlogCollectionResponse>(
-    blogPostCollectionQuery(1000, 1000, 4, 0)
-  );
+  try {
+    const res = await fetchGraphQL<BlogCollectionResponseData>(
+      blogPostCollectionQuery(1000, 1000, 4, 0)
+    );
 
-  return res.data.blogPostCollection.items;
+    return res.data.blogPostCollection.items;
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return null;
+  }
 }
 
 export default async function BlogFeatured() {

@@ -4,51 +4,50 @@ import { UnknownComponent } from '@/types/component';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import Nav, { NavObject } from '../navigation/nav';
-import { z } from 'zod';
+import Nav from '../navigation/nav';
+import { NavigationData } from '@/types/nav';
 
 type Props = {
-  data: UnknownComponent;
+  data?: UnknownComponent;
   slug?: string;
 };
 
-export const HeaderObject = z.object({
-  sys: z.object({
-    id: z.string(),
-    __typename: z.string(),
-  }),
-  logo: z.object({
-    url: z.string(),
-    title: z.string(),
-  }),
-  title: z.string(),
-  ...NavObject.shape,
-});
+export interface Header {
+  sys: {
+    id: string;
+    __typename: string;
+  };
+  logo: {
+    url: string;
+    title: string;
+  };
+  title: string;
+  actionItemsCollection: NavigationData['actionItemsCollection'];
+  navItemsCollection: NavigationData['navItemsCollection'];
+}
 
-export const HeaderResponseData = z.object({
-  data: z.object({
-    header: HeaderObject,
-  }),
-});
-
-export type HeaderData = z.infer<typeof HeaderResponseData>;
+export interface HeaderResponseData {
+  data: {
+    header: Header;
+  };
+}
 
 async function getHeaderData(id: string) {
   try {
-    const res = await fetchGraphQL<HeaderData>(headerQuery(id));
-
-    if (!res.data) throw new Error('Could not locate header');
+    const res = await fetchGraphQL<HeaderResponseData>(headerQuery(id));
 
     const header = res.data.header;
 
     return header;
   } catch (error) {
-    console.error('Error fetching header data', error);
+    console.error('Error fetching header data:', error);
     return null;
   }
 }
 
-const Header = async ({ data, slug }: Props) => {
+export default async function Header({ data, slug }: Props) {
+  if (!data) return null;
+
   const header = await getHeaderData(data.sys.id);
 
   if (!header) {
@@ -75,13 +74,9 @@ const Header = async ({ data, slug }: Props) => {
       </header>
     </>
   );
-};
+}
 
-export const HeaderLogoObject = HeaderObject.pick({ logo: true, title: true });
-
-type HeaderLogoProps = z.infer<typeof HeaderLogoObject>;
-
-const HeaderLogo = ({ logo, title }: HeaderLogoProps) => (
+const HeaderLogo = ({ logo, title }: Pick<Header, 'logo' | 'title'>) => (
   <Link href={'/'} className="flex items-center">
     {logo && <Image src={logo.url} alt={logo.title} height={60} width={60} />}
     <h2 className="relative z-10 text-2xl md:text-4xl text-black before:h-3  before:rounded-full before:w-[105%] before:block before:content-[' '] before:bg-indigo-500 before:absolute before:skew-y-1 before:-left-[7px] before:bottom-[2px] before:-z-10">
@@ -89,5 +84,3 @@ const HeaderLogo = ({ logo, title }: HeaderLogoProps) => (
     </h2>
   </Link>
 );
-
-export default Header;

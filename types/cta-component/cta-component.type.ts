@@ -1,6 +1,6 @@
-import { EntryFields } from "contentful";
+import { EntryFields } from 'contentful';
 
-export interface CtaComponent {
+export interface CtaComponentType {
   headline: EntryFields.Symbol;
   subline: { json: EntryFields.RichText };
   urlParameters: EntryFields.Symbol;

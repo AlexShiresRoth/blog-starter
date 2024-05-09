@@ -1,15 +1,20 @@
 import { blogPostCollectionQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
-import { BlogCollectionResponse, BlogPostData } from './blog-featured';
 import { fetchGraphQL } from '@/contentful/api';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BlogCollectionResponseData } from '@/types/blog';
 
 async function getBlogPosts() {
-  const res = await fetchGraphQL<BlogCollectionResponse>(
-    blogPostCollectionQuery(600, 600, 12, 4)
-  );
+  try {
+    const res = await fetchGraphQL<BlogCollectionResponseData>(
+      blogPostCollectionQuery(600, 600, 12, 4)
+    );
 
-  return res.data.blogPostCollection.items;
+    return res.data.blogPostCollection.items;
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return null;
+  }
 }
 
 export default async function MorePosts() {

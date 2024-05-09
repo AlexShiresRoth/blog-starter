@@ -1,9 +1,8 @@
-import { EntryFields, EntrySys } from "contentful";
-import { Document } from "@contentful/rich-text-types";
+import { EntryFields, EntrySys } from 'contentful';
 
-export interface InfoBlock {
+export interface InfoBlockdata {
   sys: EntrySys;
-  __typename: "ComponentInfoBlock";
+  __typename: 'ComponentInfoBlock';
   headline: EntryFields.Symbol;
   subline: EntryFields.Symbol;
   blocksCollection: {
