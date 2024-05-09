@@ -1,5 +1,5 @@
-import { InputItem } from "@/types/page.type";
-import React from "react";
+import { InputItem } from '@/types/page.type';
+import React from 'react';
 
 interface InputProps {
   input: InputItem;
@@ -30,20 +30,20 @@ const Input = (props: InputProps) => {
 
 export const TextInput = (props: InputProps) => {
   return (
-    <div className='flex flex-col items-start justify-end    w-full'>
+    <div className="flex flex-col items-start justify-end    w-full">
       {props.input.showLabel && (
-        <label className='text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50 rounded px-1'>
+        <label className="text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50 rounded px-1">
           {props.input.label}
         </label>
       )}
       <input
-        type='text'
+        type="text"
         name={props.input.inputName}
         value={props.value}
-        placeholder={props.input.placeholderText ?? ""}
+        placeholder={props.input.placeholderText ?? ''}
         onChange={props.onChange}
         required={true}
-        className='w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300'
+        className="w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300"
       />
     </div>
   );
@@ -51,20 +51,20 @@ export const TextInput = (props: InputProps) => {
 
 export const EmailInput = (props: InputProps) => {
   return (
-    <div className='flex flex-col items-start   w-full'>
+    <div className="flex flex-col items-start   w-full">
       {props.input.showLabel && (
-        <label className='text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1'>
+        <label className="text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1">
           {props.input.label}
         </label>
       )}
       <input
-        type='email'
+        type="email"
         name={props.input.inputName}
         value={props.value}
-        placeholder={props.input.placeholderText ?? ""}
+        placeholder={props.input.placeholderText ?? ''}
         onChange={props.onChange}
         required={true}
-        className='w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300'
+        className="w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300"
       />
     </div>
   );
@@ -72,20 +72,20 @@ export const EmailInput = (props: InputProps) => {
 
 export const PasswordInput = (props: InputProps) => {
   return (
-    <div className='flex flex-col items-start  w-full'>
+    <div className="flex flex-col items-start  w-full">
       {props.input.showLabel && (
-        <label className='text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1'>
+        <label className="text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1">
           {props.input.label}
         </label>
       )}
       <input
-        type='password'
+        type="password"
         name={props.input.inputName}
         value={props.value}
-        placeholder={props.input.placeholderText ?? ""}
+        placeholder={props.input.placeholderText ?? ''}
         onChange={props.onChange}
         required={true}
-        className='w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300'
+        className="w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300"
       />
     </div>
   );
@@ -93,44 +93,42 @@ export const PasswordInput = (props: InputProps) => {
 
 export const TelInput = (props: InputProps) => {
   return (
-    <div className='flex flex-col items-start w-full'>
+    <div className="flex flex-col items-start w-full">
       {props.input.showLabel && (
-        <label className='text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1'>
+        <label className="text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1">
           {props.input.label}
         </label>
       )}
       <input
-        type='tel'
+        type="tel"
         name={props.input.inputName}
         value={props.value}
-        placeholder={props.input.placeholderText ?? ""}
+        placeholder={props.input.placeholderText ?? ''}
         onChange={props.onChange}
         required={true}
-        className='w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300'
+        className="w-full p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300"
       />
     </div>
   );
 };
 
 export const SelectInput = (props: InputProps) => {
-  console.log("props?", props);
   return (
-    <div className='flex flex-col items-start w-full'>
+    <div className="flex flex-col items-start w-full">
       {props.input.showLabel && (
-        <label className='text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1'>
+        <label className="text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50  rounded px-1">
           {props.input.label}
         </label>
       )}
       <select
         autoFocus={true}
-        title={props.input.label ?? ""}
+        title={props.input.label ?? ''}
         name={props.input.inputName}
-        placeholder={props.input.placeholderText ?? ""}
         value={props.value}
         required={props.input.required ?? false}
-        className=' bg-white w-full p-2 pt-3 rounded border-2 border-slate-200 focus:outline-2 outline-blue-500 focus:border-blue-600/70  transition-all placeholder:text-slate-300'
+        className=" bg-white w-full p-2 pt-3 rounded border-2 border-slate-200 focus:outline-2 outline-blue-500 focus:border-blue-600/70  transition-all placeholder:text-slate-300"
       >
-        <option>{props.input.placeholderText ?? ""}</option>
+        <option>{props.input.placeholderText ?? ''}</option>
         {props.input.selectOptions.map((option) => (
           <option value={option} key={option}>
             {option}
@@ -143,20 +141,20 @@ export const SelectInput = (props: InputProps) => {
 
 export const TextAreaInput = (props: InputProps) => {
   return (
-    <div className='flex flex-col items-start justify-end w-full'>
+    <div className="flex flex-col items-start justify-end w-full">
       {props.input.showLabel && (
-        <label className='text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50 rounded px-1'>
+        <label className="text-sm text-blue-300 font-semibold ml-3 -mb-3 relative z-0 bg-blue-50 rounded px-1">
           {props.input.label}
         </label>
       )}
       <textarea
         name={props.input.inputName}
         value={props.value}
-        placeholder={props.input.placeholderText ?? ""}
+        placeholder={props.input.placeholderText ?? ''}
         onChange={props.onChange}
         required={props.input.required ?? false}
         rows={3}
-        className='w-full  p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300'
+        className="w-full  p-2 pt-3 rounded border-2 border-slate-200 focus:border-blue-600/70 focus:outline-none transition-all placeholder:text-slate-300"
       />
     </div>
   );

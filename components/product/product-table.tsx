@@ -1,36 +1,41 @@
-import { fetchGraphQL } from "@/contentful/api";
-import { productTableQuery } from "@/contentful/gql-queries/components/product/product-table.query";
-import { UnknownComponent } from "@/types/component";
-import { ProductTable, ProductTableQueryResponse } from "@/types/product";
-import React from "react";
-import ProductCart from "../product-card/product-card";
-import ProductCard from "../product-card/product-card";
+import { fetchGraphQL } from '@/contentful/api';
+import { productTableQuery } from '@/contentful/gql-queries/components/product/product-table.query';
+import { UnknownComponent } from '@/types/component';
+import { ProductTableData, ProductTableQueryResponse } from '@/types/product';
+import React from 'react';
+import ProductCard from '../product-card/product-card';
 
-async function getProductTable(id: string): Promise<ProductTable> {
-  const res: ProductTableQueryResponse = await fetchGraphQL(
-    productTableQuery(id)
-  );
-  console.log;
+interface ProductTableResponse {
+  data: {
+    componentProductTable: ProductTableData;
+  };
+}
 
-  if (res.errors) console.error("Errors in product table query", res.errors);
+async function getProductTable(id: string) {
+  try {
+    const res = await fetchGraphQL<ProductTableResponse>(productTableQuery(id));
 
-  if (!res.data) throw new Error("No data returned from GraphQL");
-
-  return res.data.componentProductTable;
+    return res.data.componentProductTable;
+  } catch (error) {
+    console.error('Error fetching product table data:', error);
+    return null;
+  }
 }
 
 const ProductTable = async (component: UnknownComponent) => {
   const data = await getProductTable(component.sys.id);
 
+  if (!data) return null;
+
   return (
-    <div className='w-full flex flex-col items-center py-12'>
-      <div className='w-11/12 mx-4 md:mx-0 md:w-3/4 flex flex-col gap-12 '>
-        <div className='flex flex-col gap-4  py-4'>
-          <h1 className='text-5xl font-bold text-black '>{data.headline}</h1>
-          <h4 className='text-blue-500 '>{data.subline}</h4>
+    <div className="w-full flex flex-col items-center py-12">
+      <div className="w-11/12 mx-4 md:mx-0 md:w-3/4 flex flex-col gap-12 ">
+        <div className="flex flex-col gap-4  py-4">
+          <h1 className="text-5xl font-bold text-black ">{data.headline}</h1>
+          <h4 className="text-blue-500 ">{data.subline}</h4>
         </div>
         {!!data.productsCollection.items.length && (
-          <div className='flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-14 my-4'>
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-14 my-4">
             {data.productsCollection.items.map((product) => {
               return <ProductCard product={product} key={product.sys.id} />;
             })}

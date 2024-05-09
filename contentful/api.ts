@@ -1,7 +1,7 @@
 const baseURL = `https://graphql.contentful.com/content/v1/spaces/`;
 
 //currently fetch does not work in prod
-export async function fetchGraphQL(query: string): Promise<any> {
+export async function fetchGraphQL<T>(query: string) {
   return await fetch(`${baseURL}/${process.env.SPACE_ID}/environments/master`, {
     method: "POST",
     headers: {
@@ -9,8 +9,8 @@ export async function fetchGraphQL(query: string): Promise<any> {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
     },
     next: {
-      revalidate: 60,
+      revalidate: 120,
     },
     body: JSON.stringify({ query }),
-  }).then((response) => response.json());
+  }).then((response) => response.json() as T);
 }
