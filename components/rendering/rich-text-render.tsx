@@ -34,7 +34,7 @@ const RichTextRender = ({
   classNames,
 }: {
   content: {
-    json: EntryFields.RichText;
+    json: Document;
   };
   classNames?: string;
 }) => {
