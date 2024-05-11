@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+p {
+  @apply text-base md:text-lg text-stone-500;
+}
