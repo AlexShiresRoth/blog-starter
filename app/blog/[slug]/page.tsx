@@ -10,7 +10,6 @@ async function getBlogPost(slug: string) {
     const res = await fetchGraphQL<BlogCollectionResponseData>(
       blogPostQuery(slug)
     );
-
     return res.data.blogPostCollection.items[0];
   } catch (error) {
     console.error('Error fetching blog post:', error);
@@ -26,9 +25,9 @@ export default async function BlogPost({
   const post = await getBlogPost(slug);
   if (!post) return null;
   return (
-    <main className="w-full flex flex-col items-center py-10">
+    <main className="w-full flex flex-col items-center py-16 md:py-10">
       <div className="flex flex-col items-center w-full md:w-11/12 lg:w-1/2 gap-8">
-        <article className="w-3/4 flex flex-col gap-8 mt-8">
+        <article className="w-11/12 md:w-3/4 flex flex-col gap-8 mt-8">
           <div className="flex flex-col items-center gap-4">
             {post.category && (
               <Link
