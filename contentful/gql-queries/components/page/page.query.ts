@@ -48,11 +48,7 @@ export const pageQuery = (slug: string): string => `query {
       }
       pageContent {
         __typename
-        ... on TopicBusinessInfo {
-          sys {
-            id
-          }
-        }
+       
          ... on ComponentProductTable {
           sys {
             id

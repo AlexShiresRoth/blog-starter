@@ -5,7 +5,6 @@ import DuplexComponent from '../duplex/duplex-component';
 import TextBlockComponent from '../text-block/text-block';
 import InfoBlockComponent from '../info-block/info-block';
 import CtaComponent from '../cta-component/cta-component';
-import BusinessInfoTopic from '../business-info/business-info-topic';
 import ProductTable from '../product/product-table';
 import ContactForm from '../forms/contact/contact-form';
 import FAQ from '../faq/FAQ';
@@ -48,9 +47,6 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         }
         if (component.__typename === 'ComponentCta') {
           return <CtaComponent key={component.sys.id} id={component.sys.id} />;
-        }
-        if (component.__typename === 'TopicBusinessInfo') {
-          return <BusinessInfoTopic key={component.sys.id} {...component} />;
         }
         if (component.__typename === 'ComponentProductTable') {
           return <ProductTable key={component.sys.id} {...component} />;
