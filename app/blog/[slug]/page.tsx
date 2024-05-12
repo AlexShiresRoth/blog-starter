@@ -11,7 +11,6 @@ async function getBlogPost(slug: string) {
       blogPostQuery(slug)
     );
 
-    console.log('res:', res);
     return res.data.blogPostCollection.items[0];
   } catch (error) {
     console.error('Error fetching blog post:', error);
@@ -72,7 +71,7 @@ export default async function BlogPost({
               />
             </div>
           )}
-          <div className="mt-10 border-t border-stone-200 py-8">
+          <div className="mt-10">
             <RichTextRender content={post.postContent} />
           </div>
         </article>
