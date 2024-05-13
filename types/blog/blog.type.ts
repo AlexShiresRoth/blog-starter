@@ -1,3 +1,6 @@
+import { Document } from '@contentful/rich-text-types';
+import { EntryFields } from 'contentful';
+
 export interface BlogPostData {
   sys: {
     id: string;
@@ -11,7 +14,7 @@ export interface BlogPostData {
     title: string;
   };
   postContent: {
-    json: {};
+    json: Document;
   };
   briefDescription?: string;
   category: string;
