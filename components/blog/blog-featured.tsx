@@ -1,9 +1,10 @@
 import { fetchGraphQL } from '@/contentful/api';
 import { blogPostCollectionQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
 import { BlogCollectionResponseData, BlogPostData } from '@/types/blog';
-import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
+import PostTag from './post-tag';
+import PostDate from './post-date';
 
 async function getFeaturedBlogPosts() {
   try {
@@ -24,7 +25,7 @@ export default async function BlogFeatured() {
   if (!blogPosts || blogPosts?.length === 0) return null;
 
   return (
-    <section className="w-full flex justify-center items-center py-4 mt-20 md:mt-0 lg:py-10 px-6 lg:px-0">
+    <section className="w-full flex justify-center items-center py-8 mt-20 md:mt-0 lg:py-16 px-6 lg:px-0">
       <div className="w-full flex gap-8 flex-col md:w-11/12 lg:w-3/4 lg:flex-row">
         <div className="w-full lg:w-2/3 flex flex-col gap-4">
           <h1 className="text-4xl md:text-6xl font-bold ml-8">Featured</h1>
@@ -45,19 +46,13 @@ const Post = ({ post }: { post: BlogPostData }) => {
   return (
     <div className="flex flex-col items-start gap-8 justify-between p-4 relative w-full bg-black rounded-xl hover:shadow-lg transition-shadow h-full min-h-56 lg:min-h-0">
       <div className="flex z-10 justify-between gap-8 items-center">
-        {post.sys.publishedAt && (
-          <div className="bg-white py-2 px-4 rounded-full">
-            <p className="font-semibold text-xs">
-              {format(new Date(post.sys.publishedAt), 'PP')}
-            </p>
-          </div>
-        )}
-        {!!post.tags.length &&
-          post.tags.map((tag, index) => (
-            <div key={index} className="px-4 py-2 bg-white/90 rounded-full">
-              <p className="text-xs text-indigo-400">{tag}</p>
-            </div>
-          ))}
+        {post.sys.publishedAt && <PostDate date={post.sys.publishedAt} />}
+        <div className="flex items-center gap-2 flex-wrap">
+          {!!post.tags.length &&
+            post.tags
+              .slice(0, 4)
+              .map((tag, index) => <PostTag key={index} tag={tag} />)}
+        </div>
       </div>
       <div className="w-full flex flex-col z-10 justify-end">
         <div className="w-3/4 p-2 flex flex-col bg-white rounded-xl rounded-tl-none relative">
@@ -93,22 +88,16 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
   return (
     <div
       key={post.sys.id}
-      className="flex flex-col items-start justify-between p-4 relative w-full min-h-[350px] md:min-h-[400px] lg:min-h-[600px] bg-black rounded-xl hover:shadow-lg transition-shadow"
+      className="flex flex-col items-start justify-between p-4 relative w-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px] bg-black rounded-xl hover:shadow-lg transition-shadow"
     >
       <div className="flex z-10 justify-between gap-8 items-center">
-        {post.sys.publishedAt && (
-          <div className="bg-white py-2 px-4 rounded-full">
-            <p className="font-semibold text-lg">
-              {format(new Date(post.sys.publishedAt), 'PP')}
-            </p>
-          </div>
-        )}
-        {!!post.tags.length &&
-          post.tags.slice(0, 4).map((tag, index) => (
-            <div key={index} className="px-4 py-2 bg-white/90 rounded-full">
-              <p className="text-xs text-indigo-400">{tag}</p>
-            </div>
-          ))}
+        {post.sys.publishedAt && <PostDate date={post.sys.publishedAt} />}
+        <div className="flex items-center gap-2 flex-wrap">
+          {!!post.tags.length &&
+            post.tags
+              .slice(0, 4)
+              .map((tag, index) => <PostTag key={index} tag={tag} />)}
+        </div>
       </div>
       <div className="w-full flex flex-col z-10 justify-end">
         <div className="w-full md:w-3/4 p-4 flex flex-col bg-white rounded-xl rounded-tl-none relative">

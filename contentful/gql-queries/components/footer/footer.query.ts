@@ -8,8 +8,8 @@ query {
     brandName
     facebookLink
     instagramLink
-    zoomLink
-    skypeLink
+    twitterxLink
+    threadsLink
     logo {
       url
       description

@@ -1,4 +1,4 @@
-import { EntryFields, EntrySys } from "contentful";
+import { EntryFields, EntrySys } from 'contentful';
 
 export interface Footer {
   sys: EntrySys;
@@ -6,8 +6,8 @@ export interface Footer {
   brandName: EntryFields.Symbol;
   facebookLink: EntryFields.Symbol;
   instagramLink: EntryFields.Symbol;
-  zoomLink: EntryFields.Symbol;
-  skypeLink: EntryFields.Symbol;
+  twitterxLink: EntryFields.Symbol;
+  threadsLink: EntryFields.Symbol;
   logo: {
     url: EntryFields.Symbol;
     description: EntryFields.Symbol;

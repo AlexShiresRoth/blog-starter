@@ -29,6 +29,7 @@ export interface AppQueryResponse {
           sys: {
             id: string;
           };
+          __typename: string;
         };
         homePage: {
           sys: {
@@ -76,8 +77,7 @@ export default async function RootLayout({ children }: Props) {
               <Header data={app.header} />
             </Suspense>
             {children}
-
-            {/* <Footer data={app.footer} /> */}
+            <Footer data={app.footer} />
           </>
         </body>
       </html>
