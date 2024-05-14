@@ -1,3 +1,4 @@
+import MainContainer from '@/components/containers/main-container';
 import RichTextRender from '@/components/rendering/rich-text-render';
 import { fetchGraphQL } from '@/contentful/api';
 import { blogPostQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
@@ -25,56 +26,54 @@ export default async function BlogPost({
   const post = await getBlogPost(slug);
   if (!post) return null;
   return (
-    <main className="w-full flex flex-col items-center py-16 md:py-10">
-      <div className="flex flex-col items-center w-full md:w-11/12 lg:w-1/2 gap-8">
-        <article className="w-11/12 md:w-3/4 flex flex-col gap-8 mt-8">
-          <div className="flex flex-col items-center gap-4">
-            {post.category && (
-              <Link
-                href={`/posts?category=${post.category}`}
-                className="text-indigo-500 font-semibold"
-              >
-                {post.category}
-              </Link>
-            )}
-            {!!post?.tags.length && (
-              <div className="flex items-center gap-2">
-                {post.tags.map((tag, index) => (
-                  <Link
-                    href={`/posts?tag=${tag}`}
-                    key={index}
-                    className="text-sm bg-stone-100 rounded-full py-1 px-2 text-stone-500"
-                  >
-                    {tag}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col gap-4 items-center">
-            <h1 className="text-5xl font-bold text-center">{post.title}</h1>
-            <span className="h-3 w-20 bg-indigo-500 block rounded-xl" />
-            {post.briefDescription && (
-              <p className="text-sm text-center italic">
-                {post.briefDescription}
-              </p>
-            )}
-          </div>
-          {post.postImage && (
-            <div className="relative rounded-lg w-full h-96">
-              <Image
-                src={post.postImage.url}
-                alt={post.title}
-                fill
-                className="w-full h-96 object-cover rounded-lg"
-              />
+    <MainContainer>
+      <article className="w-11/12 px-4 md:px-0 md:w-1/2 container flex flex-col gap-8 mt-32 md:mt-8">
+        <div className="flex flex-col items-center gap-4">
+          {post.category && (
+            <Link
+              href={`/posts?category=${post.category}`}
+              className="text-indigo-500 font-semibold"
+            >
+              {post.category}
+            </Link>
+          )}
+          {!!post?.tags.length && (
+            <div className="flex items-center gap-2">
+              {post.tags.map((tag, index) => (
+                <Link
+                  href={`/posts?tag=${tag}`}
+                  key={index}
+                  className="text-sm bg-stone-100 rounded-full py-1 px-2 text-stone-500"
+                >
+                  {tag}
+                </Link>
+              ))}
             </div>
           )}
-          <div className="mt-10">
-            <RichTextRender content={post.postContent} />
+        </div>
+        <div className="flex flex-col gap-4 items-center">
+          <h1 className="text-5xl font-bold text-center">{post.title}</h1>
+          <span className="h-3 w-20 bg-indigo-500 block rounded-xl" />
+          {post.briefDescription && (
+            <p className="text-sm text-center italic">
+              {post.briefDescription}
+            </p>
+          )}
+        </div>
+        {post.postImage && (
+          <div className="relative rounded-lg w-full h-96">
+            <Image
+              src={post.postImage.url}
+              alt={post.title}
+              fill
+              className="w-full h-96 object-cover rounded-lg"
+            />
           </div>
-        </article>
-      </div>
-    </main>
+        )}
+        <div className="mt-10">
+          <RichTextRender content={post.postContent} />
+        </div>
+      </article>
+    </MainContainer>
   );
 }

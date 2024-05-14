@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PostTag from './post-tag';
 import PostDate from './post-date';
+import SectionContainer from '../containers/section-container';
 
 async function getFeaturedBlogPosts() {
   try {
@@ -25,20 +26,22 @@ export default async function BlogFeatured() {
   if (!blogPosts || blogPosts?.length === 0) return null;
 
   return (
-    <section className="w-full flex justify-center items-center py-8 mt-20 md:mt-0 lg:py-16 px-6 lg:px-0">
-      <div className="w-full flex gap-8 flex-col md:w-11/12 lg:w-3/4 lg:flex-row">
-        <div className="w-full lg:w-2/3 flex flex-col gap-4">
-          <h1 className="text-4xl md:text-6xl font-bold ml-8">Featured</h1>
-          <FeaturedPost post={blogPosts[0]} />
-        </div>
+    <SectionContainer>
+      <section className="w-full flex justify-center items-center py-8 mt-20 md:mt-0 lg:py-16 px-6 lg:px-0">
+        <div className="w-full flex gap-8 flex-col lg:flex-row">
+          <div className="w-full lg:w-2/3 flex flex-col gap-4">
+            <h1 className="text-4xl md:text-6xl font-bold ml-8">Featured</h1>
+            <FeaturedPost post={blogPosts[0]} />
+          </div>
 
-        <div className="flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-8 justify-between w-full lg:w-1/3">
-          {blogPosts.slice(1).map((post) => (
-            <Post key={post.sys.id} post={post} />
-          ))}
+          <div className="flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-8 justify-between w-full lg:w-1/3">
+            {blogPosts.slice(1).map((post) => (
+              <Post key={post.sys.id} post={post} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </SectionContainer>
   );
 }
 
@@ -122,6 +125,7 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
           src={post.postImage.url}
           alt={post.postImage.title}
           fill={true}
+          priority
           className="rounded-xl object-cover object-center w-full h-full z-0 bg-indigo-500 opacity-80"
         />
       )}
