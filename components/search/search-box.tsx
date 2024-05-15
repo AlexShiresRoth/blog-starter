@@ -13,7 +13,7 @@ async function searchPosts(formData: FormData) {
 
 export default async function SearchBox() {
   return (
-    <div className="w-full flex items-center justify-center py-6 md:py-10 ">
+    <div className="w-full flex items-center justify-center px-8 md:px-0 py-4 md:py-10 ">
       <SectionContainer>
         <div className="w-full flex items-center justify-center">
           <form

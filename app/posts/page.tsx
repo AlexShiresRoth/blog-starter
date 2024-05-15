@@ -5,6 +5,7 @@ import SearchBox from '@/components/search/search-box';
 import { fetchGraphQL } from '@/contentful/api';
 import { blogPostCollectionQueryWithQueryParams } from '@/contentful/gql-queries/components/blog/blogPost.query';
 import { BlogCollectionResponseData } from '@/types/blog';
+import Link from 'next/link';
 
 async function getBlogPosts(queryParam?: string) {
   try {
@@ -21,14 +22,8 @@ async function getBlogPosts(queryParam?: string) {
   }
 }
 
-/**
- * @todo add search section and use tag/category query params.
- * @todo make search very simple, just use gql with query params
- * @todo add pagination
- * @todo add sorting
- * @todo add sections above and below posts collection
- * @returns a collection of posts
- */
+// @todo add date to search
+// @todo add date to posts
 
 export default async function PostsCollection({
   searchParams,
@@ -44,20 +39,40 @@ export default async function PostsCollection({
   }
 
   return (
-    <MainContainer>
-      <SectionContainer>
-        <SearchBox />
-        <div className="mt-32 md:mt-10 ">
-          <h1 className="text-3xl md:text-5xl font-bold">
-            {queryParam ? `Results for ${queryParam}` : 'All Posts'}
-          </h1>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-16 px-8 md:px-0">
-          {posts.map((post) => (
-            <PostCard key={post.sys.id} post={post} />
-          ))}
-        </div>
-      </SectionContainer>
-    </MainContainer>
+    <div className="py-28 md:py-0">
+      <MainContainer>
+        <SectionContainer>
+          <div className="flex flex-col items-center mt-10">
+            <h1 className="text-2xl md:text-5xl">Our Posts</h1>
+            <p>Search from our vast collection of posts</p>
+          </div>
+          <SearchBox />
+          <div className="mt-2 md:mt-10 ">
+            <h2 className="text-3xl md:text-5xl font-bold">
+              {queryParam
+                ? `${posts.length} Results for ${queryParam}`
+                : 'All Posts'}
+            </h2>
+          </div>
+          {!!posts.length && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 px-8 md:px-0">
+              {posts.map((post) => (
+                <PostCard key={post.sys.id} post={post} />
+              ))}
+            </div>
+          )}
+          {!posts.length && (
+            <div className="py-20 flex flex-col items-center gap-4 ">
+              <h2 className="text-3xl font-bold">No posts found</h2>
+              <Link href="/posts">
+                <button className="bg-black rounded-full text-white px-4 py-2 text-sm">
+                  Reset Search
+                </button>
+              </Link>
+            </div>
+          )}
+        </SectionContainer>
+      </MainContainer>
+    </div>
   );
 }
