@@ -2,6 +2,7 @@ import PostCard from '@/components/blog/post-card';
 import MainContainer from '@/components/containers/main-container';
 import SectionContainer from '@/components/containers/section-container';
 import SearchBox from '@/components/search/search-box';
+import SearchFilter from '@/components/search/search-filter';
 import { fetchGraphQL } from '@/contentful/api';
 import { blogPostCollectionQueryWithQueryParams } from '@/contentful/gql-queries/components/blog/blogPost.query';
 import { BlogCollectionResponseData } from '@/types/blog';
@@ -28,11 +29,11 @@ async function getBlogPosts(queryParam?: string) {
 export default async function PostsCollection({
   searchParams,
 }: {
-  searchParams?: { tag: string; category: string; date: string; q: string };
+  searchParams?: { q: string };
 }) {
-  const { tag, category, date, q } = searchParams || {};
-  const queryParam = tag || category || date || q;
-  const posts = await getBlogPosts(tag || category || date || q);
+  const { q } = searchParams || {};
+
+  const posts = await getBlogPosts(q);
 
   if (!posts) {
     return null;
@@ -47,12 +48,12 @@ export default async function PostsCollection({
             <p>Search from our vast collection of posts</p>
           </div>
           <SearchBox />
-          <div className="mt-2 md:mt-10 ">
-            <h2 className="text-3xl md:text-5xl font-bold">
-              {queryParam
-                ? `${posts.length} Results for ${queryParam}`
-                : 'All Posts'}
+          <div className="mt-2 md:mt-10 flex items-center gap-4 w-full justify-between">
+            <SearchFilter queryParam={q} />
+            <h2 className="text-xl md:text-3xl">
+              {q ? `${posts.length} Results for ${q}` : 'All Posts'}
             </h2>
+            <div></div>
           </div>
           {!!posts.length && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 px-8 md:px-0">

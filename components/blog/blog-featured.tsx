@@ -105,11 +105,14 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
       <div className="w-full flex flex-col z-10 justify-end">
         <div className="w-full md:w-3/4 p-4 flex flex-col bg-white rounded-xl rounded-tl-none relative">
           {post.category && (
-            <div className="px-8 py-2 bg-white rounded-tl-lg rounded-tr-full absolute bottom-[100%] left-0">
+            <Link
+              href={`/posts?q=${post.category}`}
+              className="px-8 py-2 bg-white rounded-tl-lg rounded-tr-full absolute bottom-[100%] left-0"
+            >
               <p className="text-xs text-black font-semibold">
                 {post.category}
               </p>
-            </div>
+            </Link>
           )}
           {post.title && (
             <Link href={`/blog/${post.slug}`}>

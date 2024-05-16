@@ -31,7 +31,7 @@ export default async function BlogPost({
         <div className="flex flex-col items-center gap-4">
           {post.category && (
             <Link
-              href={`/posts?category=${post.category}`}
+              href={`/posts?q=${post.category}`}
               className="text-indigo-500 font-semibold"
             >
               {post.category}
@@ -41,7 +41,7 @@ export default async function BlogPost({
             <div className="flex items-center gap-2">
               {post.tags.map((tag, index) => (
                 <Link
-                  href={`/posts?tag=${tag}`}
+                  href={`/posts?q=${tag}`}
                   key={index}
                   className="text-sm bg-stone-100 rounded-full py-1 px-2 text-stone-500"
                 >

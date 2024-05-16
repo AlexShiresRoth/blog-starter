@@ -1,4 +1,5 @@
 import { BlogPostData } from '@/types/blog';
+import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -21,22 +22,25 @@ export default function PostCard({ post }: Props) {
             className="rounded-lg object-cover object-center w-full h-full"
           />
         </div>
+      </Link>
+      <p className="text-sm">{format(post.sys.publishedAt, 'PP')}</p>
+      <Link href={`/blog/${post.slug}`} className="hover:underline">
         <h1 className="text-2xl font-bold">{post.title}</h1>
       </Link>
       <p className="text-gray-500">{post.briefDescription}</p>
       <div className="flex gap-4 items-center">
-        <div>
-          <p className=" px-4 py-2 rounded-full bg-black text-white text-sm">
+        <Link href={`/posts?q=${post.category}`}>
+          <p className="px-2 py-1 rounded-full bg-black text-white text-sm">
             {post.category}
           </p>
-        </div>
+        </Link>
         {!!post.tags?.length &&
           post.tags.map((tag, index) => (
-            <div key={index}>
+            <Link key={index} href={`/posts?q=${tag}`}>
               <p className="px-2 py-1 rounded-full bg-gray-100 text-indigo-400 text-sm">
                 {tag}
               </p>
-            </div>
+            </Link>
           ))}
       </div>
     </div>
