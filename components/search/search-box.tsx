@@ -26,6 +26,7 @@ export default async function SearchBox() {
               id="query"
               placeholder="Search"
               className="indent-2 outline-none w-full"
+              maxLength={60}
             />
             <button className="bg-black rounded-full p-2 text-white">
               <svg

@@ -33,6 +33,7 @@ export const blogPostCollectionQuery = (
 
 export const blogPostCollectionQueryWithQueryParams = (
   queryParam: string,
+  sort: string,
   imageWidth: number = 1000,
   imageHeight: number = 1000
 ) => `query {
@@ -46,7 +47,7 @@ export const blogPostCollectionQueryWithQueryParams = (
           { slug_contains: "${queryParam}" }
         ]
       },
-      order: sys_publishedAt_DESC
+      order: sys_publishedAt_${sort === 'latest' || !sort ? 'DESC' : 'ASC'}
     ) {
       items {
         sys {

@@ -8,10 +8,15 @@ import { blogPostCollectionQueryWithQueryParams } from '@/contentful/gql-queries
 import { BlogCollectionResponseData } from '@/types/blog';
 import Link from 'next/link';
 
-async function getBlogPosts(queryParam?: string) {
+async function getBlogPosts(queryParam?: string, sort?: string) {
   try {
     const res = await fetchGraphQL<BlogCollectionResponseData>(
-      blogPostCollectionQueryWithQueryParams(queryParam || '', 600, 600),
+      blogPostCollectionQueryWithQueryParams(
+        queryParam || '',
+        sort || '',
+        600,
+        600
+      ),
       600,
       ['blogPosts']
     );
@@ -29,11 +34,11 @@ async function getBlogPosts(queryParam?: string) {
 export default async function PostsCollection({
   searchParams,
 }: {
-  searchParams?: { q: string };
+  searchParams?: { q: string; sort: string };
 }) {
-  const { q } = searchParams || {};
+  const { q, sort } = searchParams || {};
 
-  const posts = await getBlogPosts(q);
+  const posts = await getBlogPosts(q, sort);
 
   if (!posts) {
     return null;
@@ -48,15 +53,14 @@ export default async function PostsCollection({
             <p>Search from our vast collection of posts</p>
           </div>
           <SearchBox />
-          <div className="mt-2 md:mt-10 flex items-center gap-4 w-full justify-between">
+          <div className="mt-6 md:mt-10 flex items-center gap-4 px-8 md:px-0 w-full justify-between">
             <SearchFilter queryParam={q} />
             <h2 className="text-xl md:text-3xl">
               {q ? `${posts.length} Results for ${q}` : 'All Posts'}
             </h2>
-            <div></div>
           </div>
           {!!posts.length && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 px-8 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:py-8 px-8 md:px-0">
               {posts.map((post) => (
                 <PostCard key={post.sys.id} post={post} />
               ))}
