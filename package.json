@@ -11,6 +11,7 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.16.3",
     "@contentful/rich-text-types": "^16.1.0",
+    "@preact/signals-react": "^2.0.1",
     "@sendgrid/mail": "^7.7.0",
     "@types/node": "^20.12.10",
     "@types/react": "^18.3.1",
@@ -21,7 +22,7 @@
     "deep-email-validator": "^0.1.21",
     "eslint": "8.36.0",
     "eslint-config-next": "^14.2.3",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^10.18.0",
     "next": "^14.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

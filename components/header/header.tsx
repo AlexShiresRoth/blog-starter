@@ -55,9 +55,10 @@ export default async function Header({ data, slug }: Props) {
   }
 
   return (
-    <>
+    <div className="flex flex-col w-full fixed top-0 left-0 z-40 md:relative">
+      <span className="w-full bg-gradient-to-l from-rose-400 via-fuchsia-500 to-indigo-700 h-2 block"></span>
       <header
-        className="w-full flex flex-col items-center  md:py-4 fixed top-0 left-0 z-40 md:relative bg-white shadow-md lg:shadow-none"
+        className="w-full flex flex-col items-center  md:py-4 bg-white shadow-md lg:shadow-none"
         data-component-type="header"
       >
         <div className="flex flex-row w-full px-8 lg:px-0 md:w-11/12 lg:w-3/4 gap-8 items-center">
@@ -72,7 +73,7 @@ export default async function Header({ data, slug }: Props) {
         </div>
         <div className="w-11/12 mx-4 mt-2 flex gap-4 items-center justify-between md:hidden"></div>
       </header>
-    </>
+    </div>
   );
 }
 

@@ -4,6 +4,7 @@ import { fetchGraphQL } from '@/contentful/api';
 import BlogFeatured from '@/components/blog/blog-featured';
 import MorePosts from '@/components/blog/more-posts';
 import { PageCollectionResponseData } from '@/types/page.type';
+import MainContainer from '@/components/containers/main-container';
 
 async function getHome(slug: string) {
   try {
@@ -24,7 +25,7 @@ export default async function Home() {
   if (!page) return null;
 
   return (
-    <main className="flex flex-col">
+    <MainContainer>
       {/* TOP Section */}
       <div>
         {page.topSectionCollection.items.length > 0 && (
@@ -43,6 +44,6 @@ export default async function Home() {
           />
         )}
       </div>
-    </main>
+    </MainContainer>
   );
 }
