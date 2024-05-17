@@ -11,8 +11,6 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.16.3",
     "@contentful/rich-text-types": "^16.1.0",
-    "@preact/signals": "^1.2.3",
-    "@preact/signals-core": "^1.6.0",
     "@preact/signals-react": "^2.0.1",
     "@sendgrid/mail": "^7.7.0",
     "@types/node": "^20.12.10",

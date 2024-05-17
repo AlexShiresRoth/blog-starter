@@ -1,6 +1,6 @@
 'use client';
 
-import { signal } from '@preact/signals-core';
+import { signal } from '@preact/signals-react';
 import { useSignals } from '@preact/signals-react/runtime';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';

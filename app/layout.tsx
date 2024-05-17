@@ -41,6 +41,18 @@ export interface AppQueryResponse {
   };
 }
 
+export async function generateMetadata() {
+  return {
+    title: `Blog Starter`,
+    description:
+      'Starting Template For a Blog Site, using contentful and NextJS 14',
+  };
+}
+
+type Props = {
+  children: React.ReactNode;
+};
+
 async function getAppData(domain: string) {
   try {
     const res = await fetchGraphQL<AppQueryResponse>(appQuery(domain));
@@ -53,17 +65,6 @@ async function getAppData(domain: string) {
     return null;
   }
 }
-export async function generateMetadata() {
-  return {
-    title: `Blog Starter`,
-    description:
-      'Starting Template For a Blog Site, using contentful and NextJS 14',
-  };
-}
-
-type Props = {
-  children: React.ReactNode;
-};
 
 export default async function RootLayout({ children }: Props) {
   const app = await getAppData(process.env.DOMAIN as string);
