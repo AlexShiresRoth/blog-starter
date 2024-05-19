@@ -27,7 +27,7 @@ export default async function BlogPost({
   if (!post) return null;
   return (
     <MainContainer>
-      <article className="w-11/12 px-4 md:px-0 md:w-1/2 container flex flex-col gap-8 mt-32 md:mt-8">
+      <article className="w-11/12 px-4 py-8 md:px-0 md:w-1/2 container flex flex-col gap-8 mt-32 md:mt-8">
         <div className="flex flex-col items-center gap-4">
           {post.category && (
             <Link

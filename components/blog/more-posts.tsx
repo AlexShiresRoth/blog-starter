@@ -7,7 +7,7 @@ import PostCard from './post-card';
 async function getBlogPosts() {
   try {
     const res = await fetchGraphQL<BlogCollectionResponseData>(
-      blogPostCollectionQuery(600, 600, 12, 4)
+      blogPostCollectionQuery(600, 600, 12, 5)
     );
 
     return res.data.blogPostCollection.items;
