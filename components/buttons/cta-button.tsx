@@ -1,54 +1,35 @@
-import Link from "next/link";
-import React from "react";
-import cs from "classnames";
+import Link from 'next/link';
+import React from 'react';
 
 type Props = {
   text: string;
   slug?: string;
   url?: string;
-  colorOverride?: "yellow" | "blue" | "white";
+  altButton?: boolean;
 };
 
-const CtaButton = ({ text, slug, colorOverride = "blue" }: Props) => {
+const LinkClassNames =
+  'px-4 py-2 rounded border border-black hover:bg-black hover:text-white transition-colors';
+const altLinkClassNames =
+  'px-4 py-2 rounded border border-black bg-black text-white hover:bg-white hover:text-black transition-colors';
+
+const CtaButton = ({ text, slug, altButton = false }: Props) => {
   return (
     <Link
-      href={slug ?? "/"}
-      className={cs(
-        " rounded-full px-6 py-3  font-semibold text-lg  transition-all",
-        {
-          "bg-yellow-400 hover:bg-yellow-300 text-black":
-            colorOverride === "yellow",
-          "bg-blue-500 hover:bg-blue-300 text-white": colorOverride === "blue",
-          "bg-white text-blue-500 hover:bg-blue-300": colorOverride === "white",
-        }
-      )}
+      href={slug ?? '/'}
+      className={altButton ? altLinkClassNames : LinkClassNames}
     >
       {text}
     </Link>
   );
 };
 
-export const ExternalCTAButton = ({
-  text,
-  url,
-  colorOverride = "blue",
-}: Props) => {
+export const ExternalCTAButton = ({ text, url, altButton = false }: Props) => {
   return (
-    <a
-      href={url}
-      className={cs(
-        " rounded-full px-6 py-3  font-semibold text-lg  transition-all",
-        {
-          "bg-yellow-400 hover:bg-yellow-300 text-black":
-            colorOverride === "yellow",
-          "bg-blue-500 hover:bg-blue-300 text-white": colorOverride === "blue",
-          "bg-white text-blue-500 hover:bg-blue-300": colorOverride === "white",
-        }
-      )}
-    >
+    <a href={url} className={altButton ? altLinkClassNames : LinkClassNames}>
       {text}
       {` `}
-      <i className='ri-external-link-line'></i>
+      <i className="ri-external-link-line"></i>
     </a>
   );
 };

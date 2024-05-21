@@ -8,7 +8,11 @@ import MainContainer from '@/components/containers/main-container';
 
 async function getHome(slug: string) {
   try {
-    const res = await fetchGraphQL<PageCollectionResponseData>(pageQuery(slug));
+    const res = await fetchGraphQL<PageCollectionResponseData>(
+      pageQuery(slug),
+      60,
+      ['page']
+    );
 
     if (!res.data) throw new Error('Could not locate page data');
 
@@ -27,23 +31,23 @@ export default async function Home() {
   return (
     <MainContainer>
       {/* TOP Section */}
-      <div>
+      <>
         {page.topSectionCollection.items.length > 0 && (
           <ComponentRenderer
             itemsToRender={page?.topSectionCollection?.items}
           />
         )}
-      </div>
+      </>
       <BlogFeatured />
       <MorePosts />
-      <div>
+      <>
         {/* BOTTOM Section */}
         {page.extraSectionCollection.items.length > 0 && (
           <ComponentRenderer
             itemsToRender={page?.extraSectionCollection?.items}
           />
         )}
-      </div>
+      </>
     </MainContainer>
   );
 }
