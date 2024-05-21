@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 async function getComponent(id: string) {
   try {
-    const res = await fetchGraphQL<HeroBannerResponseData>(heroQuery(id), 0, [
+    const res = await fetchGraphQL<HeroBannerResponseData>(heroQuery(id), 60, [
       'componentHeroBanner',
     ]);
 
