@@ -39,12 +39,14 @@ const HeroBanner = async (props: UnknownComponent) => {
         <div className="relative flex w-full">
           <div className="flex flex-col items-center justify-center mt-36 md:mt-0 pb-10 md:py-28 w-full gap-4 z-10">
             {hero.headline && (
-              <h1 className="text-5xl lg:text-7xl text-center font-bold">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl text-center font-bold">
                 {hero.headline}
               </h1>
             )}
             {hero.bodyText && (
-              <div>{documentToReactComponents(hero.bodyText.json)}</div>
+              <div className="text-center">
+                {documentToReactComponents(hero.bodyText.json)}
+              </div>
             )}
             <div className="flex gap-4 items-center">
               {hero.externalLink && (
