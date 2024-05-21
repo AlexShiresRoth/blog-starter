@@ -49,18 +49,18 @@ export default async function PostsCollection({
       <MainContainer>
         <SectionContainer>
           <div className="flex flex-col items-center mt-10">
-            <h1 className="text-2xl md:text-5xl">Our Posts</h1>
+            <h1 className="text-5xl">Our Posts</h1>
             <p>Search from our vast collection of posts</p>
           </div>
           <SearchBox />
-          <div className="mt-6 md:mt-10 flex items-center gap-4 px-8 md:px-0 w-full justify-between">
+          <div className="mt-6 md:mt-10 flex items-center gap-4  w-full justify-between">
             <SearchFilter queryParam={q} />
             <h2 className="text-xl md:text-3xl">
               {q ? `${posts.length} Results for ${q}` : 'All Posts'}
             </h2>
           </div>
           {!!posts.length && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:py-8 px-8 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:py-8">
               {posts.map((post) => (
                 <PostCard key={post.sys.id} post={post} />
               ))}

@@ -28,7 +28,7 @@ export default async function BlogFeatured() {
 
   return (
     <SectionContainer>
-      <section className="w-full flex justify-center items-center py-8 md:mt-0 lg:py-16 px-6 lg:px-0">
+      <div className="w-full flex justify-center items-center py-8 md:mt-0 lg:py-16">
         <div className="w-full flex gap-8 flex-col lg:flex-row">
           <div className="w-full lg:w-1/2 xl:w-2/3 flex flex-col gap-4 lg:max-w-4xl">
             <div className="flex justify-between items-end">
@@ -58,7 +58,7 @@ export default async function BlogFeatured() {
             ))}
           </div>
         </div>
-      </section>
+      </div>
     </SectionContainer>
   );
 }

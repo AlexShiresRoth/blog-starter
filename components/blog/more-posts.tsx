@@ -22,7 +22,7 @@ export default async function MorePosts() {
 
   if (!blogPosts || blogPosts?.length === 0) return null;
   return (
-    <div className="flex flex-col items-center justify-center w-full py-10 px-8 lg:px-0 bg-stone-50 md:py-16">
+    <div className="flex flex-col items-center justify-center w-full py-10 bg-stone-50 md:py-16">
       <SectionContainer>
         <div className="w-full">
           <h2 className="text-3xl font-semibold ml-8">More Posts</h2>
