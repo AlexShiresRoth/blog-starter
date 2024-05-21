@@ -1,14 +1,17 @@
-import Image from 'next/image';
 import React from 'react';
-import CtaButton, { ExternalCTAButton } from '../buttons/cta-button';
 import { HeroBannerResponseData, UnknownComponent } from '@/types/component';
 import { fetchGraphQL } from '@/contentful/api';
 import { heroQuery } from '@/contentful/gql-queries/components/hero/hero.query';
-import RichTextRender from '../rendering/rich-text-render';
+import SectionContainer from '../containers/section-container';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import CtaButton, { ExternalCTAButton } from '../buttons/cta-button';
+import Image from 'next/image';
 
 async function getComponent(id: string) {
   try {
-    const res = await fetchGraphQL<HeroBannerResponseData>(heroQuery(id));
+    const res = await fetchGraphQL<HeroBannerResponseData>(heroQuery(id), 0, [
+      'componentHeroBanner',
+    ]);
 
     return res.data.componentHeroBanner;
   } catch (error) {
@@ -23,53 +26,44 @@ const HeroBanner = async (props: UnknownComponent) => {
   if (!hero) return null;
 
   return (
-    <div
-      data-component-type="hero-banner"
-      className="w-full  flex gap-4 justify-center  items-center  bg-blue-700 py-14 overflow-x-hidden"
-    >
-      <div className="w-11/12 mx-4 md:mx-0 md:w-3/4  flex flex-col-reverse md:flex-row gap-4 justify-between items-center ">
-        <div className="w-full md:w-1/2 relative z-0 flex flex-col gap-6  h-full py-12 my-8">
-          <span className="h-[400px] w-[400px] rounded-full block absolute -z-10 top-0 -left-20 border-2 border-white/20"></span>
-          <h1 className="text-2xl md:text-4xl lg:text-6xl  font-extrabold leading-relaxed  text-white  flex flex-col ">
-            {hero.headline}
-          </h1>
-          {!!hero?.bodyText && (
-            <RichTextRender
-              content={hero.bodyText}
-              classNames="text-white/80 w-11/12 md:w-3/4"
-            />
-          )}
-          <div>
-            {hero.externalLink && (
-              <ExternalCTAButton
-                url={hero.externalLink}
-                text={hero.ctaText ?? 'Take new digital test'}
-              />
+    <div className="relative w-full flex justify-center">
+      {hero.image && (
+        <Image
+          src={hero.image.url}
+          alt={hero.image.title}
+          fill
+          className="object-center object-cover h-full w-full absolute top-0 left-0 z-0 rounded opacity-30"
+        />
+      )}
+      <SectionContainer>
+        <div className="relative flex w-full">
+          <div className="flex flex-col items-center justify-center mt-36 md:mt-0 pb-10 md:py-28 w-full gap-4 z-10">
+            {hero.headline && (
+              <h1 className="text-5xl lg:text-7xl text-center font-bold">
+                {hero.headline}
+              </h1>
             )}
-            {!hero.externalLink && (
-              <CtaButton
-                text={hero.ctaText ?? 'Learn More'}
-                slug={hero.targetPage.slug ?? null}
-              />
+            {hero.bodyText && (
+              <div>{documentToReactComponents(hero.bodyText.json)}</div>
             )}
+            <div className="flex gap-4 items-center">
+              {hero.externalLink && (
+                <ExternalCTAButton
+                  text={hero.ctaText}
+                  url={hero.externalLink}
+                />
+              )}
+              {hero.targetPage && (
+                <CtaButton
+                  text={hero.ctaText}
+                  slug={`/${hero.targetPage.slug}`}
+                  altButton
+                />
+              )}
+            </div>
           </div>
         </div>
-        <div className="relative">
-          <span className="w-[60px] h-[60px] rounded-full -top-10 -right-10 absolute z-20 bg-blue-600 block skew-y-3 -translate-x-2 p-4"></span>
-          <div className="relative w-[330px] h-[250px] lg:w-[400px] lg:h-[350px] xl:w-[550px] xl:h-[400px]">
-            <Image
-              src={hero?.image?.url}
-              alt={hero?.image?.title}
-              className="object-cover object-center rounded  z-10 ring-2 ring-white"
-              quality={75}
-              priority
-              sizes=""
-              fill
-            />
-          </div>
-          <span className="w-full h-full top-10 absolute rounded bg-yellow-300 block skew-y-3 -translate-x-2 p-4"></span>
-        </div>
-      </div>
+      </SectionContainer>
     </div>
   );
 };

@@ -22,11 +22,7 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         if (!component?.sys?.id) return null;
 
         if (component.__typename === 'ComponentHeroBanner') {
-          return (
-            <ComponentWrapper key={component.sys.id}>
-              <HeroBanner {...component} />
-            </ComponentWrapper>
-          );
+          return <HeroBanner {...component} key={component.sys.id} />;
         }
 
         if (component.__typename === 'SignUpBox') {
