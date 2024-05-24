@@ -42,7 +42,7 @@ export default function SearchFilter({ queryParam }: { queryParam?: string }) {
           >
             <div className="py-2 px-8 hover:bg-stone-100 hover:text-indigo-400 rounded-t-lg transition-colors">
               <Link
-                href={`/posts?sort=latest${
+                href={`/blog/posts?sort=latest${
                   queryParam ? `&q=${queryParam}` : ''
                 }`}
               >
@@ -51,7 +51,7 @@ export default function SearchFilter({ queryParam }: { queryParam?: string }) {
             </div>
             <div className="py-2 px-8 hover:bg-stone-100 hover:text-indigo-400 rounded-b-lg transition-colors">
               <Link
-                href={`/posts?sort=oldest${
+                href={`/blog/posts?sort=oldest${
                   queryParam ? `&q=${queryParam}` : ''
                 }`}
               >
