@@ -3,6 +3,7 @@ import { fetchGraphQL } from '@/contentful/api';
 import { BlogCollectionResponseData } from '@/types/blog';
 import SectionContainer from '../containers/section-container';
 import PostCard from './post-card';
+import AllPostsHeader from './all-posts-header';
 
 async function getBlogPosts() {
   try {
@@ -24,9 +25,7 @@ export default async function MorePosts() {
   return (
     <div className="flex flex-col items-center justify-center w-full py-10 bg-stone-50 md:py-16">
       <SectionContainer>
-        <div className="w-full">
-          <h2 className="text-3xl font-semibold ml-8">More Posts</h2>
-        </div>
+        <AllPostsHeader title="More Posts" />
         {/* More Posts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
           {blogPosts.map((post) => (

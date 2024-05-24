@@ -7,6 +7,7 @@ import PostTag from './post-tag';
 import PostDate from './post-date';
 import SectionContainer from '../containers/section-container';
 import { format } from 'date-fns';
+import AllPostsHeader from './all-posts-header';
 
 async function getFeaturedBlogPosts() {
   try {
@@ -31,24 +32,7 @@ export default async function BlogFeatured() {
       <div className="w-full flex justify-center items-center py-8 md:mt-0 lg:py-16">
         <div className="w-full flex gap-8 flex-col lg:flex-row">
           <div className="w-full lg:w-1/2 xl:w-2/3 flex flex-col gap-4 lg:max-w-4xl">
-            <div className="flex justify-between items-end">
-              <h1 className="text-4xl md:text-6xl font-bold ml-8">Featured</h1>
-              <Link
-                href="/posts"
-                className="flex gap-2 items-center hover:text-indigo-500 transition-colors"
-              >
-                All Posts
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  width={16}
-                  height={16}
-                >
-                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                </svg>
-              </Link>
-            </div>
+            <AllPostsHeader title="Featured" />
             <FeaturedPost post={blogPosts[0]} />
           </div>
 
