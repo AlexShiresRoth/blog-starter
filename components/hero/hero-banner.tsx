@@ -58,7 +58,7 @@ const HeroBanner = async (props: UnknownComponent) => {
               {hero.targetPage && (
                 <CtaButton
                   text={hero.ctaText}
-                  slug={`/${hero.targetPage.slug}`}
+                  slug={hero.targetPage.slug}
                   altButton
                 />
               )}

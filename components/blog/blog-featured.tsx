@@ -52,7 +52,7 @@ const Post = ({ post }: { post: BlogPostData }) => {
     <div className="flex items-start gap-4 justify-between relative w-full">
       {post.postImage && (
         <Link
-          href={`/blog/${post.slug}`}
+          href={`/blog/posts/${post.slug}`}
           className="h-[133px] w-[200px] relative"
         >
           <Image
@@ -71,7 +71,7 @@ const Post = ({ post }: { post: BlogPostData }) => {
         </div>
         <div className="w-full flex flex-col z-10 justify-end gap-2">
           {post.title && (
-            <Link href={`/blog/${post.slug}`}>
+            <Link href={`/blog/posts/${post.slug}`}>
               <h1 className="text-sm font-semibold text-black hover:underline transition-all">
                 {post.title}
               </h1>
@@ -85,7 +85,7 @@ const Post = ({ post }: { post: BlogPostData }) => {
           <div className="flex items-center gap-2 flex-wrap">
             {post.category && (
               <Link
-                href={`/posts?q=${post.category}`}
+                href={`/blog/posts?q=${post.category}`}
                 className="text-xs text-indigo-500"
               >
                 {post.category}
@@ -95,7 +95,7 @@ const Post = ({ post }: { post: BlogPostData }) => {
               post.tags.slice(0, 4).map((tag, index) => (
                 <Link
                   key={index}
-                  href={`/posts?q=${tag}`}
+                  href={`/blog/posts?q=${tag}`}
                   className="text-xs text-gray-400"
                 >
                   {tag}
@@ -127,7 +127,7 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
         <div className="w-full md:w-3/4 p-4 flex flex-col bg-white rounded-xl rounded-tl-none relative">
           {post.category && (
             <Link
-              href={`/posts?q=${post.category}`}
+              href={`/blog/posts?q=${post.category}`}
               className="px-8 py-2 bg-white rounded-tl-lg rounded-tr-full absolute bottom-[100%] left-0"
             >
               <p className="text-xs text-black font-semibold">
@@ -136,7 +136,7 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
             </Link>
           )}
           {post.title && (
-            <Link href={`/blog/${post.slug}`}>
+            <Link href={`/blog/posts/${post.slug}`}>
               <h2 className="text-3xl lg:text-5xl font-bold text-black hover:underline transition-all">
                 {post.title}
               </h2>

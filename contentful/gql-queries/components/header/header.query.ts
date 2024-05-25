@@ -1,4 +1,9 @@
-export const headerQuery = (id: string, logoWidth: number = 300, logoHeight: number = 300, isPreview?: boolean) => `
+export const headerQuery = (
+  id: string,
+  logoWidth: number = 300,
+  logoHeight: number = 300,
+  isPreview?: boolean
+) => `
     query {
         header(id: "${id}") {
         sys {

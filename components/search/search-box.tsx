@@ -8,7 +8,7 @@ async function searchPosts(formData: FormData) {
   const query = formData.get('query') as string;
 
   revalidateTag('blogPosts');
-  redirect(`/posts?q=${query}`);
+  redirect(`/blog/posts?q=${query}`);
 }
 
 export default async function SearchBox() {
