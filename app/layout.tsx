@@ -1,15 +1,15 @@
-import { fetchGraphQL } from '@/contentful/api';
-import './globals.css';
-import { Rubik } from 'next/font/google';
-import { appQuery } from '@/contentful/gql-queries';
-import Header from '@/components/header/header';
-import Footer from '@/components/footer/footer';
-import { Suspense } from 'react';
+import { fetchGraphQL } from "@/contentful/api";
+import "./globals.css";
+import { Rubik } from "next/font/google";
+import { appQuery } from "@/contentful/gql-queries";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
+import { Suspense } from "react";
 
 const rubik = Rubik({
-  subsets: ['latin'],
-  variable: '--font-abeezee',
-  weight: ['400', '500', '600', '700'],
+  subsets: ["latin"],
+  variable: "--font-abeezee",
+  weight: ["400", "500", "600", "700"],
 });
 
 export interface AppQueryResponse {
@@ -45,7 +45,7 @@ export async function generateMetadata() {
   return {
     title: `Blog Starter`,
     description:
-      'Starting Template For a Blog Site, using contentful and NextJS 14',
+      "Starting Template For a Blog Site, using contentful and NextJS 14",
   };
 }
 
@@ -61,7 +61,7 @@ async function getAppData(domain: string) {
 
     return app;
   } catch (error) {
-    console.error('Error fetching app data:', error);
+    console.error("Error fetching app data:", error);
     return null;
   }
 }
@@ -71,7 +71,7 @@ export default async function RootLayout({ children }: Props) {
   if (!app) return null;
   return (
     <>
-      <html lang="en" className={`${rubik.className}`}>
+      <html lang='en' className={`${rubik.className}`}>
         <body>
           <>
             <Suspense>
