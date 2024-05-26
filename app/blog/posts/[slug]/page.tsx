@@ -7,6 +7,11 @@ import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 async function getBlogPost(slug: string) {
   try {
     const res = await fetchGraphQL<BlogCollectionResponseData>(
@@ -20,11 +25,7 @@ async function getBlogPost(slug: string) {
 }
 
 export async function generateMetadata(
-  {
-    params: { slug },
-  }: {
-    params: { slug: string };
-  },
+  { params: { slug } }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const page = await getBlogPost(slug);
