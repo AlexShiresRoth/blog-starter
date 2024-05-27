@@ -9,6 +9,7 @@ import ProductTable from '../product/product-table';
 import ContactForm from '../forms/contact/contact-form';
 import FAQ from '../faq/FAQ';
 import { PossibleComponentType } from '@/types/page.type';
+import BlogFeatured from '../blog/blog-featured';
 
 type Props = {
   itemsToRender: PossibleComponentType[];
@@ -24,7 +25,9 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
         if (component.__typename === 'ComponentHeroBanner') {
           return <HeroBanner {...component} key={component.sys.id} />;
         }
-
+        if (component.__typename === 'FeaturedPostsSection') {
+          return <BlogFeatured key={component.sys.id} {...component} />;
+        }
         if (component.__typename === 'SignUpBox') {
           return (
             <ComponentWrapper key={component.sys.id} fullWidth={true}>

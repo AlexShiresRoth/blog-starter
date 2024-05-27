@@ -20,6 +20,10 @@ async function getHome(slug: string) {
       ['page']
     );
 
+    console.log(
+      'res',
+      res.data.pageCollection.items[0].topSectionCollection.items
+    );
     if (!res.data) throw new Error('Could not locate page data');
 
     return res.data.pageCollection.items[0];
@@ -63,7 +67,6 @@ export default async function Home() {
           />
         )}
       </>
-      <BlogFeatured />
       <MorePosts />
       <>
         {/* BOTTOM Section */}

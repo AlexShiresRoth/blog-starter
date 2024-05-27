@@ -1,6 +1,5 @@
 import { fetchGraphQL } from '@/contentful/api';
-import { blogPostCollectionQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
-import { BlogCollectionResponseData, BlogPostData } from '@/types/blog';
+import { BlogPostData, FeaturedPostsSectionResponseData } from '@/types/blog';
 import Image from 'next/image';
 import Link from 'next/link';
 import PostTag from './post-tag';
@@ -8,36 +7,46 @@ import PostDate from './post-date';
 import SectionContainer from '../containers/section-container';
 import { format } from 'date-fns';
 import AllPostsHeader from './all-posts-header';
+import { PossibleComponentType } from '@/types/page.type';
+import { featuredPostsQuery } from '@/contentful/gql-queries';
 
-async function getFeaturedBlogPosts() {
+async function getFeaturedPostsSection(id: string) {
   try {
-    const res = await fetchGraphQL<BlogCollectionResponseData>(
-      blogPostCollectionQuery(1000, 1000, 5, 0)
+    const res = await fetchGraphQL<FeaturedPostsSectionResponseData>(
+      featuredPostsQuery(id),
+      60,
+      ['featuredPostsSection', 'blogPost']
     );
 
-    return res.data.blogPostCollection.items;
+    return res.data.featuredPostsSection;
   } catch (error) {
     console.error('Error fetching blog posts:', error);
     return null;
   }
 }
 
-export default async function BlogFeatured() {
-  const blogPosts = await getFeaturedBlogPosts();
+export default async function BlogFeatured({
+  ...props
+}: PossibleComponentType) {
+  const featuredSection = await getFeaturedPostsSection(props.sys.id);
 
-  if (!blogPosts || blogPosts?.length === 0) return null;
+  if (!featuredSection) return null;
 
   return (
     <SectionContainer>
       <div className="w-full flex justify-center items-center py-8 md:mt-0 lg:py-16">
         <div className="w-full flex gap-8 flex-col lg:flex-row">
           <div className="w-full lg:w-1/2 xl:w-2/3 flex flex-col gap-4 lg:max-w-4xl">
-            <AllPostsHeader title="Featured" />
-            <FeaturedPost post={blogPosts[0]} />
+            <AllPostsHeader
+              title={featuredSection.title}
+              linkTitle={featuredSection.morePostsLinkTitle}
+              allPostsLink={featuredSection.postsLink}
+            />
+            <FeaturedPost post={featuredSection.featuredPost} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 justify-between lg:w-1/2 xl:w-1/3 max-w-lg md:max-w-full">
-            {blogPosts.slice(1).map((post) => (
+            {featuredSection.morePostsCollection.items.map((post) => (
               <Post key={post.sys.id} post={post} />
             ))}
           </div>

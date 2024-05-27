@@ -21,6 +21,11 @@ export const pageQuery = (slug: string): string => `query {
               id
             }
           }
+          ... on FeaturedPostsSection {
+            sys {
+              id
+            }
+          }
           ... on ComponentCta {
             sys {
               id
@@ -70,6 +75,11 @@ export const pageQuery = (slug: string): string => `query {
       extraSectionCollection {
         items {
             __typename
+          ... on FeaturedPostsSection {
+              sys {
+                id
+              }
+          }
           ... on ComponentCta {
             sys {
               id
