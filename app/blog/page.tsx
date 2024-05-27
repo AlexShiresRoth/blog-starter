@@ -1,48 +1,53 @@
-import ComponentRenderer from "@/components/rendering/component-renderer";
-import { fetchGraphQL } from "@/contentful/api";
-import { pageQuery } from "@/contentful/gql-queries/components/page/page.query";
-import { PageCollectionResponseData } from "@/types/page.type";
-import { Metadata, ResolvingMetadata } from "next";
+import ComponentRenderer from '@/components/rendering/component-renderer';
+import { fetchGraphQL } from '@/contentful/api';
+import { pageQuery } from '@/contentful/gql-queries/components/page/page.query';
+import { PageCollectionResponseData } from '@/types/page.type';
+import { Metadata, ResolvingMetadata } from 'next';
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 async function getPage(slug: string) {
   try {
     const res = await fetchGraphQL<PageCollectionResponseData>(pageQuery(slug));
 
-    if (!res.data) throw new Error("Could not locate page data");
+    if (!res.data) throw new Error('Could not locate page data');
 
     return res.data.pageCollection.items[0];
   } catch (error) {
-    console.error("Error fetching page data:", error);
+    console.error('Error fetching page data:', error);
     return null;
   }
 }
 
 export async function generateMetadata(
-  _params: undefined,
+  _params: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const page = await getPage("blog");
+  const page = await getPage('blog');
 
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: page?.pageName || "blog",
-    description: page?.seoMetadata?.description || "",
+    title: page?.pageName || 'Blog',
+    description: page?.seoMetadata?.description || '',
     openGraph: {
-      images: [page?.seoMetadata?.image || "", ...previousImages],
-      title: page?.seoMetadata?.title || "blog",
-      description: page?.seoMetadata?.description || "",
+      images: [page?.seoMetadata?.image || '', ...previousImages],
+      title: page?.seoMetadata?.title || 'Blog',
+      description: page?.seoMetadata?.description || '',
     },
   };
 }
 
 export default async function Page() {
-  const page = await getPage("blog");
+  const page = await getPage('blog');
 
   if (!page) return null;
 
   return (
-    <main className='flex flex-col'>
+    <main className="flex flex-col">
       {!!page.topSectionCollection.items.length && (
         <>
           <div>
@@ -55,14 +60,14 @@ export default async function Page() {
       )}
 
       {!!page.pageContent && (
-        <div className='bg-gray-100'>
+        <div className="bg-gray-100">
           {/* Page Content */}
           <ComponentRenderer itemsToRender={[page?.pageContent]} />
         </div>
       )}
 
       {!!page.extraSectionCollection.items.length && (
-        <div className='bg-gray-100'>
+        <div className="bg-gray-100">
           {/* Extra Section */}
           <ComponentRenderer
             itemsToRender={page.extraSectionCollection?.items}
