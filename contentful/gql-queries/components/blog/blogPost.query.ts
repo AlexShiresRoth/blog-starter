@@ -16,6 +16,16 @@ export const blogPostCollectionQuery = (
           firstPublishedAt
           publishedAt
         }
+        seoMetadata {
+          name
+          title
+          description
+          image {
+            url(transform: { width: 500, height: 500, format: WEBP, quality: 65 })
+          }
+          noIndex
+          noFollow
+        }
         title
         slug
         postImage {
@@ -47,13 +57,23 @@ export const blogPostCollectionQueryWithQueryParams = (
           { slug_contains: "${queryParam}" }
         ]
       },
-      order: sys_publishedAt_${sort === 'latest' || !sort ? 'DESC' : 'ASC'}
+      order: sys_publishedAt_${sort === "latest" || !sort ? "DESC" : "ASC"}
     ) {
       items {
         sys {
           id
           firstPublishedAt
           publishedAt
+        }
+        seoMetadata {
+          name
+          title
+          description
+          image {
+            url(transform: { width: 500, height: 500, format: WEBP, quality: 65 })
+          }
+          noIndex
+          noFollow
         }
         title
         slug
@@ -84,6 +104,16 @@ export const blogPostQuery = (
         id
         firstPublishedAt
         publishedAt
+      }
+       seoMetadata {
+          name
+          title
+          description
+          image {
+            url(transform: { width: 500, height: 500, format: WEBP, quality: 65 })
+          }
+          noIndex
+          noFollow
       }
       title
       slug

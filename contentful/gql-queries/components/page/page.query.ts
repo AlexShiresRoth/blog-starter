@@ -1,6 +1,18 @@
 export const pageQuery = (slug: string): string => `query {
   pageCollection(where: { slug: "${slug}" }, limit:1) {
     items {
+        seoMetadata {
+            name
+            title
+            description
+            image {
+              url(transform: { width: 500, height: 500, format: WEBP, quality: 65 })
+            }
+            noIndex
+            noFollow
+          }
+          pageName
+          slug
       topSectionCollection {
         items {
             __typename

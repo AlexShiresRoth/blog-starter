@@ -1,5 +1,6 @@
-import { Document } from '@contentful/rich-text-types';
-import { EntryFields } from 'contentful';
+import { Document } from "@contentful/rich-text-types";
+import { EntryFields } from "contentful";
+import { SEOMetadata } from "../page.type";
 
 export interface BlogPostData {
   sys: {
@@ -7,6 +8,7 @@ export interface BlogPostData {
     publishedAt: string;
     firstPublishedAt: string;
   };
+  seoMetadata: SEOMetadata;
   title: string;
   slug: string;
   postImage: {

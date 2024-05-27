@@ -2,6 +2,12 @@ import ComponentRenderer from '@/components/rendering/component-renderer';
 import { fetchGraphQL } from '@/contentful/api';
 import { pageQuery } from '@/contentful/gql-queries/components/page/page.query';
 import { PageCollectionResponseData } from '@/types/page.type';
+import { Metadata, ResolvingMetadata } from 'next';
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 async function getPage(slug: string) {
   try {
@@ -14,6 +20,25 @@ async function getPage(slug: string) {
     console.error('Error fetching page data:', error);
     return null;
   }
+}
+
+export async function generateMetadata(
+  _params: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const page = await getPage('blog');
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: page?.pageName || 'Blog',
+    description: page?.seoMetadata?.description || '',
+    openGraph: {
+      images: [page?.seoMetadata?.image || '', ...previousImages],
+      title: page?.seoMetadata?.title || 'Blog',
+      description: page?.seoMetadata?.description || '',
+    },
+  };
 }
 
 export default async function Page() {

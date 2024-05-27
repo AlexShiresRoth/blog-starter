@@ -1,5 +1,5 @@
-import { EntryFields, EntrySys } from 'contentful';
-import { UnknownComponent } from './component';
+import { EntryFields, EntrySys } from "contentful";
+import { UnknownComponent } from "./component";
 
 export type InputItem = {
   sys: {
@@ -28,7 +28,7 @@ export type Form = {
 };
 
 export type SignUpBox = {
-  __typename: 'SignUpBox';
+  __typename: "SignUpBox";
   sys: {
     id: string;
   };
@@ -56,31 +56,38 @@ export interface PossibleComponentType {
 export interface PageCollectionResponseData {
   data: {
     pageCollection: {
-      items: {
-        topSectionCollection: {
-          items: PossibleComponentType[];
-        };
-        pageContent: {
-          __typename: string;
-          sys: {
-            id: string;
-          };
-        };
-        extraSectionCollection: {
-          items: PossibleComponentType[];
-        };
-      }[];
+      items: PageCollectionItem[];
     };
   };
 }
 
-export type PageCollectionItem = {
-  topSectionCollection: TopSectionCollection;
-  pageContent: {
-    __typename: EntryFields.Symbol;
-    sys: EntrySys;
+export type SEOMetadata = {
+  name: string;
+  title: string;
+  description: string;
+  image: {
+    url: string;
   };
-  extraSectionCollection: ExtraSectionCollection;
+  noIndex: boolean;
+  noFollow: boolean;
+};
+
+export type PageCollectionItem = {
+  pageName: string;
+  slug: string;
+  seoMetadata: SEOMetadata;
+  topSectionCollection: {
+    items: PossibleComponentType[];
+  };
+  pageContent: {
+    __typename: string;
+    sys: {
+      id: string;
+    };
+  };
+  extraSectionCollection: {
+    items: PossibleComponentType[];
+  };
 };
 
 export type PageCollection = {

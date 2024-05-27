@@ -14,6 +14,14 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@contentful/content-source-maps@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/@contentful/content-source-maps/-/content-source-maps-0.5.0.tgz"
+  integrity sha512-Ui14m5QvgFWteAXsv5pmFtbm2deGUJrn1WPHoBa79SK3Z3nV47wQb3/aDZhnXushgpJlk2HmH32Fda/0XZqq1w==
+  dependencies:
+    "@vercel/stega" "^0.1.2"
+    json-pointer "^0.6.2"
+
 "@contentful/rich-text-react-renderer@^15.16.3":
   version "15.17.0"
   resolved "https://registry.npmjs.org/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-15.17.0.tgz"
@@ -319,6 +327,11 @@
   dependencies:
     "@typescript-eslint/types" "7.2.0"
     eslint-visitor-keys "^3.4.1"
+
+"@vercel/stega@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@vercel/stega/-/stega-0.1.2.tgz"
+  integrity sha512-P7mafQXjkrsoyTRppnt0N21udKS9wUmLXHRyP9saLXLHw32j/FgUJ3FscSWgvSqRs4cj7wKZtwqJEvWJ2jbGmA==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
@@ -715,11 +728,12 @@ contentful-sdk-core@^8.1.0:
     p-throttle "^4.1.1"
     qs "^6.11.2"
 
-contentful@^10.10.0:
-  version "10.10.0"
-  resolved "https://registry.npmjs.org/contentful/-/contentful-10.10.0.tgz"
-  integrity sha512-VO+24VfY5GbS87lEi0KcgcWJHvhHvStKeQ6Mlo22D8r8HsGv7Cpo0oWex0NUfsK4UpIcGId+DbSgBCzWN3lJlg==
+contentful@^10.11.3:
+  version "10.11.3"
+  resolved "https://registry.npmjs.org/contentful/-/contentful-10.11.3.tgz"
+  integrity sha512-sBI2fCfw101JOSJvjVS2rBpP3HwGl3S2lQPhYwdKjrLepktdJs+gxEyGnMWhOJ36Di5aObIrc0PSA4jAftDB/Q==
   dependencies:
+    "@contentful/content-source-maps" "^0.5.0"
     "@contentful/rich-text-types" "^16.0.2"
     axios "^1.6.7"
     contentful-resolve-response "^1.8.1"
@@ -1330,6 +1344,11 @@ for-each@^0.3.3:
   dependencies:
     is-callable "^1.1.3"
 
+foreach@^2.0.4:
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/foreach/-/foreach-2.0.6.tgz"
+  integrity sha512-k6GAGDyqLe9JaebCsFCoudPPWfihKu8pylYXRlqP1J7ms39iPoTtk2fviNglIeQEwdh0bQeKJ01ZPyuyQvKzwg==
+
 foreground-child@^3.1.0:
   version "3.1.1"
   resolved "https://registry.npmjs.org/foreground-child/-/foreground-child-3.1.1.tgz"
@@ -1833,6 +1852,13 @@ js-yaml@^4.1.0:
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
   dependencies:
     argparse "^2.0.1"
+
+json-pointer@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.npmjs.org/json-pointer/-/json-pointer-0.6.2.tgz"
+  integrity sha512-vLWcKbOaXlO+jvRy4qNd+TI1QUPZzfJj1tpJ3vAXDych5XJf93ftpUKe5pKCrzyIIwgBJcOcCVRUfqQP25afBw==
+  dependencies:
+    foreach "^2.0.4"
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"

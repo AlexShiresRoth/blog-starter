@@ -3,8 +3,14 @@ import RichTextRender from '@/components/rendering/rich-text-render';
 import { fetchGraphQL } from '@/contentful/api';
 import { blogPostQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
 import { BlogCollectionResponseData } from '@/types/blog';
+import { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 async function getBlogPost(slug: string) {
   try {
@@ -16,6 +22,25 @@ async function getBlogPost(slug: string) {
     console.error('Error fetching blog post:', error);
     return null;
   }
+}
+
+export async function generateMetadata(
+  { params: { slug } }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const page = await getBlogPost(slug);
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: page?.title || 'Missing SEO Title',
+    description: page?.seoMetadata?.description || 'Missing SEO Description',
+    openGraph: {
+      images: [page?.seoMetadata?.image || '', ...previousImages],
+      title: page?.seoMetadata?.title,
+      description: page?.seoMetadata?.description || '',
+    },
+  };
 }
 
 export default async function BlogPost({

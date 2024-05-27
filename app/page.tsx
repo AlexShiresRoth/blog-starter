@@ -5,6 +5,12 @@ import BlogFeatured from '@/components/blog/blog-featured';
 import MorePosts from '@/components/blog/more-posts';
 import { PageCollectionResponseData } from '@/types/page.type';
 import MainContainer from '@/components/containers/main-container';
+import { Metadata, ResolvingMetadata } from 'next';
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 async function getHome(slug: string) {
   try {
@@ -21,6 +27,25 @@ async function getHome(slug: string) {
     console.error('Error fetching home data:', error);
     return null;
   }
+}
+
+export async function generateMetadata(
+  _params: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const page = await getHome('home');
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: page?.pageName || 'Home',
+    description: page?.seoMetadata?.description || '',
+    openGraph: {
+      images: [page?.seoMetadata?.image || '', ...previousImages],
+      title: page?.seoMetadata?.title || 'Home',
+      description: page?.seoMetadata?.description || '',
+    },
+  };
 }
 
 export default async function Home() {
