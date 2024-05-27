@@ -25,7 +25,11 @@ export default async function MorePosts() {
   return (
     <div className="flex flex-col items-center justify-center w-full py-10 bg-stone-50 md:py-16">
       <SectionContainer>
-        <AllPostsHeader title="More Posts" />
+        <AllPostsHeader
+          title="More Posts"
+          allPostsLink="/blog/posts"
+          linkTitle="All Posts"
+        />
         {/* More Posts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
           {blogPosts.map((post) => (

@@ -1,6 +1,6 @@
-import { Document } from "@contentful/rich-text-types";
-import { EntryFields } from "contentful";
-import { SEOMetadata } from "../page.type";
+import { Document } from '@contentful/rich-text-types';
+import { EntryFields } from 'contentful';
+import { SEOMetadata } from '../page.type';
 
 export interface BlogPostData {
   sys: {
@@ -27,6 +27,23 @@ export interface BlogCollectionResponseData {
   data: {
     blogPostCollection: {
       items: BlogPostData[];
+    };
+  };
+}
+
+export interface FeaturedPostsSectionResponseData {
+  data: {
+    featuredPostsSection: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      postsLink: string;
+      morePostsLinkTitle: string;
+      featuredPost: BlogPostData;
+      morePostsCollection: {
+        items: BlogPostData[];
+      };
     };
   };
 }
