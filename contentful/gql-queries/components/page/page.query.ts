@@ -26,37 +26,7 @@ export const pageQuery = (slug: string): string => `query {
               id
             }
           }
-          ... on ComponentCta {
-            sys {
-              id
-            }
-          }
-          ... on ComponentDuplex {
-            sys {
-              id
-            }
-          }
-          ... on ComponentInfoBlock {
-            sys {
-              id
-            }
-          }
-          ... on SignUpBox {
-            sys {
-              id
-            }
-          }
-          ... on ComponentTextBlock {
-            sys {
-              id
-            }
-          }
-          ... on Form {
-            sys {
-              id
-            }
-          }
-          ... on Faq { 
+          ... on MorePostsSection {
             sys {
               id
             }
@@ -66,11 +36,7 @@ export const pageQuery = (slug: string): string => `query {
       pageContent {
         __typename
        
-         ... on ComponentProductTable {
-          sys {
-            id
-          }
-        }
+       
       }
       extraSectionCollection {
         items {
@@ -80,37 +46,7 @@ export const pageQuery = (slug: string): string => `query {
                 id
               }
           }
-          ... on ComponentCta {
-            sys {
-              id
-            }
-          }
-          ... on ComponentDuplex {
-            sys {
-              id
-            }
-          }
-          ... on ComponentInfoBlock {
-            sys {
-              id
-            }
-          }
-          ... on SignUpBox {
-            sys {
-              id
-            }
-          }
-          ... on ComponentTextBlock {
-            sys {
-              id
-            }
-          }
-          ... on Form {
-            sys {
-              id
-            }
-          }
-          ... on Faq {
+          ... on MorePostsSection {
             sys {
               id
             }

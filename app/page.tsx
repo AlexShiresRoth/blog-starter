@@ -1,8 +1,6 @@
 import ComponentRenderer from '@/components/rendering/component-renderer';
 import { pageQuery } from '@/contentful/gql-queries/components/page/page.query';
 import { fetchGraphQL } from '@/contentful/api';
-import BlogFeatured from '@/components/blog/blog-featured';
-import MorePosts from '@/components/blog/more-posts';
 import { PageCollectionResponseData } from '@/types/page.type';
 import MainContainer from '@/components/containers/main-container';
 import { Metadata, ResolvingMetadata } from 'next';
@@ -20,10 +18,6 @@ async function getHome(slug: string) {
       ['page']
     );
 
-    console.log(
-      'res',
-      res.data.pageCollection.items[0].topSectionCollection.items
-    );
     if (!res.data) throw new Error('Could not locate page data');
 
     return res.data.pageCollection.items[0];
@@ -67,7 +61,6 @@ export default async function Home() {
           />
         )}
       </>
-      <MorePosts />
       <>
         {/* BOTTOM Section */}
         {page.extraSectionCollection.items.length > 0 && (

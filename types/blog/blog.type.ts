@@ -41,9 +41,18 @@ export interface FeaturedPostsSectionResponseData {
       postsLink: string;
       morePostsLinkTitle: string;
       featuredPost: BlogPostData;
-      morePostsCollection: {
-        items: BlogPostData[];
-      };
+    };
+  };
+}
+
+export interface MorePostsSectionResponseData {
+  data: {
+    morePostsSection: {
+      title: string;
+      postsCollectionLink: string;
+      postsCollectionTitle: string;
+      maxPostsToShow: number;
+      isFeaturedSectionIncluded: boolean;
     };
   };
 }
