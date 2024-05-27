@@ -5,7 +5,9 @@ export const blogPostCollectionQuery = (
   skip: number = 0
 ) => `query {
     blogPostCollection(
-      where: { slug_exists: true }
+      where: {
+        slug_exists: true
+      }
       limit: ${limit}
       skip: ${skip}
       order: sys_publishedAt_DESC
@@ -57,7 +59,7 @@ export const blogPostCollectionQueryWithQueryParams = (
           { slug_contains: "${queryParam}" }
         ]
       },
-      order: sys_publishedAt_${sort === "latest" || !sort ? "DESC" : "ASC"}
+      order: sys_publishedAt_${sort === 'latest' || !sort ? 'DESC' : 'ASC'}
     ) {
       items {
         sys {

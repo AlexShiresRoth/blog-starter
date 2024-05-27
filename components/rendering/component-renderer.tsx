@@ -10,6 +10,7 @@ import ContactForm from '../forms/contact/contact-form';
 import FAQ from '../faq/FAQ';
 import { PossibleComponentType } from '@/types/page.type';
 import BlogFeatured from '../blog/blog-featured';
+import MorePosts from '../blog/more-posts';
 
 type Props = {
   itemsToRender: PossibleComponentType[];
@@ -20,13 +21,18 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
   return (
     <>
       {itemsToRender.map((component) => {
-        if (!component?.sys?.id) return null;
-
+        if (!component?.sys?.id) {
+          console.error('Component is missing sys.id', component);
+          return null;
+        }
         if (component.__typename === 'ComponentHeroBanner') {
           return <HeroBanner {...component} key={component.sys.id} />;
         }
         if (component.__typename === 'FeaturedPostsSection') {
           return <BlogFeatured key={component.sys.id} {...component} />;
+        }
+        if (component.__typename === 'MorePostsSection') {
+          return <MorePosts key={component.sys.id} {...component} />;
         }
         if (component.__typename === 'SignUpBox') {
           return (
@@ -34,27 +40,6 @@ const ComponentRenderer = ({ itemsToRender }: Props) => {
               <SignupBox {...component} />
             </ComponentWrapper>
           );
-        }
-        if (component.__typename === 'ComponentDuplex') {
-          return <DuplexComponent key={component.sys.id} {...component} />;
-        }
-        if (component.__typename === 'ComponentTextBlock') {
-          return <TextBlockComponent key={component.sys.id} {...component} />;
-        }
-        if (component.__typename === 'ComponentInfoBlock') {
-          return <InfoBlockComponent key={component.sys.id} {...component} />;
-        }
-        if (component.__typename === 'ComponentCta') {
-          return <CtaComponent key={component.sys.id} id={component.sys.id} />;
-        }
-        if (component.__typename === 'ComponentProductTable') {
-          return <ProductTable key={component.sys.id} {...component} />;
-        }
-        if (component.__typename === 'Form') {
-          return <ContactForm key={component.sys.id} {...component} />;
-        }
-        if (component.__typename === 'Faq') {
-          return <FAQ key={component.sys.id} {...component} />;
         }
         console.log('Component not found', component);
       })}

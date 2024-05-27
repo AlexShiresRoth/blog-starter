@@ -1,5 +1,9 @@
 import { fetchGraphQL } from '@/contentful/api';
-import { BlogPostData, FeaturedPostsSectionResponseData } from '@/types/blog';
+import {
+  BlogCollectionResponseData,
+  BlogPostData,
+  FeaturedPostsSectionResponseData,
+} from '@/types/blog';
 import Image from 'next/image';
 import Link from 'next/link';
 import PostTag from './post-tag';
@@ -8,7 +12,10 @@ import SectionContainer from '../containers/section-container';
 import { format } from 'date-fns';
 import AllPostsHeader from './all-posts-header';
 import { PossibleComponentType } from '@/types/page.type';
-import { featuredPostsQuery } from '@/contentful/gql-queries';
+import {
+  blogPostCollectionQuery,
+  featuredPostsQuery,
+} from '@/contentful/gql-queries';
 
 async function getFeaturedPostsSection(id: string) {
   try {
@@ -25,12 +32,29 @@ async function getFeaturedPostsSection(id: string) {
   }
 }
 
+async function getMostRecentPosts() {
+  try {
+    const res = await fetchGraphQL<BlogCollectionResponseData>(
+      blogPostCollectionQuery(600, 600, 5, 0)
+    );
+
+    return res.data.blogPostCollection.items;
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return null;
+  }
+}
+
 export default async function BlogFeatured({
   ...props
 }: PossibleComponentType) {
   const featuredSection = await getFeaturedPostsSection(props.sys.id);
 
   if (!featuredSection) return null;
+
+  const mostRecentPosts = await getMostRecentPosts();
+
+  if (!mostRecentPosts || mostRecentPosts?.length === 0) return null;
 
   return (
     <SectionContainer>
@@ -42,11 +66,11 @@ export default async function BlogFeatured({
               linkTitle={featuredSection.morePostsLinkTitle}
               allPostsLink={featuredSection.postsLink}
             />
-            <FeaturedPost post={featuredSection.featuredPost} />
+            <FeaturedPost post={mostRecentPosts[0]} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 justify-between lg:w-1/2 xl:w-1/3 max-w-lg md:max-w-full">
-            {featuredSection.morePostsCollection.items.map((post) => (
+            {mostRecentPosts.slice(1).map((post) => (
               <Post key={post.sys.id} post={post} />
             ))}
           </div>
