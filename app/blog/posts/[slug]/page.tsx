@@ -6,6 +6,7 @@ import { BlogCollectionResponseData } from '@/types/blog';
 import { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: { slug: string };
@@ -49,7 +50,11 @@ export default async function BlogPost({
   params: { slug: string };
 }) {
   const post = await getBlogPost(slug);
-  if (!post) return null;
+
+  if (!post) {
+    notFound();
+  }
+
   return (
     <MainContainer>
       <article className="w-11/12 px-4 py-8 md:px-0 md:w-1/2 container flex flex-col gap-8 mt-32 md:mt-8">

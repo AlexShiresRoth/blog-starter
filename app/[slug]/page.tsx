@@ -3,6 +3,7 @@ import { fetchGraphQL } from '@/contentful/api';
 import { pageQuery } from '@/contentful/gql-queries/components/page/page.query';
 import { PageCollectionResponseData } from '@/types/page.type';
 import { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: { slug: string };
@@ -48,35 +49,30 @@ export default async function Page({
 }) {
   const page = await getPage(slug);
 
-  if (!page) return null;
+  if (!page) {
+    notFound();
+  }
+
+  if (
+    !page.pageContent &&
+    !page.topSectionCollection.items.length &&
+    !page.extraSectionCollection.items.length
+  ) {
+    notFound();
+  }
 
   return (
     <main className="flex flex-col">
       {!!page.topSectionCollection.items.length && (
-        <>
-          <div>
-            {/* TOP SECTION */}
-            <ComponentRenderer
-              itemsToRender={page?.topSectionCollection?.items}
-            />
-          </div>
-        </>
+        <ComponentRenderer itemsToRender={page?.topSectionCollection?.items} />
       )}
 
       {!!page.pageContent && (
-        <div className="bg-gray-100">
-          {/* Page Content */}
-          <ComponentRenderer itemsToRender={[page?.pageContent]} />
-        </div>
+        <ComponentRenderer itemsToRender={[page?.pageContent]} />
       )}
 
       {!!page.extraSectionCollection.items.length && (
-        <div className="bg-gray-100">
-          {/* Extra Section */}
-          <ComponentRenderer
-            itemsToRender={page.extraSectionCollection?.items}
-          />
-        </div>
+        <ComponentRenderer itemsToRender={page.extraSectionCollection?.items} />
       )}
     </main>
   );
