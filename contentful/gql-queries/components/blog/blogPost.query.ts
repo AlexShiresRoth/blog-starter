@@ -43,6 +43,23 @@ export const blogPostCollectionQuery = (
     }
   }`;
 
+export const blogPostsCollectionQuerySlugOnly = (
+  limit: number = 100,
+  skip: number = 0
+) => `query {
+    blogPostCollection(
+      where: {
+        slug_exists: true
+      }
+      limit: ${limit}
+      skip: ${skip}
+    ) {
+      items {
+        slug
+      }
+    }
+   }`;
+
 export const blogPostCollectionQueryWithQueryParams = (
   queryParam: string,
   sort: string,

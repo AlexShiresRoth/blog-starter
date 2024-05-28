@@ -1,7 +1,11 @@
 import MainContainer from '@/components/containers/main-container';
 import RichTextRender from '@/components/rendering/rich-text-render';
 import { fetchGraphQL } from '@/contentful/api';
-import { blogPostQuery } from '@/contentful/gql-queries/components/blog/blogPost.query';
+import {
+  blogPostCollectionQuery,
+  blogPostQuery,
+  blogPostsCollectionQuerySlugOnly,
+} from '@/contentful/gql-queries/components/blog/blogPost.query';
 import { BlogCollectionResponseData } from '@/types/blog';
 import { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
@@ -12,6 +16,20 @@ type Props = {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+export async function generateStaticParams() {
+  const res = await fetchGraphQL<BlogCollectionResponseData>(
+    blogPostsCollectionQuerySlugOnly(100, 0),
+    120,
+    ['blogPost']
+  );
+
+  if (!res.data?.blogPostCollection?.items.length) return [];
+
+  return res.data.blogPostCollection.items.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 async function getBlogPost(slug: string) {
   try {

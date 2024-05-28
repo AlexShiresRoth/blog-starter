@@ -1,7 +1,7 @@
 export const pageQuery = (slug: string): string => `query {
   pageCollection(where: { slug: "${slug}" }, limit:1) {
     items {
-        seoMetadata {
+      seoMetadata {
             name
             title
             description
@@ -10,7 +10,7 @@ export const pageQuery = (slug: string): string => `query {
             }
             noIndex
             noFollow
-          }
+        }
           pageName
           slug
       topSectionCollection {
@@ -35,8 +35,6 @@ export const pageQuery = (slug: string): string => `query {
       }
       pageContent {
         __typename
-       
-       
       }
       extraSectionCollection {
         items {
@@ -57,3 +55,15 @@ export const pageQuery = (slug: string): string => `query {
   }
 }
 `;
+
+export const pageCollectionQuerySlugOnly = (
+  limit: number = 100,
+  skip: number = 0,
+  slug?: string
+) => `query {
+  pageCollection(limit: ${limit}, skip: ${skip}, where: { slug_exists: true , slug: "${slug}" }) {
+    items {
+      slug
+    }
+  }
+ }`;

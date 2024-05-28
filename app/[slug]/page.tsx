@@ -1,6 +1,9 @@
 import ComponentRenderer from '@/components/rendering/component-renderer';
 import { fetchGraphQL } from '@/contentful/api';
-import { pageQuery } from '@/contentful/gql-queries/components/page/page.query';
+import {
+  pageCollectionQuerySlugOnly,
+  pageQuery,
+} from '@/contentful/gql-queries/components/page/page.query';
 import { PageCollectionResponseData } from '@/types/page.type';
 import { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -9,6 +12,18 @@ type Props = {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+export async function generateStaticParams() {
+  const res = await fetchGraphQL<PageCollectionResponseData>(
+    pageCollectionQuerySlugOnly(100, 0)
+  );
+
+  if (!res.data?.pageCollection?.items.length) return [];
+
+  return res.data.pageCollection.items.map((page) => ({
+    slug: page.slug,
+  }));
+}
 
 async function getPage(slug: string) {
   try {
