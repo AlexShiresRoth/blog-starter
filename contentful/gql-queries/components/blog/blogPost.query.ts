@@ -43,6 +43,45 @@ export const blogPostCollectionQuery = (
     }
   }`;
 
+export const blogPostCollectionQueryExcludeSlug = (
+  slug: string,
+  category: string,
+  tags: string[],
+  limit: number = 9
+) => `query {
+  blogPostCollection(
+    where: {
+      slug_exists: true
+      slug_not: "${slug}"
+      OR: [{ tags_contains_some: ${JSON.stringify(
+        tags
+      )} }, { category_in: ["${category}"] }]
+    }
+    limit: ${limit}
+    order: sys_publishedAt_DESC
+  ) {
+    items {
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }
+      title
+      slug
+      postImage {
+        url(transform: { width: 300, height: 300, format: WEBP, quality: 85 })
+      }
+      postContent {
+        json
+      }
+      briefDescription
+      category
+      tags
+    }
+  }
+}
+  `;
+
 export const blogPostsCollectionQuerySlugOnly = (
   limit: number = 100,
   skip: number = 0
