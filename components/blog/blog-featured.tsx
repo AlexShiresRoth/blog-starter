@@ -147,14 +147,8 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
       key={post.sys.id}
       className="flex flex-col items-start justify-between p-4 relative w-full min-h-[400px] md:min-h-[500px] lg:min-h-[520px] bg-black rounded-xl hover:shadow-lg transition-shadow"
     >
-      <div className="flex z-10 justify-between gap-8 items-center">
+      <div className="flex z-10 justify-between gap-8 items-center flex-wrap">
         {post.sys.publishedAt && <PostDate date={post.sys.publishedAt} />}
-        <div className="flex items-center gap-2 flex-wrap">
-          {!!post.tags.length &&
-            post.tags
-              .slice(0, 4)
-              .map((tag, index) => <PostTag key={index} tag={tag} />)}
-        </div>
       </div>
       <div className="w-full flex flex-col z-10 justify-end">
         <div className="w-full md:w-3/4 p-4 flex flex-col bg-white rounded-xl rounded-tl-none relative">
@@ -168,12 +162,23 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
               </p>
             </Link>
           )}
+          <div className="flex items-center gap-2 flex-wrap mb-2">
+            {!!post.tags.length &&
+              post.tags
+                .slice(0, 4)
+                .map((tag, index) => <PostTag key={index} tag={tag} />)}
+          </div>
+
           {post.title && (
             <Link href={`/blog/posts/${post.slug}`}>
-              <h2 className="text-3xl lg:text-5xl font-bold text-black hover:underline transition-all">
+              <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-black hover:underline transition-all">
                 {post.title}
               </h2>
             </Link>
+          )}
+
+          {post.briefDescription && (
+            <p>{post.briefDescription.substring(0, 60) + '...'}</p>
           )}
         </div>
       </div>

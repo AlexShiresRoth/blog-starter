@@ -23,25 +23,27 @@ export default function PostCard({ post }: Props) {
           />
         </div>
       </Link>
-      <p className="text-sm">{format(post.sys.publishedAt, 'PP')}</p>
-      <Link href={`/blog/posts/${post.slug}`} className="hover:underline">
-        <h1 className="text-2xl font-bold">{post.title}</h1>
-      </Link>
-      <p className="text-gray-500">{post.briefDescription}</p>
-      <div className="flex gap-4 items-center">
-        <Link href={`/blog/posts?q=${post.category}`}>
-          <p className="px-2 py-1 rounded-full bg-black text-white text-sm">
-            {post.category}
-          </p>
+      <div className="flex flex-col gap-2">
+        <p className="text-sm -mb-2">{format(post.sys.publishedAt, 'PP')}</p>
+        <Link href={`/blog/posts/${post.slug}`} className="hover:underline">
+          <h1 className="text-2xl font-bold">{post.title}</h1>
         </Link>
-        {!!post.tags?.length &&
-          post.tags.map((tag, index) => (
-            <Link key={index} href={`/blog/posts?q=${tag}`}>
-              <p className="px-2 py-1 rounded-full bg-gray-100 text-indigo-400 text-sm">
-                {tag}
-              </p>
-            </Link>
-          ))}
+        <p className="text-gray-500">{post.briefDescription}</p>
+        <div className="flex gap-4 items-center">
+          <Link href={`/blog/posts?q=${post.category}`}>
+            <p className="px-2 py-1 rounded-full bg-black text-white text-sm">
+              {post.category}
+            </p>
+          </Link>
+          {!!post.tags?.length &&
+            post.tags.map((tag, index) => (
+              <Link key={index} href={`/blog/posts?q=${tag}`}>
+                <p className="px-2 py-1 rounded-full bg-gray-100 text-indigo-400 text-sm">
+                  {tag}
+                </p>
+              </Link>
+            ))}
+        </div>
       </div>
     </div>
   );
