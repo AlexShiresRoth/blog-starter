@@ -1,3 +1,4 @@
+import SuggestedPosts from '@/components/blog/suggested-posts';
 import MainContainer from '@/components/containers/main-container';
 import RichTextRender from '@/components/rendering/rich-text-render';
 import { fetchGraphQL } from '@/contentful/api';
@@ -122,6 +123,11 @@ export default async function BlogPost({
           <RichTextRender content={post.postContent} />
         </div>
       </article>
+      <SuggestedPosts
+        excludePostSlug={post.slug}
+        category={post.category}
+        tags={post.tags}
+      />
     </MainContainer>
   );
 }
