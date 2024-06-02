@@ -35,7 +35,7 @@ const Footer = async ({ data }: Props) => {
 
   return (
     <footer
-      className="w-full flex flex-col items-center justify-center bg-indigo-700"
+      className="w-full flex flex-col items-center justify-center bg-indigo-700 dark:bg-black dark:border-t dark:border-t-gray-900"
       data-component-type="footer"
     >
       <SectionContainer>
@@ -59,7 +59,7 @@ const Footer = async ({ data }: Props) => {
               {footerData.facebookLink && (
                 <a
                   title="Facebook Link"
-                  href={footerData.facebookLink ?? null}
+                  href={footerData.facebookLink}
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
@@ -67,13 +67,14 @@ const Footer = async ({ data }: Props) => {
                     width={20}
                     height={20}
                     alt="facebook-logo"
+                    unoptimized
                   />
                 </a>
               )}
               {footerData.instagramLink && (
                 <a
                   title="Instagram Link"
-                  href={footerData.instagramLink ?? null}
+                  href={footerData.instagramLink}
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
@@ -81,13 +82,14 @@ const Footer = async ({ data }: Props) => {
                     width={20}
                     height={20}
                     alt="skype-logo"
+                    unoptimized
                   />
                 </a>
               )}
               {footerData.twitterxLink && (
                 <a
                   title="Twitter X Link"
-                  href={footerData.twitterxLink ?? null}
+                  href={footerData.twitterxLink}
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
@@ -95,13 +97,14 @@ const Footer = async ({ data }: Props) => {
                     width={20}
                     height={20}
                     alt="twitter-logo"
+                    unoptimized
                   />
                 </a>
               )}
               {footerData.threadsLink && (
                 <a
                   title="Threads Link"
-                  href={footerData.threadsLink ?? null}
+                  href={footerData.threadsLink}
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
@@ -109,6 +112,7 @@ const Footer = async ({ data }: Props) => {
                     width={20}
                     height={20}
                     alt="threads-logo"
+                    unoptimized
                   />
                 </a>
               )}
@@ -139,13 +143,13 @@ const Footer = async ({ data }: Props) => {
             })}
         </div>
       </SectionContainer>
-      <div className="w-full border-t-2 border-indigo-600 py-6 flex items-center justify-center">
+      <div className="w-full border-t-2 border-indigo-600 dark:border-gray-900 py-6 flex items-center justify-center">
         <SectionContainer>
           <div className="w-full mx-4 md:mx-0 flex justify-between gap-4 md:gap-0 md:items-center flex-col md:flex-row">
-            <p className="text-white/80 ">
+            <p className="text-white/80 text-xs">
               &copy; {footerData.brandName} All Rights Reserved
             </p>
-            <p className="text-white/80">
+            <p className="text-white/80 text-xs">
               Blog Starter by {` `}
               <a
                 href="https://alexshiresroth.com"

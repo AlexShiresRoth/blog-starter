@@ -15,7 +15,7 @@ const Nav = async ({
     <>
       <nav className="flex justify-center">
         <div className="w-full flex items-center  mt-4 py-2">
-          <div className="w-full flex items-center gap-4 justify-between text-black">
+          <div className="w-full flex items-center gap-4 justify-between text-black dark:text-white">
             {navItemsCollection.items.map((item) => (
               <div key={item.sys.id}>
                 {item.menuItemsCollection.items.map((menuItem) => (

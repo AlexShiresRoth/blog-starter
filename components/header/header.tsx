@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 import Nav from '../navigation/nav';
 import { NavigationData } from '@/types/nav';
+import { cn } from '@/lib/utils';
 
 type Props = {
   data?: UnknownComponent;
@@ -58,7 +59,7 @@ export default async function Header({ data, slug }: Props) {
     <div className="flex flex-col w-full fixed top-0 left-0 z-40 md:relative">
       <span className="w-full bg-gradient-to-l from-rose-400 via-fuchsia-500 to-indigo-700 h-2 block"></span>
       <header
-        className="w-full flex flex-col items-center  md:py-4 bg-white border-b border-b-stone-100"
+        className="w-full flex flex-col items-center md:py-4 bg-white border-b border-b-stone-100 dark:border-b-gray-900 dark:bg-black"
         data-component-type="header"
       >
         <div className="flex flex-row w-full px-8 lg:px-0 md:w-11/12 lg:w-3/4 gap-8 items-center">
@@ -77,10 +78,13 @@ export default async function Header({ data, slug }: Props) {
   );
 }
 
+const LogoClassNamesBase = `relative z-10 text-2xl md:text-2xl text-black before:h-3 before:rounded-full before:w-[105%] before:block before:content-[' '] before:bg-indigo-500 before:absolute before:skew-y-1 before:-left-[7px] before:bottom-[2px] before:-z-10`;
+const LogoClassNamesDarkMode = `dark:text-white`;
+
 const HeaderLogo = ({ logo, title }: Pick<Header, 'logo' | 'title'>) => (
   <Link href={'/'} className="flex items-center">
     {logo && <Image src={logo.url} alt={logo.title} height={60} width={60} />}
-    <h2 className="relative z-10 text-2xl md:text-2xl text-black before:h-3  before:rounded-full before:w-[105%] before:block before:content-[' '] before:bg-indigo-500 before:absolute before:skew-y-1 before:-left-[7px] before:bottom-[2px] before:-z-10">
+    <h2 className={cn([LogoClassNamesBase, LogoClassNamesDarkMode])}>
       {title}
     </h2>
   </Link>

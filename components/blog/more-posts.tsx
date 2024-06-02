@@ -53,7 +53,7 @@ export default async function MorePosts({ ...props }: PossibleComponentType) {
   if (!blogPosts || blogPosts?.length === 0) return null;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full py-10 bg-stone-50 md:py-16">
+    <div className="flex flex-col items-center justify-center w-full py-10 bg-stone-50 dark:bg-transparent md:py-16">
       <SectionContainer>
         <AllPostsHeader
           title={morePostsSection.title}

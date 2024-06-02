@@ -92,7 +92,7 @@ export default async function BlogPost({
                 <Link
                   href={`/blog/posts?q=${tag}`}
                   key={index}
-                  className="text-sm bg-stone-100 rounded-full py-1 px-2 text-stone-500"
+                  className="text-sm bg-stone-100 dark:bg-transparent rounded-full py-1 px-2 text-stone-500 dark:text-stone-200"
                 >
                   {tag}
                 </Link>

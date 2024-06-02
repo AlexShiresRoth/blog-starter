@@ -1,4 +1,3 @@
-import SectionContainer from '../containers/section-container';
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 
@@ -24,7 +23,7 @@ export default async function SearchBox() {
             name="query"
             id="query"
             placeholder="Search"
-            className="indent-2 outline-none w-full"
+            className="indent-2 outline-none w-full bg-transparent"
             maxLength={60}
           />
           <button className="bg-black rounded-full p-2 text-white">
