@@ -13,10 +13,10 @@ export default function AllPostsHeader({
 }: Props) {
   return (
     <div className="flex justify-between items-end w-full">
-      <h2 className="text-2xl md:text-5xl font-bold md:ml-8">{title}</h2>
+      <h2 className="md:ml-8">{title}</h2>
       <Link
         href={allPostsLink ? `/blog/${allPostsLink}` : '/blog/posts'}
-        className="flex gap-2 items-center hover:text-indigo-500 transition-colors"
+        className="flex gap-2 items-center "
       >
         {linkTitle || 'All Posts'}
         <svg

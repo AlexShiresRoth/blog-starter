@@ -18,8 +18,8 @@ export default function SearchFilter({ queryParam }: { queryParam?: string }) {
       onMouseEnter={() => toggleMenu(true)}
       onMouseLeave={() => toggleMenu(false)}
     >
-      <div className="group px-4 p-2 rounded-full border border-black hover:bg-black transition-colors">
-        <p className="flex items-center text-black gap-2 text-sm group-hover:text-white transition-colors">
+      <div className="group px-4 p-2 rounded-full border border-black hover:bg-black dark:border-white transition-colors">
+        <p className="flex items-center text-black dark:text-white gap-2 text-sm group-hover:text-white transition-colors">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -35,12 +35,12 @@ export default function SearchFilter({ queryParam }: { queryParam?: string }) {
       <AnimatePresence>
         {showMenu.value && (
           <motion.div
-            className="absolute bg-white rounded-lg shadow-lg top-12 left-0 z-10 text-sm"
+            className="absolute bg-white dark:bg-black dark:border dark:border-gray-900 rounded-lg shadow-lg top-12 left-0 z-10 text-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="py-2 px-8 hover:bg-stone-100 hover:text-indigo-400 rounded-t-lg transition-colors">
+            <div className="py-2 px-8 hover:bg-stone-100 hover:text-indigo-400 dark:hover:bg-transparent rounded-t-lg transition-colors">
               <Link
                 href={`/blog/posts?sort=latest${
                   queryParam ? `&q=${queryParam}` : ''
@@ -49,7 +49,7 @@ export default function SearchFilter({ queryParam }: { queryParam?: string }) {
                 Latest
               </Link>
             </div>
-            <div className="py-2 px-8 hover:bg-stone-100 hover:text-indigo-400 rounded-b-lg transition-colors">
+            <div className="py-2 px-8 hover:bg-stone-100 hover:text-indigo-400 dark:hover:bg-transparent rounded-b-lg transition-colors">
               <Link
                 href={`/blog/posts?sort=oldest${
                   queryParam ? `&q=${queryParam}` : ''

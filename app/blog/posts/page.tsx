@@ -66,7 +66,7 @@ export default async function PostsCollection({
           {!posts.length && (
             <div className="py-20 flex flex-col items-center gap-4 ">
               <h2 className="text-3xl font-bold">No posts found</h2>
-              <Link href="/posts">
+              <Link href="/blog/posts">
                 <button className="bg-black rounded-full text-white px-4 py-2 text-sm">
                   Reset Search
                 </button>

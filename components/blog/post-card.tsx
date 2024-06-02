@@ -26,19 +26,19 @@ export default function PostCard({ post }: Props) {
       <div className="flex flex-col gap-2">
         <p className="text-sm -mb-2">{format(post.sys.publishedAt, 'PP')}</p>
         <Link href={`/blog/posts/${post.slug}`} className="hover:underline">
-          <h1 className="text-2xl font-bold">{post.title}</h1>
+          <h3 className="text-2xl font-bold">{post.title}</h3>
         </Link>
         <p className="text-gray-500">{post.briefDescription}</p>
         <div className="flex gap-4 items-center">
           <Link href={`/blog/posts?q=${post.category}`}>
-            <p className="px-2 py-1 rounded-full bg-black text-white text-sm">
+            <p className="px-2 py-1 rounded-full bg-black text-white dark:px-0 text-sm">
               {post.category}
             </p>
           </Link>
           {!!post.tags?.length &&
             post.tags.map((tag, index) => (
               <Link key={index} href={`/blog/posts?q=${tag}`}>
-                <p className="px-2 py-1 rounded-full bg-gray-100 text-indigo-400 text-sm">
+                <p className="px-2 py-1 rounded-full bg-gray-100 text-indigo-400 dark:bg-transparent dark:px-0 dark:hover:text-indigo-600 transition-colors text-sm">
                   {tag}
                 </p>
               </Link>
