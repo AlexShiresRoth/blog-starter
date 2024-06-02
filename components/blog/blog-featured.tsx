@@ -145,17 +145,17 @@ const FeaturedPost = ({ post }: { post: BlogPostData }) => {
   return (
     <div
       key={post.sys.id}
-      className="flex flex-col items-start justify-between p-4 relative w-full min-h-[400px] md:min-h-[500px] lg:min-h-[520px] bg-black rounded-xl hover:shadow-lg transition-shadow"
+      className="flex flex-col items-start justify-between p-4 md:dark:p-8 relative w-full min-h-[400px] md:min-h-[500px] lg:min-h-[520px] bg-black rounded-xl hover:shadow-lg transition-shadow"
     >
       <div className="flex z-10 justify-between gap-8 items-center flex-wrap">
         {post.sys.publishedAt && <PostDate date={post.sys.publishedAt} />}
       </div>
       <div className="w-full flex flex-col z-10 justify-end">
-        <div className="w-full md:w-3/4 p-4 flex flex-col bg-white dark:bg-transparent rounded-xl rounded-tl-none relative">
+        <div className="w-full md:w-3/4 p-4 dark:p-0 flex flex-col bg-white dark:bg-transparent rounded-xl rounded-tl-none relative">
           {post.category && (
             <Link
               href={`/blog/posts?q=${post.category}`}
-              className="px-8 py-2 bg-white dark:bg-transparent dark:px-6 rounded-tl-lg rounded-tr-full absolute bottom-[100%] left-0"
+              className="px-8 py-2 bg-white dark:bg-transparent dark:px-0 rounded-tl-lg rounded-tr-full absolute bottom-[100%] left-0"
             >
               <p className="text-xs text-black dark:text-white font-semibold">
                 {post.category}
