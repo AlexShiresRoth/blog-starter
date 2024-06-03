@@ -63,7 +63,7 @@ const Footer = async ({ data }: Props) => {
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
-                    src="fb.svg"
+                    src="/fb.svg"
                     width={20}
                     height={20}
                     alt="facebook-logo"
@@ -78,7 +78,7 @@ const Footer = async ({ data }: Props) => {
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
-                    src="instagram-line.svg"
+                    src="/instagram-line.svg"
                     width={20}
                     height={20}
                     alt="skype-logo"
@@ -93,7 +93,7 @@ const Footer = async ({ data }: Props) => {
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
-                    src="twitter.svg"
+                    src="/twitter.svg"
                     width={20}
                     height={20}
                     alt="twitter-logo"
@@ -108,7 +108,7 @@ const Footer = async ({ data }: Props) => {
                   className="rounded-full p-2 bg-indigo-500"
                 >
                   <Image
-                    src="threads.svg"
+                    src="/threads.svg"
                     width={20}
                     height={20}
                     alt="threads-logo"

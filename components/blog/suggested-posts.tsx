@@ -89,11 +89,11 @@ export default async function SuggestedPosts({
                 }
               })}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:block absolute -left-8 dark:-left-12 top-1/2 -translate-y-1/2 rounded-full bg-white/50 p-2 shadow-lg transition-colors hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-800">
+            <CarouselPrevious className="hidden md:block absolute -left-8 dark:-left-12 top-1/2 -translate-y-1/2 rounded-full bg-white/50 p-2 shadow-lg transition-colors hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-800 dark:text-stone-300">
               <ChevronLeftIcon className="h-6 w-6" />
             </CarouselPrevious>
-            <CarouselNext className="hidden md:block absolute -right-8 dark:-right-12 top-1/2 -translate-y-1/2 rounded-full bg-white/50 p-2 shadow-lg transition-colors hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-800">
-              <ChevronRightIcon className="h-6 w-6 " />
+            <CarouselNext className="hidden md:block absolute -right-8 dark:-right-12 top-1/2 -translate-y-1/2 rounded-full bg-white/50 p-2 shadow-lg transition-colors hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-800 dark:text-stone-300">
+              <ChevronRightIcon className="h-6 w-6 dark:text-white" />
             </CarouselNext>
           </Carousel>
           {/* Mobile carousel */}
@@ -122,7 +122,7 @@ export default async function SuggestedPosts({
 function PostCarouselItem({ blogPost }: { blogPost: BlogPostData }) {
   return (
     <div className="w-full group overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border dark:border-gray-900">
-      <Link className="block h-full" href={`/blog/posts/${blogPost.slug}`}>
+      <Link href={`/blog/posts/${blogPost.slug}`}>
         <Image
           alt={blogPost.postImage.title}
           className="h-48 w-full object-cover transition-all duration-300 group-hover:scale-105"
@@ -134,40 +134,42 @@ function PostCarouselItem({ blogPost }: { blogPost: BlogPostData }) {
           }}
           width={600}
         />
-        <div className="p-4">
-          <p className="text-xs">{format(blogPost.sys.publishedAt, 'PP')}</p>
+      </Link>
+      <div className="p-4">
+        <p className="text-xs">{format(blogPost.sys.publishedAt, 'PP')}</p>
 
+        <Link href={`/blog/posts/${blogPost.slug}`}>
           <h3 className="text-xl font-semibold transition-colors duration-300 group-hover:text-gray-900 dark:group-hover:text-gray-50">
             {blogPost.title}
           </h3>
-          <p className="mt-2 text-gray-500 dark:text-gray-400 line-clamp-2">
-            {blogPost.briefDescription}
-          </p>
-          <div className="flex gap-2 items-center my-2">
-            {blogPost.category && (
-              <Link
-                href={`/blog/posts?q=${blogPost.category}`}
-                className="text-indigo-500 font-semibold text-sm"
-              >
-                {blogPost.category}
-              </Link>
-            )}
-            {blogPost.tags?.length && (
-              <div className="flex gap-2">
-                {blogPost.tags.map((tag, index) => (
-                  <Link
-                    href={`/blog/posts?q=${tag}`}
-                    key={index}
-                    className="text-xs bg-stone-100 dark:bg-transparent rounded-full text-stone-500 dark:text-stone-200"
-                  >
-                    {tag}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+        </Link>
+        <p className="mt-2 text-gray-500 dark:text-gray-400 line-clamp-2">
+          {blogPost.briefDescription}
+        </p>
+        <div className="flex gap-2 items-center my-2">
+          {blogPost.category && (
+            <Link
+              href={`/blog/posts?q=${blogPost.category}`}
+              className="text-indigo-500 font-semibold text-sm"
+            >
+              {blogPost.category}
+            </Link>
+          )}
+          {blogPost.tags?.length && (
+            <div className="flex gap-2">
+              {blogPost.tags.map((tag, index) => (
+                <Link
+                  href={`/blog/posts?q=${tag}`}
+                  key={index}
+                  className="text-xs bg-stone-100 dark:bg-transparent rounded-full text-stone-500 dark:text-stone-200"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 }
