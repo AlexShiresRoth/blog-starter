@@ -1,6 +1,6 @@
 import { fetchGraphQL } from '@/contentful/api';
 import './globals.css';
-import { Rubik } from 'next/font/google';
+import { Montserrat, Rubik } from 'next/font/google';
 import { appQuery } from '@/contentful/gql-queries';
 import Header from '@/components/header/header';
 import Footer from '@/components/footer/footer';
@@ -14,11 +14,18 @@ const rubik = Rubik({
   weight: ['400', '500', '600', '700'],
 });
 
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  weight: ['400', '500', '600', '700'],
+});
+
 export interface AppQueryResponse {
   data: {
     appCollection: {
       items: {
         seoMetadata: SEOMetadata;
+        theme: 'Basic' | 'Modern' | 'Playful' | 'Elegant';
         sys: {
           id: string;
         };
@@ -43,6 +50,21 @@ export interface AppQueryResponse {
     };
   };
 }
+
+export interface AppThemeResponse {
+  data: {
+    appCollection: {
+      items: {
+        theme: AppTheme;
+        sys: {
+          id: string;
+        };
+      }[];
+    };
+  };
+}
+
+export type AppTheme = 'Basic' | 'Modern' | 'Playful' | 'Elegant';
 
 type Props = {
   children: React.ReactNode;
@@ -85,10 +107,23 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: Props) {
   const app = await getAppData(process.env.DOMAIN as string);
+
   if (!app) return null;
+
+  const fontSelector = {
+    Basic: rubik.className,
+    Modern: montserrat.className,
+    Playful: '',
+    Elegant: '',
+  };
+
   return (
     <>
-      <html lang="en" className={`${rubik.className}`}>
+      <html
+        lang="en"
+        data-theme={app.theme}
+        className={fontSelector[app.theme]}
+      >
         <body>
           <>
             <Suspense>

@@ -13,7 +13,7 @@ export const appQuery = (domain: string) => `query {
       sys {
         id
       }
-      
+      theme
       header {
         sys {
           id
@@ -32,3 +32,14 @@ export const appQuery = (domain: string) => `query {
     }
   }
 }`;
+
+export const appTheme = (domain: string) => `query {
+  appCollection(where: {domain: "${domain}"},limit:1) {
+    items {
+      theme
+      sys {
+        id
+      }
+    }
+  }
+ }`;
