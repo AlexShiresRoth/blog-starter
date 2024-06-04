@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
@@ -39,7 +38,7 @@ export interface HeaderProps
   extends React.HTMLAttributes<HTMLHeadElement>,
     VariantProps<typeof headerVariants> {}
 
-const Header = React.forwardRef<HTMLButtonElement, HeaderProps>(
+const Header = React.forwardRef<HTMLHeadElement, HeaderProps>(
   ({ className, variant, ...props }, ref) => {
     return (
       <header

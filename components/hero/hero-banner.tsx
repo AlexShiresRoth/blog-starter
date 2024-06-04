@@ -6,6 +6,8 @@ import SectionContainer from '../containers/section-container';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import CtaButton, { ExternalCTAButton } from '../buttons/cta-button';
 import Image from 'next/image';
+import { Hero } from '../ui/hero';
+import { getTheme } from '@/lib/theme';
 
 async function getComponent(id: string) {
   try {
@@ -25,8 +27,10 @@ const HeroBanner = async (props: UnknownComponent) => {
 
   if (!hero) return null;
 
+  const theme = await getTheme();
+
   return (
-    <div className="relative w-full flex justify-center">
+    <Hero variant={theme}>
       {hero.image && (
         <Image
           src={hero.image.url}
@@ -62,7 +66,7 @@ const HeroBanner = async (props: UnknownComponent) => {
           </div>
         </div>
       </SectionContainer>
-    </div>
+    </Hero>
   );
 };
 
